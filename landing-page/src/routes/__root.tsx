@@ -51,8 +51,15 @@ function RootComponent() {
     <RootDocument>
       <header className="site-header">
         <Link className="brand" to="/" aria-label="Long Taa Borneo Eco Stay homepage">
-          <span>Long Taa</span>
-          <small>Borneo Eco Stay</small>
+          <img
+            className="brand-mark"
+            src="/images/long-taa-dapui-logo.png"
+            alt="Long Taa Dapui Living Heritage Village logo"
+          />
+          <span className="brand-wordmark">
+            <span>Long Taa</span>
+            <small>Borneo Eco Stay</small>
+          </span>
         </Link>
         <button
           className="menu-button"
