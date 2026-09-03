@@ -44,9 +44,7 @@ function makeHornbill(scene: THREE.Scene) {
   bird.name = "hornbill-guide";
 
   const black = new THREE.MeshStandardMaterial({
-    color: 0x18271f,
-    emissive: 0x07140d,
-    emissiveIntensity: 0.48,
+    color: 0x111713,
     roughness: 0.72,
   });
   const white = new THREE.MeshStandardMaterial({ color: 0xe9e5d6, roughness: 0.82 });
@@ -95,6 +93,13 @@ function makeHornbill(scene: THREE.Scene) {
     feather.rotation.x = index === 1 ? -0.04 : 0.04;
   });
 
+  [-0.2, 0.2].forEach((x) => {
+    const leg = addPart(new THREE.CylinderGeometry(0.035, 0.035, 0.42, 6), beak, [x, -0.53, 0.05]);
+    leg.rotation.x = 0.12;
+    const foot = addPart(new THREE.CylinderGeometry(0.025, 0.025, 0.32, 6), beak, [x, -0.72, 0.13]);
+    foot.rotation.x = Math.PI / 2;
+  });
+
   const wingMeshes: THREE.Mesh[] = [];
   const wings = [-1, 1].map((side) => {
     const pivot = new THREE.Group();
@@ -111,12 +116,6 @@ function makeHornbill(scene: THREE.Scene) {
   bird.traverse((part) => {
     if (!(part instanceof THREE.Mesh)) return;
     part.castShadow = true;
-    part.renderOrder = 4;
-    const materials = Array.isArray(part.material) ? part.material : [part.material];
-    materials.forEach((material) => {
-      material.depthTest = false;
-      material.depthWrite = false;
-    });
   });
   scene.add(bird);
   return { bird, leftWing: wings[0], rightWing: wings[1], wingMeshes };
@@ -285,6 +284,14 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       roughness: 0.58,
     });
     const markers: THREE.Mesh[] = [];
+    const hornbillPerchPosition = new THREE.Vector3(6.35, 26.58, 8.35);
+
+    // A front-facing crown branch gives the hornbill a believable physical starting point.
+    const perchElbow = new THREE.Vector3(3.7, 25.55, 6.1);
+    const perchTip = new THREE.Vector3(6.5, 25.78, 8.45);
+    makeLimb(world, new THREE.Vector3(0.45, 25.35, 1.8), perchElbow, 0.38, 0.22, bark);
+    makeLimb(world, perchElbow, perchTip, 0.22, 0.075, bark);
+    makeLimb(world, new THREE.Vector3(4.65, 25.63, 6.9), new THREE.Vector3(5, 26.95, 7.15), 0.12, 0.035, bark);
 
     const branchData = [
       { y: 22.4, side: 1, z: 0.3 },
@@ -489,44 +496,21 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       0.45,
     );
     const { bird: hornbill, leftWing, rightWing, wingMeshes } = makeHornbill(scene);
-    const hornbillCameraPoint = new THREE.Vector3();
-    const hornbillFocusPoint = new THREE.Vector3();
-    const hornbillViewDirection = new THREE.Vector3();
-    const hornbillRightDirection = new THREE.Vector3();
-    const hornbillWorldUp = new THREE.Vector3(0, 1, 0);
     const hornbillPosition = new THREE.Vector3();
     const hornbillTarget = new THREE.Vector3();
+    const hornbillArrival = new THREE.Vector3(3.5, 4.05, -8.2);
     const hornbillPointAt = (pathProgress: number, target: THREE.Vector3) => {
       const pathT = THREE.MathUtils.clamp(pathProgress, 0, 1);
-      const journeyT = THREE.MathUtils.lerp(0.035, 0.84, pathT);
-      cameraCurve.getPoint(journeyT, hornbillCameraPoint);
-      targetCurve.getPoint(journeyT, hornbillFocusPoint);
-      hornbillViewDirection.copy(hornbillFocusPoint).sub(hornbillCameraPoint).normalize();
-      hornbillRightDirection.crossVectors(hornbillViewDirection, hornbillWorldUp).normalize();
-      const phase = 0.72 + pathT * Math.PI * 4.6;
-      const radius = compactLayout ? 2.65 : 3.8;
-      target
-        .copy(hornbillFocusPoint)
-        .addScaledVector(hornbillRightDirection, Math.sin(phase) * radius)
-        .addScaledVector(hornbillWorldUp, 2.35 + Math.cos(phase * 0.7) * 0.72)
-        .addScaledVector(hornbillViewDirection, Math.cos(phase) * 1.45);
+      const angle = 0.65 - pathT * Math.PI * 2.25;
+      const radius = THREE.MathUtils.lerp(10.5, 6.2, pathT);
+      target.set(
+        Math.sin(angle) * radius,
+        THREE.MathUtils.lerp(26.58, 4.8, pathT) + Math.sin(pathT * Math.PI * 4) * 0.35,
+        Math.cos(angle) * radius,
+      );
+      target.lerp(hornbillArrival, THREE.MathUtils.smoothstep(pathT, 0.8, 1));
       return target;
     };
-    const hornbillTrail = Array.from({ length: 7 }, (_, index) => {
-      const glint = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(0.1, 0),
-        new THREE.MeshBasicMaterial({
-          color: 0xb7df4b,
-          transparent: true,
-          opacity: 0.24 - index * 0.025,
-          depthTest: false,
-          depthWrite: false,
-        }),
-      );
-      glint.visible = false;
-      scene.add(glint);
-      return glint;
-    });
 
     const resize = () => {
       const width = canvas.clientWidth;
@@ -556,13 +540,19 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         marker.scale.setScalar(0.88 + proximity * 0.5);
       });
       canopy.rotation.y = currentProgress * 0.055;
-      const hornbillLinear = THREE.MathUtils.clamp((t - 0.035) / (0.84 - 0.035), 0, 1);
-      const hornbillT = 1 - Math.pow(1 - hornbillLinear, 1.25);
-      hornbillPointAt(hornbillT, hornbillPosition);
-      hornbillPointAt(Math.min(1, hornbillT + 0.012), hornbillTarget);
-      hornbill.position.copy(hornbillPosition);
-      hornbill.lookAt(hornbillTarget);
-      const isFlying = t > 0.035 && t < 0.855;
+      const takeoffAt = 0.075;
+      const hornbillLinear = THREE.MathUtils.clamp((t - takeoffAt) / (0.84 - takeoffAt), 0, 1);
+      const hornbillT = 1 - Math.pow(1 - hornbillLinear, 1.18);
+      const isFlying = t > takeoffAt && t < 0.855;
+      if (isFlying) {
+        hornbillPointAt(hornbillT, hornbillPosition);
+        hornbillPointAt(Math.min(1, hornbillT + 0.012), hornbillTarget);
+        hornbill.position.copy(hornbillPosition);
+        hornbill.lookAt(hornbillTarget);
+      } else if (t <= takeoffAt) {
+        hornbill.position.copy(hornbillPerchPosition);
+        hornbill.rotation.set(0.03, -Math.PI / 2, -0.04);
+      }
       const flap = Math.sin(performance.now() * 0.012 + hornbillT * 24);
       leftWing.rotation.z = isFlying ? 0.15 + flap * 0.72 : 0.16;
       rightWing.rotation.z = isFlying ? -0.15 - flap * 0.72 : -0.16;
@@ -570,18 +560,9 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         wing.scale.x = isFlying ? 0.95 : 0.38;
       });
       const arrivalScale = 1 - THREE.MathUtils.smoothstep(t, 0.82, 0.855);
-      const cursorScale = compactLayout
-        ? THREE.MathUtils.lerp(1.08, 0.48, THREE.MathUtils.smoothstep(t, 0.18, 0.58))
-        : THREE.MathUtils.lerp(1, 0.58, THREE.MathUtils.smoothstep(t, 0.2, 0.62));
-      const birdScale = cursorScale * arrivalScale;
+      const birdScale = (compactLayout ? 0.6 : 0.66) * arrivalScale;
       hornbill.scale.setScalar(birdScale);
       hornbill.visible = birdScale > 0.015;
-      hornbillTrail.forEach((glint, index) => {
-        const trailT = Math.max(0, hornbillT - (index + 1) * 0.012);
-        hornbillPointAt(trailT, glint.position);
-        glint.scale.setScalar((1 - index / hornbillTrail.length) * arrivalScale);
-        glint.visible = isFlying && trailT > 0 && arrivalScale > 0.04;
-      });
       doorLight.intensity = 5 + THREE.MathUtils.smoothstep(currentProgress, 0.76, 0.96) * 15;
       fog.near = 12 - THREE.MathUtils.smoothstep(currentProgress, 0.82, 1) * 6;
       fog.far = 50 - THREE.MathUtils.smoothstep(currentProgress, 0.82, 1) * 23;
