@@ -83,7 +83,7 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
 .tree-world-canvas[data-failed="true"] { display: none; }
 .tree-threshold-video { z-index: 1; display: block; object-fit: cover; object-position: center; background: var(--tree-night); filter: saturate(.88) contrast(1.03) brightness(.9); pointer-events: none; will-change: opacity; }
 .tree-world-vignette { z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgb(3 14 9 / 78%) 0%, transparent 47%, rgb(3 14 9 / 28%) 100%), linear-gradient(180deg, rgb(3 14 9 / 22%), transparent 42%, rgb(3 14 9 / 56%)); }
-.tree-scroll-track { height: 900svh; }
+.tree-scroll-track { height: 1000svh; }
 
 .tree-loader { position: fixed; z-index: 70; inset: 0; display: grid; place-content: center; gap: 1rem; background: #06150e; text-align: center; transition: opacity .55s ease, visibility .55s; }
 .tree-loader-logo { width: 4rem; height: 5.7rem; display: block; margin: auto; object-fit: contain; filter: invert(1); }
@@ -134,6 +134,20 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
 .tree-threshold { right: clamp(3rem, 7vw, 7rem) !important; left: auto !important; bottom: 7rem; top: auto; width: min(31rem, calc(100vw - 2rem)); border: 0; background: transparent; box-shadow: none; transform: translateY(1.5rem); }
 .tree-threshold.is-active { transform: none; }
 .tree-threshold h2 { font-size: clamp(3.6rem, 6.5vw, 6rem); }
+
+.tree-invitation { position: fixed; z-index: 35; inset: 0; display: grid; place-items: center; padding: clamp(1.5rem, 6vw, 6rem); visibility: hidden; opacity: 0; background: #000; color: var(--tree-ink); text-align: center; pointer-events: none; transition: opacity .5s ease, visibility 0s linear .5s; }
+.tree-invitation.is-active { visibility: visible; opacity: 1; pointer-events: auto; transition: opacity .5s ease; }
+.tree-invitation > div { display: grid; justify-items: center; gap: 1rem; }
+.tree-invitation.is-active > div { animation: tree-invitation-reveal .24s cubic-bezier(.22, 1, .36, 1) both; }
+.tree-invitation p, .tree-invitation span { margin: 0; color: var(--tree-leaf); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.tree-invitation h2 { max-width: 11ch; margin: 0; font-size: clamp(4rem, 9vw, 8rem); line-height: .86; }
+.tree-invitation strong { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; }
+.tree-invitation span { margin-top: clamp(2rem, 5vw, 4rem); color: rgb(243 239 223 / 62%); }
+
+@keyframes tree-invitation-reveal {
+  from { opacity: 0; transform: translateY(.7rem); }
+  to { opacity: 1; transform: none; }
+}
 
 .tree-booking-room { z-index: 34; inset: 0; top: 0; left: 0; width: auto; display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(23rem, .82fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; padding: 7.5rem clamp(1.25rem, 7vw, 7rem) 3.5rem; border: 0; background: linear-gradient(90deg, rgb(5 20 13 / 97%) 0 43%, rgb(5 20 13 / 72%) 74%, rgb(5 20 13 / 94%)); box-shadow: none; transform: translateY(1.4rem); }
 .tree-booking-room.is-active { transform: none; }
@@ -230,6 +244,7 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tree-world-canvas, .tree-threshold-video, .tree-story, .tree-loader { transition: none; }
+  .tree-world-canvas, .tree-threshold-video, .tree-story, .tree-invitation, .tree-loader { transition: none; }
   .tree-story.is-active h1, .tree-story.is-active h2, .tree-story.is-active > p, .tree-story.is-active > .tree-actions, .tree-story.is-active > .tree-branch-pair, .tree-story.is-active > figure, .tree-story.is-active > img, .tree-story.is-active > div { animation: none; }
+  .tree-invitation.is-active > div { animation: none; }
 }

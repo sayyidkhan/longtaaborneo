@@ -4,6 +4,9 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { asset, whatsappUrl } from "../content";
 import { TreeJourneyScene } from "../tree-journey-scene";
 
+const INVITATION_PROGRESS = 0.955;
+const INVITATION_DURATION_MS = 500;
+
 export const Route = createFileRoute("/")({ component: HomePage });
 
 const stageLabels = [
@@ -14,6 +17,7 @@ const stageLabels = [
   "Four ways to meet Long Taa",
   "Connected yet remote",
   "The threshold",
+  "The invitation",
   "Begin a conversation",
 ];
 
@@ -21,6 +25,7 @@ function HomePage() {
   const [progress, setProgress] = useState(0);
   const [sceneReady, setSceneReady] = useState(false);
   const [thresholdVideoDuration, setThresholdVideoDuration] = useState(0);
+  const [invitationPhase, setInvitationPhase] = useState<"idle" | "visible" | "complete">("idle");
   const thresholdVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -57,8 +62,8 @@ function HomePage() {
     const video = thresholdVideoRef.current;
     if (!video || !thresholdVideoDuration) return;
 
-    const scrubStart = 0.82;
-    const scrubEnd = 0.98;
+    const scrubStart = 0.76;
+    const scrubEnd = INVITATION_PROGRESS;
     const scrubProgress = Math.min(1, Math.max(0, (progress - scrubStart) / (scrubEnd - scrubStart)));
     const targetTime = scrubProgress * Math.max(0, thresholdVideoDuration - 0.04);
     const frame = window.requestAnimationFrame(() => {
@@ -68,20 +73,34 @@ function HomePage() {
     return () => window.cancelAnimationFrame(frame);
   }, [progress, thresholdVideoDuration]);
 
+  useEffect(() => {
+    setInvitationPhase((phase) => {
+      if (progress < INVITATION_PROGRESS) return "idle";
+      return phase === "idle" ? "visible" : phase;
+    });
+  }, [progress]);
+
+  useEffect(() => {
+    if (invitationPhase !== "visible") return;
+    const timeout = window.setTimeout(() => setInvitationPhase("complete"), INVITATION_DURATION_MS);
+    return () => window.clearTimeout(timeout);
+  }, [invitationPhase]);
+
   const activeStage = useMemo(() => {
     if (progress < 0.11) return 0;
     if (progress < 0.28) return 1;
     if (progress < 0.44) return 2;
     if (progress < 0.61) return 3;
     if (progress < 0.76) return 4;
-    if (progress < 0.82) return 5;
-    if (progress < 0.98) return 6;
-    return 7;
-  }, [progress]);
+    if (progress < 0.78) return 5;
+    if (progress < INVITATION_PROGRESS) return 6;
+    if (invitationPhase !== "complete" || progress < 0.99) return 7;
+    return 8;
+  }, [invitationPhase, progress]);
 
   const stageClass = (index: number) => `tree-story${activeStage === index ? " is-active" : ""}`;
-  const thresholdVideoOpacity = Math.min(1, Math.max(0, (progress - 0.81) / 0.035));
-  const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.91) / 0.045));
+  const thresholdVideoOpacity = Math.min(1, Math.max(0, (progress - 0.75) / 0.035));
+  const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.9) / 0.04));
 
   return (
     <main className={`tree-home${sceneReady ? " is-ready" : ""}`}>
@@ -175,7 +194,21 @@ function HomePage() {
           <p>Keep scrolling to cross the longhouse threshold.</p>
         </section>
 
-        <section className={`${stageClass(7)} tree-booking-room`} aria-labelledby="closing-title" aria-hidden={activeStage !== 7} inert={activeStage !== 7}>
+        <section
+          className={`tree-invitation${activeStage === 7 ? " is-active" : ""}`}
+          aria-labelledby="invitation-title"
+          aria-hidden={activeStage !== 7}
+          inert={activeStage !== 7}
+        >
+          <div>
+            <p>Long Taa is waiting</p>
+            <h2 id="invitation-title">What are you waiting for?</h2>
+            <strong>Come join us on this journey.</strong>
+            <span>Keep scrolling</span>
+          </div>
+        </section>
+
+        <section className={`${stageClass(8)} tree-booking-room`} aria-labelledby="closing-title" aria-hidden={activeStage !== 8} inert={activeStage !== 8}>
           <div className="tree-booking-copy">
             <h2 id="closing-title">Come as a visitor. Leave with a story.</h2>
             <p>Tell Clement when you hope to travel and what you would like to experience. Availability and activities are confirmed with the community.</p>
