@@ -136,40 +136,55 @@ function makeCloudField(scene: THREE.Scene, compactLayout: boolean) {
     position: [number, number, number];
     scale: [number, number, number];
   }> = [
+    { position: [-3.15, -0.18, 0.02], scale: [2.15, 0.48, 1] },
     { position: [-1.75, -0.08, 0.18], scale: [2.25, 0.78, 1.05] },
     { position: [-0.7, 0.5, -0.04], scale: [1.75, 1.08, 1.05] },
     { position: [0.35, 0.72, 0.08], scale: [1.95, 1.2, 1.16] },
     { position: [1.55, 0.35, -0.12], scale: [2.1, 0.92, 1.02] },
     { position: [2.35, -0.12, 0.14], scale: [1.65, 0.68, 0.96] },
+    { position: [3.35, -0.24, 0], scale: [2, 0.46, 0.98] },
     { position: [0.15, -0.38, 0.28], scale: [2.8, 0.56, 1.16] },
+    { position: [-0.15, 0.05, -0.35], scale: [3.5, 0.34, 0.82] },
   ];
   const presets = [
-    { position: [-13.5, 29, 14], scale: 1.22, opacity: 0.16, speed: 0.07, phase: 0.4 },
-    { position: [13.8, 26.5, 10], scale: 1.08, opacity: 0.14, speed: 0.055, phase: 2.1 },
-    { position: [-12.2, 22, -4], scale: 1.18, opacity: 0.12, speed: 0.06, phase: 3.6 },
-    { position: [13, 18.3, 1], scale: 1.06, opacity: 0.13, speed: 0.075, phase: 5.2 },
-    { position: [-11.8, 14.2, 8], scale: 0.96, opacity: 0.12, speed: 0.065, phase: 1.35 },
-    { position: [11.6, 10.2, 5], scale: 0.88, opacity: 0.11, speed: 0.08, phase: 4.3 },
-    { position: [-8.5, 6.2, -5], scale: 0.82, opacity: 0.09, speed: 0.05, phase: 2.8 },
+    { position: [-11.6, 30, 16], scale: 1.42, opacity: 0.18, speed: 0.045, phase: 0.4 },
+    { position: [11.8, 28, 12], scale: 1.3, opacity: 0.17, speed: 0.052, phase: 2.1 },
+    { position: [-10, 26, 3], scale: 1.25, opacity: 0.14, speed: 0.04, phase: 3.6 },
+    { position: [10.5, 24, -4], scale: 1.15, opacity: 0.12, speed: 0.058, phase: 5.2 },
+    { position: [-9.6, 21, 11], scale: 1.15, opacity: 0.14, speed: 0.05, phase: 1.35 },
+    { position: [9.8, 19, 5], scale: 1.15, opacity: 0.13, speed: 0.062, phase: 4.3 },
+    { position: [-10.5, 16, -3], scale: 1.1, opacity: 0.12, speed: 0.043, phase: 2.8 },
+    { position: [10, 13, 9], scale: 1, opacity: 0.12, speed: 0.06, phase: 0.9 },
+    { position: [-8.6, 10, 4], scale: 0.95, opacity: 0.1, speed: 0.055, phase: 3.1 },
+    { position: [8.8, 8, -4], scale: 0.9, opacity: 0.09, speed: 0.047, phase: 5.7 },
+    { position: [0, 22, -8], scale: 1.35, opacity: 0.045, speed: 0.035, phase: 1.8 },
+    { position: [1.5, 14, -6], scale: 1.15, opacity: 0.04, speed: 0.04, phase: 4.8 },
+    { position: [-7, 6, -7], scale: 0.8, opacity: 0.07, speed: 0.045, phase: 2.45 },
   ];
 
-  return presets.slice(0, compactLayout ? 6 : presets.length).map((preset, bankIndex) => {
+  return presets.slice(0, compactLayout ? 12 : presets.length).map((preset, bankIndex) => {
     const group = new THREE.Group();
+    const bankOpacity = preset.opacity * (compactLayout ? 0.66 : 0.8);
     const material = new THREE.MeshBasicMaterial({
-      color: bankIndex % 3 === 0 ? 0xcbded6 : 0xa9c7be,
+      color: bankIndex % 3 === 0 ? 0xadc9bd : 0x83a99b,
       transparent: true,
-      opacity: preset.opacity,
+      opacity: bankOpacity,
       depthWrite: false,
       fog: true,
     });
+    const puffs = new THREE.InstancedMesh(puffGeometry, material, puffLayout.length);
+    const puffDummy = new THREE.Object3D();
     puffLayout.forEach(({ position, scale }, puffIndex) => {
-      const puff = new THREE.Mesh(puffGeometry, material);
-      puff.position.set(...position);
-      puff.position.z += ((puffIndex + bankIndex) % 3) * 0.16;
-      puff.scale.set(...scale).multiplyScalar(preset.scale);
-      puff.rotation.set(puffIndex * 0.13, bankIndex * 0.31 + puffIndex * 0.23, puffIndex * 0.08);
-      group.add(puff);
+      puffDummy.position.set(...position);
+      puffDummy.position.z += ((puffIndex + bankIndex) % 3) * 0.16;
+      puffDummy.scale.set(...scale).multiplyScalar(preset.scale);
+      puffDummy.rotation.set(puffIndex * 0.13, bankIndex * 0.31 + puffIndex * 0.23, puffIndex * 0.08);
+      puffDummy.updateMatrix();
+      puffs.setMatrixAt(puffIndex, puffDummy.matrix);
     });
+    puffs.instanceMatrix.needsUpdate = true;
+    puffs.frustumCulled = false;
+    group.add(puffs);
     const [cloudX, cloudY, cloudZ] = preset.position;
     group.position.set(cloudX * (compactLayout ? 0.76 : 1), cloudY, cloudZ);
     group.rotation.y = bankIndex % 2 === 0 ? -0.12 : 0.16;
@@ -179,7 +194,7 @@ function makeCloudField(scene: THREE.Scene, compactLayout: boolean) {
       group,
       origin: group.position.clone(),
       material,
-      baseOpacity: preset.opacity,
+      baseOpacity: bankOpacity,
       speed: preset.speed,
       phase: preset.phase,
     } satisfies CloudBank;
