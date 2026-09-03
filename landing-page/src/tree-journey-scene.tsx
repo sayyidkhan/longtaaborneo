@@ -39,18 +39,21 @@ function makeLimb(
   return limb;
 }
 
-function makeLonghouse(scene: THREE.Scene, module: THREE.Object3D | null) {
+function makeLonghouse(scene: THREE.Scene) {
   const house = new THREE.Group();
-  house.position.set(4, 0, -9);
+  house.position.set(3.5, 0, -11);
   scene.add(house);
 
-  const timber = new THREE.MeshStandardMaterial({ color: 0x6d4528, roughness: 0.94 });
-  const timberDark = new THREE.MeshStandardMaterial({ color: 0x281a12, roughness: 1 });
-  const roof = new THREE.MeshStandardMaterial({ color: 0x19241b, roughness: 0.9, side: THREE.DoubleSide });
+  const timber = new THREE.MeshStandardMaterial({ color: 0xa39478, roughness: 1 });
+  const timberLight = new THREE.MeshStandardMaterial({ color: 0xc0b79f, roughness: 1 });
+  const timberDark = new THREE.MeshStandardMaterial({ color: 0x332b23, roughness: 1 });
+  const carvedWood = new THREE.MeshStandardMaterial({ color: 0x756a56, roughness: 1 });
+  const bamboo = new THREE.MeshStandardMaterial({ color: 0x9b8866, roughness: 0.96 });
+  const roof = new THREE.MeshStandardMaterial({ color: 0x403a31, roughness: 1, side: THREE.DoubleSide });
   const warm = new THREE.MeshStandardMaterial({
-    color: 0xffd59b,
-    emissive: 0xff8a2f,
-    emissiveIntensity: 2.1,
+    color: 0xffd49a,
+    emissive: 0xff8e3b,
+    emissiveIntensity: 1.8,
     roughness: 0.75,
   });
 
@@ -69,38 +72,67 @@ function makeLonghouse(scene: THREE.Scene, module: THREE.Object3D | null) {
     return mesh;
   };
 
-  box([12.4, 0.38, 7.2], [0, 1.05, 0], timberDark);
-  [-5.4, -3.6, -1.8, 0, 1.8, 3.6, 5.4].forEach((x) => {
-    box([0.22, 1.15, 0.22], [x, 0.48, -2.6], timberDark);
-    box([0.22, 1.15, 0.22], [x, 0.48, 2.6], timberDark);
+  // A long raised floor and regular stilts establish the longhouse silhouette.
+  box([15.8, 0.34, 6.5], [0, 1.55, 0], timberDark);
+  [-7, -5, -3, -1, 1, 3, 5, 7].forEach((x) => {
+    [-2.55, 0, 2.55].forEach((z) => box([0.24, 1.55, 0.24], [x, 0.72, z], timberDark));
   });
-  box([12.4, 4.1, 0.32], [0, 3.25, -3.45], timber);
-  box([4.35, 4.1, 0.32], [-4, 3.25, 3.45], timber);
-  box([4.35, 4.1, 0.32], [4, 3.25, 3.45], timber);
-  box([3.7, 0.78, 0.32], [0, 4.9, 3.45], timber);
-  box([0.32, 4.1, 7.2], [-6.05, 3.25, 0], timber);
-  box([0.32, 4.1, 7.2], [6.05, 3.25, 0], timber);
-  box([6.9, 0.32, 4.7], [-2.8, 5.85, 0], roof, [0, 0, -0.43]);
-  box([6.9, 0.32, 4.7], [2.8, 5.85, 0], roof, [0, 0, 0.43]);
-  box([3.1, 3.45, 0.08], [0, 2.8, 3.25], warm);
-  [-5.35, -4.25, -3.15, -2.05, 2.05, 3.15, 4.25, 5.35].forEach((x) =>
-    box([0.13, 4.1, 0.18], [x, 3.25, 3.64], timberDark),
+
+  // The rear wall is visible through the central entrance, creating a deep sightline.
+  box([15.4, 3.35, 0.24], [0, 3.35, -3], timberDark);
+  box([0.24, 3.35, 6.15], [-7.65, 3.35, -0.05], timber);
+  box([0.24, 3.35, 6.15], [7.65, 3.35, -0.05], timber);
+  box([15.4, 0.22, 3.05], [0, 4.92, -1.48], timberDark);
+
+  // Weathered timber wings frame one ceremonial entrance rather than repeated doors.
+  box([6.35, 3.25, 0.22], [-4.52, 3.32, -0.08], timber);
+  box([6.35, 3.25, 0.22], [4.52, 3.32, -0.08], timber);
+  [-7.25, -6.35, -5.45, -4.55, -3.65, -2.75, -1.85, 1.85, 2.75, 3.65, 4.55, 5.45, 6.35, 7.25].forEach((x) =>
+    box([0.055, 3.08, 0.055], [x, 3.32, 0.055], timberLight),
   );
 
-  if (module) {
-    [-3.9, 0, 3.9].forEach((x, index) => {
-      const bay = fitObject(module.clone(true), 2.5);
-      bay.position.set(x - 1.25, 1.24, -2.95);
-      bay.rotation.y = Math.PI + (index - 1) * 0.025;
-      bay.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
-      house.add(bay);
-    });
+  // The central portal opens to a timber floor and a small pool of daylight beyond.
+  box([2.35, 0.08, 3.05], [0, 1.74, -1.48], timber);
+  box([0.86, 1.12, 0.06], [0, 3.18, -2.84], warm);
+  box([0.2, 3.5, 0.25], [-1.42, 3.36, 0.02], carvedWood);
+  box([0.2, 3.5, 0.25], [1.42, 3.36, 0.02], carvedWood);
+  box([3.02, 0.2, 0.25], [0, 5.06, 0.02], carvedWood);
+
+  // Carved motifs flank the doorway as a simplified low-poly translation.
+  [-1, 1].forEach((side) => {
+    box([0.42, 3.12, 0.1], [side * 1.72, 3.35, 0.08], carvedWood);
+    [2.14, 2.72, 3.3, 3.88, 4.46].forEach((y, index) =>
+      box([0.28, 0.28, 0.1], [side * 1.72, y, 0.15], index % 2 === 0 ? timberLight : timberDark, [0, 0, Math.PI / 4]),
+    );
+  });
+
+  // Broad shuttered windows and horizontal vents mirror the reference facade.
+  [-5.05, 5.05].forEach((x, sideIndex) => {
+    box([2.7, 1.26, 0.08], [x, 3.46, 0.06], timberDark);
+    box([1.18, 1.18, 0.1], [x + (sideIndex === 0 ? -0.68 : 0.68), 3.46, 0.13], timberLight);
+    [-0.92, 0, 0.92].forEach((offset) =>
+      box([0.055, 1.1, 0.055], [x + offset, 3.46, 0.17], carvedWood),
+    );
+    [4.45, 4.68, 4.91].forEach((y) => box([2.5, 0.09, 0.1], [x, y, 0.12], timberDark));
+  });
+  box([6.18, 0.16, 0.1], [-4.55, 2.05, 0.12], carvedWood);
+  box([6.18, 0.16, 0.1], [4.55, 2.05, 0.12], carvedWood);
+
+  // A long ridge pitched across the depth fixes the roof geometry.
+  box([16.7, 0.28, 4.2], [0, 5.9, -1.7], roof, [-0.5, 0, 0]);
+  box([16.7, 0.28, 4.2], [0, 5.9, 1.7], roof, [0.5, 0, 0]);
+  box([16.9, 0.18, 0.28], [0, 6.9, 0], bamboo);
+
+  // A restrained landing and hand-railed stair keep the entrance visually dominant.
+  box([15.4, 0.18, 0.28], [0, 1.5, 3.08], carvedWood);
+  for (let step = 0; step < 4; step += 1) {
+    box([2.2, 0.18, 0.72], [0, 1.34 - step * 0.31, 3.18 + step * 0.55], timberLight);
   }
+  [-1.18, 1.18].forEach((x) => {
+    box([0.13, 1.45, 0.13], [x, 1.15, 3.12], bamboo);
+    box([0.13, 0.95, 0.13], [x, 0.54, 4.85], bamboo);
+    box([0.13, 0.13, 2.2], [x, 1.12, 4.02], bamboo, [-0.34, 0, 0]);
+  });
 
   return house;
 }
@@ -126,6 +158,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     let disposed = false;
     let currentProgress = 0;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const compactLayout = window.matchMedia("(max-width: 899px)").matches;
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x06150e);
     const fog = new THREE.Fog(0x06150e, 11, 50);
@@ -142,20 +175,20 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
 
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = window.innerWidth < 780 ? 1.24 : 1.02;
-    renderer.shadowMap.enabled = window.innerWidth >= 780;
+    renderer.toneMappingExposure = compactLayout ? 1.4 : 1.02;
+    renderer.shadowMap.enabled = !compactLayout;
     renderer.shadowMap.type = THREE.PCFShadowMap;
 
     const camera = new THREE.PerspectiveCamera(44, 1, 0.1, 130);
-    const ambient = new THREE.HemisphereLight(0x97cfa8, 0x1d160f, window.innerWidth < 780 ? 1.9 : 1.5);
+    const ambient = new THREE.HemisphereLight(0xacf0b8, 0x2b1c12, compactLayout ? 2.2 : 1.5);
     scene.add(ambient);
     const moon = new THREE.DirectionalLight(0xdfffd0, 2.9);
     moon.position.set(-11, 24, 12);
     moon.castShadow = true;
     moon.shadow.mapSize.set(1024, 1024);
     scene.add(moon);
-    const doorLight = new THREE.PointLight(0xffad55, 6, 24, 2);
-    doorLight.position.set(4, 3.2, -5.6);
+    const doorLight = new THREE.PointLight(0xffad55, 7, 26, 2);
+    doorLight.position.set(3.5, 3.2, -7.8);
     scene.add(doorLight);
 
     const world = new THREE.Group();
@@ -200,7 +233,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       new THREE.Vector3(5.9, 14.2, 0),
       new THREE.Vector3(-5.2, 10.2, 1.1),
     ];
-    const leafCount = window.innerWidth < 780 ? 104 : 168;
+    const leafCount = compactLayout ? 104 : 168;
     const leafGeometry = new THREE.IcosahedronGeometry(0.72, 1);
     const leafMaterial = new THREE.MeshStandardMaterial({ color: 0x2f7a45, roughness: 0.9, flatShading: true });
     const canopy = new THREE.InstancedMesh(leafGeometry, leafMaterial, leafCount);
@@ -226,7 +259,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     }
     canopy.instanceMatrix.needsUpdate = true;
     if (canopy.instanceColor) canopy.instanceColor.needsUpdate = true;
-    canopy.castShadow = window.innerWidth >= 780;
+    canopy.castShadow = !compactLayout;
     world.add(canopy);
 
     [
@@ -250,7 +283,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     ground.receiveShadow = true;
     scene.add(ground);
 
-    const fireflyCount = window.innerWidth < 780 ? 65 : 120;
+    const fireflyCount = compactLayout ? 65 : 120;
     const fireflyPositions = new Float32Array(fireflyCount * 3);
     for (let i = 0; i < fireflyCount; i += 1) {
       const random = (seed: number) => ((Math.sin(seed * 492.37) + 1) * 0.5) % 1;
@@ -291,35 +324,40 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       return object;
     };
 
-    Promise.allSettled([
-      loadModel("tree-oak.glb"),
-      loadModel("tree-oak.glb"),
-      loadModel("structure.glb"),
-    ]).then(([treeResult, oakResult, structureResult]) => {
+    Promise.allSettled([loadModel("tree-oak.glb")]).then(([oakResult]) => {
       if (disposed) return;
-      if (treeResult.status === "fulfilled") {
-        const tree = fitObject(colorizeTree(treeResult.value), 27.5);
-        tree.rotation.y = -0.35;
-        tree.traverse((child) => {
+      if (oakResult.status === "fulfilled") {
+        const oak = colorizeTree(oakResult.value);
+        const protagonist = fitObject(oak.clone(true), 30.5);
+        protagonist.rotation.y = -0.35;
+        protagonist.traverse((child) => {
           if (child instanceof THREE.Mesh) {
             child.castShadow = true;
             child.receiveShadow = true;
           }
         });
-        world.add(tree);
-      } else {
-        makeLimb(world, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 27, 0), 1.75, 0.52, bark);
-      }
+        world.add(protagonist);
 
-      if (oakResult.status === "fulfilled") {
-        const oak = colorizeTree(oakResult.value);
+        // A lower forest ring frames the village without challenging the story tree.
         const placements: Array<[number, number, number, number]> = [
-          [-11, -1, -5, 10],
-          [11, -1, -7, 12],
-          [-14, -1, 5, 8],
-          [15, -1, 4, 9],
-          [-8, -1, -12, 7],
-          [15, -1, -15, 8],
+          [-20, -1, -18, 12.5],
+          [-13, -1, -23, 14],
+          [-4, -1, -25, 10.5],
+          [6, -1, -26, 12],
+          [16, -1, -23, 13.5],
+          [23, -1, -17, 12],
+          [24, -1, -8, 10],
+          [20, -1, 1, 8.5],
+          [-19, -1, -8, 10.5],
+          [-17, -1, 1, 8],
+          [-10, -1, -16, 9.5],
+          [17, -1, -12, 9],
+          [-7, -1, -13, 10.5],
+          [-10, -1, -9, 8],
+          [14, -1, -14, 10],
+          [17, -1, -8, 8.5],
+          [-2, -1, -19, 11.5],
+          [9, -1, -20, 12.5],
         ];
         placements.forEach(([x, y, z, height], index) => {
           const tree = fitObject(oak.clone(true), height);
@@ -327,9 +365,11 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
           tree.rotation.y = index * 0.83;
           world.add(tree);
         });
+      } else {
+        makeLimb(world, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 30.5, 0), 1.9, 0.5, bark);
       }
 
-      makeLonghouse(scene, structureResult.status === "fulfilled" ? structureResult.value : null);
+      makeLonghouse(scene);
       onReadyRef.current();
     });
 
@@ -341,9 +381,9 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         new THREE.Vector3(7.4, 15.2, 22),
         new THREE.Vector3(-6.8, 10.2, 20),
         new THREE.Vector3(5.2, 5.4, 18),
-        new THREE.Vector3(4, 3.15, 8.5),
-        new THREE.Vector3(4, 2.85, 1),
-        new THREE.Vector3(4, 2.8, -12.6),
+        new THREE.Vector3(3.5, 7, 17),
+        new THREE.Vector3(3.5, 4.2, 7),
+        new THREE.Vector3(3.5, 3.25, -4.9),
       ],
       false,
       "catmullrom",
@@ -357,9 +397,9 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         new THREE.Vector3(0, 13, 0),
         new THREE.Vector3(0, 8, 0),
         new THREE.Vector3(1.2, 3.2, -2),
-        new THREE.Vector3(4, 3, -7),
-        new THREE.Vector3(4, 2.8, -9.7),
-        new THREE.Vector3(4, 2.8, -15),
+        new THREE.Vector3(3.5, 3.8, -8),
+        new THREE.Vector3(3.5, 3, -11),
+        new THREE.Vector3(3.5, 3, -9.6),
       ],
       false,
       "catmullrom",
@@ -371,7 +411,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       const height = canvas.clientHeight;
       camera.aspect = width / Math.max(height, 1);
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 780 ? 1.2 : 1.5));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, compactLayout ? 1.2 : 1.5));
       renderer.setSize(width, height, false);
     };
     const observer = new ResizeObserver(resize);
@@ -385,7 +425,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         : THREE.MathUtils.lerp(currentProgress, progressRef.current, 0.065);
       const t = THREE.MathUtils.clamp(currentProgress, 0, 1);
       camera.position.copy(cameraCurve.getPoint(t));
-      if (window.innerWidth < 780 && t < 0.78) camera.position.x += t < 0.5 ? 1.35 : -1.05;
+      if (compactLayout && t < 0.78) camera.position.x += t < 0.5 ? 1.35 : -1.05;
       camera.lookAt(targetCurve.getPoint(t));
       markers.forEach((marker) => {
         const proximity = Math.max(0, 1 - Math.abs(currentProgress - Number(marker.userData.stage)) * 11);

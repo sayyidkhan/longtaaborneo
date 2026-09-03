@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { asset, whatsappUrl } from "../content";
@@ -20,6 +20,8 @@ const stageLabels = [
 function HomePage() {
   const [progress, setProgress] = useState(0);
   const [sceneReady, setSceneReady] = useState(false);
+  const [thresholdVideoDuration, setThresholdVideoDuration] = useState(0);
+  const thresholdVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -35,29 +37,72 @@ function HomePage() {
     };
   }, []);
 
+  useEffect(() => {
+    const video = thresholdVideoRef.current;
+    if (!video) return;
+
+    const updateDuration = () => {
+      if (Number.isFinite(video.duration)) setThresholdVideoDuration(video.duration);
+    };
+    updateDuration();
+    video.addEventListener("loadedmetadata", updateDuration);
+    video.addEventListener("durationchange", updateDuration);
+    return () => {
+      video.removeEventListener("loadedmetadata", updateDuration);
+      video.removeEventListener("durationchange", updateDuration);
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = thresholdVideoRef.current;
+    if (!video || !thresholdVideoDuration) return;
+
+    const scrubStart = 0.85;
+    const scrubEnd = 0.97;
+    const scrubProgress = Math.min(1, Math.max(0, (progress - scrubStart) / (scrubEnd - scrubStart)));
+    const targetTime = scrubProgress * Math.max(0, thresholdVideoDuration - 0.04);
+    const frame = window.requestAnimationFrame(() => {
+      if (Math.abs(video.currentTime - targetTime) > 1 / 48) video.currentTime = targetTime;
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [progress, thresholdVideoDuration]);
+
   const activeStage = useMemo(() => {
     if (progress < 0.11) return 0;
     if (progress < 0.28) return 1;
     if (progress < 0.44) return 2;
     if (progress < 0.61) return 3;
     if (progress < 0.76) return 4;
-    if (progress < 0.86) return 5;
-    if (progress < 0.93) return 6;
+    if (progress < 0.84) return 5;
+    if (progress < 0.97) return 6;
     return 7;
   }, [progress]);
 
   const stageClass = (index: number) => `tree-story${activeStage === index ? " is-active" : ""}`;
+  const thresholdVideoOpacity = Math.min(1, Math.max(0, (progress - 0.845) / 0.025));
+  const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.865) / 0.03));
 
   return (
     <main className={`tree-home${sceneReady ? " is-ready" : ""}`}>
       <div className="tree-world" aria-hidden="true">
         <img className="tree-world-fallback" src={asset("forest-canopy.webp")} alt="" />
         <TreeJourneyScene progress={progress} onReady={() => setSceneReady(true)} />
+        <video
+          ref={thresholdVideoRef}
+          className="tree-threshold-video"
+          src="/videos/longhouse-threshold.mp4"
+          poster="/images/longhouse-threshold-poster.jpg"
+          preload="auto"
+          muted
+          playsInline
+          style={{ opacity: thresholdVideoOpacity }}
+        />
         <div className="tree-world-vignette" />
       </div>
 
       <div className="tree-loader" role="status" aria-live="polite">
-        <img className="tree-loader-logo" src={asset("long-taa-dapui-logo.png")} alt="" />
+        <img className="tree-loader-logo" src={asset("long-taa-dapui-logo-transparent.png")} alt="" />
         <strong>Growing the journey.</strong>
       </div>
       <div className="tree-journey-state" aria-hidden="true"><span>Canopy</span><i /><strong>{stageLabels[activeStage]}</strong></div>
@@ -69,12 +114,12 @@ function HomePage() {
 
       <div className="tree-story-layer">
         <section className={`${stageClass(0)} tree-intro`} aria-labelledby="hero-title" aria-hidden={activeStage !== 0} inert={activeStage !== 0}>
-          <h1 id="hero-title">Escape the city. Experience the real Borneo.</h1>
-          <p className="tree-lead">A Sebup longhouse stay shaped by rainforest, river, culture, adventure and living heritage.</p>
+          <h1 id="hero-title">Escape the city. Meet the real Borneo.</h1>
+          <p className="tree-lead">A Sebup longhouse stay shaped by rainforest, river and living heritage.</p>
           <p className="tree-location">Long Taa · Ulu Tinjar · Sarawak</p>
           <div className="tree-actions">
             <a className="tree-primary-action" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
-            <Link className="tree-secondary-action" to="/explore">Explore Long Taa</Link>
+            <Link className="tree-secondary-action tree-text-action" to="/explore">Explore Long Taa <span aria-hidden="true">→</span></Link>
           </div>
           <div className="tree-scroll-cue"><span />Scroll to descend</div>
         </section>
@@ -117,7 +162,6 @@ function HomePage() {
         </section>
 
         <section className={`${stageClass(5)} tree-connected-story`} aria-labelledby="connected-title" aria-hidden={activeStage !== 5} inert={activeStage !== 5}>
-          <img src={asset("longhouse.webp")} alt="Long Taa longhouse in its green surroundings" />
           <div>
             <h2 id="connected-title">Connected yet remote.</h2>
             <p>Longhouse guests have 24-hour solar electricity, fresh mountain-sourced water and telecommunications connectivity, while living close to the forest and river.</p>
@@ -126,7 +170,7 @@ function HomePage() {
           </div>
         </section>
 
-        <section className={`${stageClass(6)} tree-threshold`} aria-labelledby="threshold-title" aria-hidden={activeStage !== 6} inert={activeStage !== 6}>
+        <section className={`${stageClass(6)} tree-threshold`} aria-labelledby="threshold-title" aria-hidden={activeStage !== 6} inert={activeStage !== 6} style={activeStage === 6 ? { opacity: thresholdCopyOpacity } : undefined}>
           <h2 id="threshold-title">The roots lead home.</h2>
           <p>Keep scrolling to cross the longhouse threshold.</p>
         </section>
@@ -138,11 +182,11 @@ function HomePage() {
             <p className="tree-branch-name">Begin with a conversation</p>
             <div className="tree-actions">
               <a className="tree-primary-action" href={whatsappUrl} target="_blank" rel="noreferrer">Check dates on WhatsApp</a>
-              <Link className="tree-secondary-action" to="/plan">Plan a visit</Link>
+              <Link className="tree-secondary-action tree-text-action" to="/plan">Plan a visit <span aria-hidden="true">→</span></Link>
             </div>
           </div>
           <div className="tree-contact-panel">
-            <img src={asset("long-taa-dapui-logo.png")} alt="Long Taa Dapui Living Heritage Village logo" />
+            <img src={asset("long-taa-dapui-logo-transparent.png")} alt="Long Taa Dapui Living Heritage Village logo" />
             <strong>Long Taa Borneo Eco Stay</strong>
             <p>Nature · Culture · Adventure · Living Heritage</p>
             <p>A respectful visit begins with listening to the people and place that welcome you.</p>

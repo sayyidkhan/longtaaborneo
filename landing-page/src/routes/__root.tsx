@@ -62,7 +62,7 @@ function RootComponent() {
         <Link className="brand" to="/" aria-label="Long Taa Borneo Eco Stay homepage">
           <img
             className="brand-mark"
-            src="/images/long-taa-dapui-logo.png"
+            src="/images/long-taa-dapui-logo-transparent.png"
             alt="Long Taa Dapui Living Heritage Village logo"
           />
           <span className="brand-wordmark">
