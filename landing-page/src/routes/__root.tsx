@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   HeadContent,
   Link,
@@ -32,13 +32,39 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const closeMenu = () => setMenuOpen(false);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMenu();
+    };
+    window.addEventListener("resize", closeMenu);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      window.removeEventListener("resize", closeMenu);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
+
   return (
     <RootDocument>
       <header className="site-header">
-        <Link className="brand" to="/" aria-label="Long Taa homepage">
-          Long Taa
+        <Link className="brand" to="/" aria-label="Long Taa Borneo Eco Stay homepage">
+          <span>Long Taa</span>
+          <small>Borneo Eco Stay</small>
         </Link>
-        <nav aria-label="Primary navigation">
+        <button
+          className="menu-button"
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="site-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true">{menuOpen ? "Close" : "Menu"}</span>
+          <span className="sr-only">{menuOpen ? "Close" : "Open"} navigation menu</span>
+        </button>
+        <nav id="site-navigation" className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
           {siteRoutes.map((item) => (
             <Link
               key={item.to}
@@ -46,20 +72,35 @@ function RootComponent() {
               activeProps={{ className: "nav-link is-active" }}
               activeOptions={{ exact: item.to === "/" }}
               to={item.to}
+              onClick={() => setMenuOpen(false)}
             >
               {item.label}
             </Link>
           ))}
+          <a className="mobile-menu-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
+            Start an enquiry on WhatsApp
+          </a>
         </nav>
-        <a className="header-cta" href={whatsappUrl}>
-          WhatsApp
+        <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
+          <span aria-hidden="true">WhatsApp</span><span className="sr-only">Start an enquiry on WhatsApp</span>
         </a>
       </header>
       <Outlet />
       <footer className="site-footer">
-        <strong>Long Taa Borneo Eco Stay</strong>
-        <span>Nature · Culture · Adventure · Living Heritage</span>
+        <div>
+          <strong>Long Taa Borneo Eco Stay</strong>
+          <p>Nature · Culture · Adventure · Living Heritage</p>
+          <p className="footer-note">A respectful visit begins with listening to the people and place that welcome you.</p>
+        </div>
+        <div className="footer-links">
+          <Link to="/heritage">Visit with respect</Link>
+          <a href="mailto:longtaaborneo@gmail.com">longtaaborneo@gmail.com</a>
+          <a href={whatsappUrl} target="_blank" rel="noreferrer">+60 19-856 3536</a>
+          <a className="footer-cta" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
+        </div>
+        <small>© 2026 Long Taa Borneo Eco Stay. All rights reserved.</small>
       </footer>
+      <a className="mobile-booking-bar" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
     </RootDocument>
   );
 }

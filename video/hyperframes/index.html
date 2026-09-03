@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Long Taa Borneo Eco Stay - Process Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --forest: #102d25;
+        --river: #1e6454;
+        --paper: #e9e1d0;
+        --clay: #c77a37;
+        --ink: #151917;
+      }
+      * { box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: var(--forest); }
+      body { font-family: "Liberation Mono", monospace; }
+      #main-video { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--forest); }
+      .clip { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+      .scene { color: var(--paper); background: var(--forest); }
+      .scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,45,37,.05) 0%, rgba(16,45,37,.2) 30%, rgba(16,45,37,.9) 100%); z-index: 1; }
+      .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .photo.dark { filter: brightness(.58) saturate(.82); }
+      .photo.river { object-position: 58% center; }
+      .photo.road { object-position: 63% center; }
+      .photo.boat { object-position: center; }
+      .grain { position: absolute; inset: 0; opacity: .13; z-index: 4; pointer-events: none; background-image: radial-gradient(rgba(233,225,208,.35) .65px, transparent .8px); background-size: 7px 7px; mix-blend-mode: soft-light; }
+      .scene-content { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; height: 100%; padding: 112px 78px 138px; gap: 28px; }
+      .scene-content.top { justify-content: flex-start; padding-top: 132px; }
+      .kicker { display: flex; align-items: center; gap: 15px; color: var(--paper); font-size: 24px; line-height: 1.15; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+      .kicker::before { content: ""; width: 38px; height: 4px; background: var(--clay); }
+      .title { max-width: 900px; margin: 0; color: var(--paper); font-family: Georgia, "DejaVu Serif", serif; font-weight: 700; font-size: 87px; line-height: .97; letter-spacing: -.055em; text-wrap: balance; }
+      .title.large { font-size: 118px; }
+      .body { max-width: 790px; margin: 0; color: rgba(233,225,208,.94); font-family: Georgia, "DejaVu Serif", serif; font-size: 35px; line-height: 1.26; }
+      .caption { max-width: 870px; margin: 7px 0 0; padding: 20px 24px; border-left: 6px solid var(--clay); color: var(--paper); background: rgba(16,45,37,.72); font-size: 27px; line-height: 1.28; letter-spacing: -.025em; }
+      .meta { color: rgba(233,225,208,.76); font-size: 19px; line-height: 1.3; letter-spacing: .12em; text-transform: uppercase; }
+      .logo-card { position: absolute; top: 76px; right: 64px; z-index: 4; width: 130px; height: 180px; padding: 12px; background: var(--paper); box-shadow: 0 14px 35px rgba(0,0,0,.2); }
+      .logo-card img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+      .number { color: var(--clay); font-family: Georgia, "DejaVu Serif", serif; font-size: 136px; font-weight: 700; line-height: .8; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
+      .source-card { position: absolute; z-index: 3; top: 262px; left: 78px; width: 524px; padding: 30px; background: rgba(233,225,208,.95); color: var(--ink); transform: rotate(-2deg); box-shadow: 0 22px 50px rgba(0,0,0,.22); }
+      .source-card h2, .fact-card h2 { margin: 0 0 17px; font-family: Georgia, "DejaVu Serif", serif; font-size: 55px; line-height: 1.05; letter-spacing: -.045em; }
+      .source-card .meta { display: block; margin-bottom: 25px; }
+      .source-card p { margin: 0; font-size: 23px; line-height: 1.45; }
+      .source-card .rule, .fact-card .rule { width: 74px; height: 5px; margin: 22px 0; background: var(--clay); }
+      .contact-sheet { position: absolute; z-index: 2; top: 300px; right: -80px; width: 590px; height: 790px; object-fit: cover; transform: rotate(4deg); filter: brightness(.88) saturate(.88); }
+      .route-stack { position: absolute; z-index: 3; left: 78px; right: 78px; top: 272px; display: grid; gap: 15px; }
+      .route { display: flex; align-items: center; justify-content: space-between; min-height: 106px; padding: 0 28px; border: 2px solid rgba(233,225,208,.55); background: rgba(16,45,37,.74); color: var(--paper); font-size: 28px; font-weight: 700; letter-spacing: .02em; }
+      .route span { color: var(--clay); font-size: 22px; }
+      .fact-grid { position: absolute; z-index: 3; top: 247px; left: 78px; right: 78px; display: grid; gap: 16px; }
+      .fact-card { padding: 27px 28px; background: var(--paper); color: var(--ink); box-shadow: 0 18px 32px rgba(0,0,0,.18); }
+      .fact-card h2 { font-size: 48px; margin-bottom: 8px; }
+      .fact-card p { margin: 0; color: #33423b; font-size: 23px; line-height: 1.36; }
+      .fact-card.accent { background: #96501c; color: var(--paper); }
+      .fact-card.accent .meta, .fact-card.accent p { color: var(--paper) !important; }
+      .phone { position: absolute; z-index: 3; top: 175px; left: 105px; width: 870px; height: 1180px; padding: 26px; border: 18px solid var(--paper); border-radius: 78px; background: var(--forest); box-shadow: 0 28px 60px rgba(0,0,0,.42); }
+      .phone::before { content: ""; position: absolute; top: 17px; left: 50%; width: 190px; height: 25px; border-radius: 30px; background: var(--paper); transform: translateX(-50%); }
+      .phone-head { margin: 58px 25px 38px; color: var(--paper); font-family: Georgia, "DejaVu Serif", serif; font-size: 53px; line-height: .98; letter-spacing: -.045em; }
+      .phone-line { height: 72px; margin: 15px 25px; border-bottom: 2px solid rgba(233,225,208,.56); color: rgba(233,225,208,.78); font-size: 23px; line-height: 72px; }
+      .whatsapp { margin: 49px 25px 0; padding: 22px 20px; background: var(--clay); color: var(--ink); font-weight: 700; font-size: 26px; text-align: center; }
+      .pitch-grid { position: absolute; z-index: 3; top: 277px; left: 78px; right: 78px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+      .pitch-card { min-height: 330px; padding: 25px 20px; background: rgba(233,225,208,.95); color: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+      .pitch-card strong { font-family: Georgia, "DejaVu Serif", serif; font-size: 44px; line-height: .95; letter-spacing: -.04em; }
+      .pitch-card span { font-size: 19px; line-height: 1.35; }
+      .qa-grid { position: absolute; z-index: 3; top: 324px; left: 78px; right: 78px; display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+      .qa { min-height: 180px; padding: 29px; border: 2px solid rgba(233,225,208,.58); background: rgba(16,45,37,.76); }
+      .qa strong { display: block; color: var(--clay); font-family: Georgia, "DejaVu Serif", serif; font-size: 64px; line-height: .85; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+      .qa span { display: block; margin-top: 16px; font-size: 20px; line-height: 1.25; }
+      .closing { align-items: flex-start; justify-content: center; padding-bottom: 0; }
+      .closing .title { max-width: 850px; font-size: 112px; }
+      .url { display: inline-block; margin-top: 16px; padding: 17px 19px; border: 2px solid var(--paper); color: var(--paper); font-size: 23px; letter-spacing: .04em; }
+      .wipe { z-index: 20; background: var(--river); transform: translateY(100%); }
+      .wipe::after { content: ""; position: absolute; inset: 0; opacity: .32; background-image: radial-gradient(rgba(233,225,208,.48) .7px, transparent .9px); background-size: 9px 9px; }
+    </style>
+  </head>
+  <body>
+    <main id="main-video" data-composition-id="longtaa-process" data-width="1080" data-height="1920" data-start="0" data-duration="59.5">
+      <audio id="narration" data-start="0" data-duration="59.5" data-track-index="10" src="assets/narration.wav" data-volume="1"></audio>
+      <audio id="ambient" data-start="0" data-duration="59.5" data-track-index="11" src="assets/ambient-bed.wav" data-volume="0.75"></audio>
+
+      <section id="s1" class="scene clip" data-start="0" data-duration="5.4" data-track-index="1">
+        <img class="photo dark river" src="assets/river.jpg" alt="Authentic supplied Dapui River photograph" />
+        <div class="logo-card"><img src="assets/logo.png" alt="Long Taa logo" /></div>
+        <div class="scene-content">
+          <div class="kicker">Long Taa Borneo Eco Stay</div>
+          <h1 class="title large">A real village. A clearer way to visit.</h1>
+          <p class="caption">A real village deserves a clearer way to visit.</p>
+        </div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s2" class="scene clip" data-start="5.4" data-duration="6.6" data-track-index="1">
+        <img class="photo dark" data-layout-allow-overflow src="assets/longhouse.jpg" alt="Authentic supplied Long Taa longhouse photograph" />
+        <div class="scene-content top">
+          <div class="kicker">The challenge</div>
+          <h2 class="title">Remote should not mean unclear.</h2>
+          <p class="body">Long Taa is a living Sebup community, around six hours by 4WD from Miri.</p>
+          <p class="caption">A living Sebup community. Around six hours from Miri.</p>
+        </div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s3" class="scene clip" data-start="12" data-duration="6.8" data-track-index="1">
+        <img class="photo dark" src="assets/forest.jpg" alt="Authentic supplied rainforest photograph" />
+        <article class="source-card">
+          <div class="meta" style="color:#1e6454">Build input</div>
+          <h2>Start with the record.</h2>
+          <div class="rule"></div>
+          <p>Supplied brochure<br />Authentic photography<br />Booking facts<br />Community context</p>
+        </article>
+        <img class="contact-sheet" data-layout-allow-overflow src="assets/river-vertical.jpg" alt="Authentic supplied Long Taa river photograph" />
+        <div class="scene-content">
+          <p class="caption">Supplied facts. Not assumptions.</p>
+        </div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s4" class="scene clip" data-start="18.8" data-duration="8.5" data-track-index="1">
+        <img class="photo dark boat" src="assets/boat.jpg" alt="Authentic supplied longboat photograph" />
+        <div class="route-stack">
+          <div class="route">01&nbsp;&nbsp; Home <span>Discover</span></div>
+          <div class="route">02&nbsp;&nbsp; Stay <span>Understand</span></div>
+          <div class="route">03&nbsp;&nbsp; Explore <span>Imagine</span></div>
+          <div class="route">04&nbsp;&nbsp; Heritage <span>Respect</span></div>
+          <div class="route">05&nbsp;&nbsp; Plan <span>Enquire</span></div>
+        </div>
+        <div class="scene-content">
+          <div class="kicker">Mobile-first structure</div>
+          <h2 class="title">Five pages. One considered journey.</h2>
+          <p class="caption">Discover. Understand. Respect. Plan. Enquire.</p>
+        </div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s5" class="scene clip" data-start="27.3" data-duration="7.9" data-track-index="1">
+        <img class="photo dark" src="assets/longhouse-interior.jpg" alt="Authentic supplied longhouse interior photograph" />
+        <div class="fact-grid">
+          <article class="fact-card"><div class="meta" style="color:#1e6454">Stay</div><h2>RM50 / RM180</h2><p>Accommodation-only or accommodation with local meals, per person per night.</p></article>
+          <article class="fact-card"><div class="meta" style="color:#1e6454">Transfer</div><h2>RM1,500</h2><p>Miri–Long Taa–Miri 4WD transfer, maximum three guests per vehicle.</p></article>
+          <article class="fact-card accent"><div class="meta">Conditions</div><h2>Visible, not buried.</h2><p>Activities depend on weather, road, river, water-level, availability and safety conditions.</p></article>
+        </div>
+        <div class="scene-content"><p class="caption">Clear rates. No invented package prices. Conditions stay visible.</p></div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s6" class="scene clip" data-start="35.2" data-duration="7.8" data-track-index="1">
+        <img class="photo dark road" src="assets/road.jpg" alt="Authentic supplied road journey photograph" />
+        <div class="phone">
+          <div class="phone-head">Your journey starts with a conversation.</div>
+          <div class="phone-line">Name</div><div class="phone-line">Preferred date</div><div class="phone-line">Guests &amp; nights</div><div class="phone-line">Stay &amp; experience</div>
+          <div class="whatsapp">Generate WhatsApp enquiry</div>
+        </div>
+        <div class="scene-content"><p class="caption">Plan it simply. Enquire on WhatsApp.</p></div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s7" class="scene clip" data-start="43" data-duration="7.7" data-track-index="1">
+        <img class="photo dark" src="assets/river-vertical.jpg" alt="Authentic supplied Long Taa river photograph" />
+        <div class="pitch-grid">
+          <article class="pitch-card"><strong>The need</strong><span>Reduce discovery and planning friction.</span></article>
+          <article class="pitch-card"><strong>The build</strong><span>Five useful routes and a qualified enquiry path.</span></article>
+          <article class="pitch-card"><strong>The value</strong><span>Community-led, respectful travel positioning.</span></article>
+        </div>
+        <div class="scene-content"><div class="kicker">One story across every deliverable</div><h2 class="title">Community-led. Clear. Respectful.</h2><p class="caption">The pitch and site tell one story: community-led value, clear planning, respectful travel.</p></div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s8" class="scene clip" data-start="50.7" data-duration="5.5" data-track-index="1">
+        <img class="photo dark" src="assets/transfer.jpg" alt="Authentic supplied Long Taa transfer photograph" />
+        <div class="qa-grid">
+          <div class="qa"><strong>360</strong><span>narrow phone QA</span></div>
+          <div class="qa"><strong>375</strong><span>mobile reading QA</span></div>
+          <div class="qa"><strong>390</strong><span>reference layout</span></div>
+          <div class="qa"><strong>430</strong><span>larger phone QA</span></div>
+        </div>
+        <div class="scene-content"><div class="kicker">Quality gate</div><h2 class="title">Phone first, every next step clear.</h2><p class="caption">Built for the phone first.</p></div>
+        <div class="grain"></div>
+      </section>
+
+      <section id="s9" class="scene clip" data-start="56.2" data-duration="3.3" data-track-index="1">
+        <img class="photo dark river" src="assets/river.jpg" alt="Authentic supplied Dapui River photograph" />
+        <div class="logo-card"><img src="assets/logo.png" alt="Long Taa logo" /></div>
+        <div class="scene-content closing"><div class="kicker">Long Taa Borneo Eco Stay</div><h2 class="title">Escape the city. Experience the real Borneo.</h2><div class="url">longtaaborneo.vercel.app</div><p class="caption">Escape the city. Experience the real Borneo.</p></div>
+        <div class="grain"></div>
+      </section>
+
+      <div id="w1" class="wipe clip" data-start="4.9" data-duration="0.5" data-track-index="2"></div>
+      <div id="w2" class="wipe clip" data-start="11.5" data-duration="0.5" data-track-index="2"></div>
+      <div id="w3" class="wipe clip" data-start="18.3" data-duration="0.5" data-track-index="2"></div>
+      <div id="w4" class="wipe clip" data-start="26.8" data-duration="0.5" data-track-index="2"></div>
+      <div id="w5" class="wipe clip" data-start="34.7" data-duration="0.5" data-track-index="2"></div>
+      <div id="w6" class="wipe clip" data-start="42.5" data-duration="0.5" data-track-index="2"></div>
+      <div id="w7" class="wipe clip" data-start="50.2" data-duration="0.5" data-track-index="2"></div>
+      <div id="w8" class="wipe clip" data-start="55.7" data-duration="0.5" data-track-index="2"></div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const scenes = [
+          ["#s1", 0], ["#s2", 5.4], ["#s3", 12], ["#s4", 18.8], ["#s5", 27.3], ["#s6", 35.2], ["#s7", 43], ["#s8", 50.7], ["#s9", 56.2]
+        ];
+        const fromIfPresent = (selector, vars, at) => {
+          if (document.querySelector(selector)) tl.from(selector, vars, at);
+        };
+        scenes.forEach(([id, at], i) => {
+          fromIfPresent(`${id} .photo`, { scale: i % 2 ? 1.12 : 1.07, opacity: 0, duration: i === 8 ? 0.42 : 0.72, ease: i % 2 ? "sine.out" : "power3.out" }, at + 0.12);
+          fromIfPresent(`${id} .kicker`, { x: i % 2 ? -48 : 48, opacity: 0, duration: 0.38, ease: "expo.out" }, at + 0.28);
+          fromIfPresent(`${id} .meta`, { x: i % 2 ? -48 : 48, opacity: 0, duration: 0.38, ease: "expo.out" }, at + 0.28);
+          fromIfPresent(`${id} .title, ${id} h2`, { y: 65, opacity: 0, duration: 0.6, ease: "power4.out" }, at + 0.43);
+          fromIfPresent(`${id} .body`, { y: 34, opacity: 0, duration: 0.46, ease: "back.out(1.25)" }, at + 0.72);
+          fromIfPresent(`${id} .caption`, { y: 34, opacity: 0, duration: 0.46, ease: "back.out(1.25)" }, at + 0.72);
+          fromIfPresent(`${id} .logo-card, ${id} .source-card, ${id} .route, ${id} .fact-card, ${id} .phone, ${id} .pitch-card, ${id} .qa`, { scale: 0.88, y: 45, opacity: 0, duration: 0.55, stagger: 0.08, ease: "elastic.out(0.7, 0.5)" }, at + 0.24);
+        });
+        for (let i = 1; i <= 8; i += 1) {
+          const at = [4.9, 11.5, 18.3, 26.8, 34.7, 42.5, 50.2, 55.7][i - 1];
+          tl.fromTo(`#w${i}`, { y: 1920 }, { y: -1920, duration: 0.5, ease: "power3.inOut" }, at);
+        }
+        tl.to("#s9 .scene-content, #s9 .logo-card", { opacity: 0, duration: 0.35, ease: "power2.in" }, 59.1);
+        window.__timelines["longtaa-process"] = tl;
+      </script>
+    </main>
+  </body>
+</html>

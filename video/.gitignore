@@ -1,0 +1,7 @@
+_build/
+renders/
+preview/
+*.log
+source/narration.wav
+source/ambient-bed.wav
+hyperframes/assets/*.wav
