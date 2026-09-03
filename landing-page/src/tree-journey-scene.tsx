@@ -499,17 +499,57 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     const hornbillPosition = new THREE.Vector3();
     const hornbillTarget = new THREE.Vector3();
     const hornbillArrival = new THREE.Vector3(3.5, 4.05, -8.2);
-    const hornbillPointAt = (pathProgress: number, target: THREE.Vector3) => {
-      const pathT = THREE.MathUtils.clamp(pathProgress, 0, 1);
-      const angle = 0.65 - pathT * Math.PI * 2.25;
-      const radius = THREE.MathUtils.lerp(10.5, 6.2, pathT);
-      target.set(
-        Math.sin(angle) * radius,
-        THREE.MathUtils.lerp(26.58, 4.8, pathT) + Math.sin(pathT * Math.PI * 4) * 0.35,
-        Math.cos(angle) * radius,
+    const hornbillKeyTimes = [0.075, 0.15, 0.34, 0.41, 0.5, 0.59, 0.67, 0.82];
+    const hornbillPathPoints = hornbillKeyTimes.map(() => new THREE.Vector3());
+    const hornbillPath = new THREE.CatmullRomCurve3(hornbillPathPoints, false, "catmullrom", 0.42);
+    const keyCameraPosition = new THREE.Vector3();
+    const keyFocusPosition = new THREE.Vector3();
+    const keyViewDirection = new THREE.Vector3();
+    const keyRightDirection = new THREE.Vector3();
+    const keyWorldUp = new THREE.Vector3(0, 1, 0);
+    const placeHornbillKey = (
+      index: number,
+      journeyProgress: number,
+      screenX: number,
+      screenY: number,
+      depthScale: number,
+    ) => {
+      cameraCurve.getPoint(journeyProgress, keyCameraPosition);
+      if (compactLayout && journeyProgress < 0.78) {
+        keyCameraPosition.x += journeyProgress < 0.5 ? 1.35 : -1.05;
+      }
+      targetCurve.getPoint(journeyProgress, keyFocusPosition);
+      keyViewDirection.copy(keyFocusPosition).sub(keyCameraPosition).normalize();
+      keyRightDirection.crossVectors(keyViewDirection, keyWorldUp).normalize();
+      const depth = keyCameraPosition.distanceTo(keyFocusPosition) * depthScale;
+      const halfHeight = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5)) * depth;
+      const halfWidth = halfHeight * camera.aspect;
+      hornbillPathPoints[index]
+        .copy(keyCameraPosition)
+        .addScaledVector(keyViewDirection, depth)
+        .addScaledVector(keyRightDirection, screenX * halfWidth)
+        .addScaledVector(keyWorldUp, screenY * halfHeight);
+    };
+    const rebuildHornbillPath = () => {
+      hornbillPathPoints[0].copy(hornbillPerchPosition);
+      placeHornbillKey(1, 0.15, -0.62, 0.08, 0.5);
+      placeHornbillKey(2, 0.34, 0.62, -0.56, 0.58);
+      placeHornbillKey(3, 0.41, 0.06, -0.12, 1.16);
+      placeHornbillKey(4, 0.5, -0.64, -0.44, 0.58);
+      placeHornbillKey(5, 0.59, 0.04, -0.08, 0.52);
+      placeHornbillKey(6, 0.67, 0.36, 0.34, 0.58);
+      hornbillPathPoints[7].copy(hornbillArrival);
+    };
+    const hornbillPointAt = (journeyProgress: number, target: THREE.Vector3) => {
+      const t = THREE.MathUtils.clamp(journeyProgress, hornbillKeyTimes[0], hornbillKeyTimes.at(-1)!);
+      let segment = 0;
+      while (segment < hornbillKeyTimes.length - 2 && t > hornbillKeyTimes[segment + 1]) segment += 1;
+      const segmentProgress = THREE.MathUtils.inverseLerp(
+        hornbillKeyTimes[segment],
+        hornbillKeyTimes[segment + 1],
+        t,
       );
-      target.lerp(hornbillArrival, THREE.MathUtils.smoothstep(pathT, 0.8, 1));
-      return target;
+      return hornbillPath.getPoint((segment + segmentProgress) / (hornbillKeyTimes.length - 1), target);
     };
 
     const resize = () => {
@@ -517,6 +557,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       const height = canvas.clientHeight;
       camera.aspect = width / Math.max(height, 1);
       camera.updateProjectionMatrix();
+      rebuildHornbillPath();
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, compactLayout ? 1.2 : 1.5));
       renderer.setSize(width, height, false);
     };
@@ -541,19 +582,17 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       });
       canopy.rotation.y = currentProgress * 0.055;
       const takeoffAt = 0.075;
-      const hornbillLinear = THREE.MathUtils.clamp((t - takeoffAt) / (0.84 - takeoffAt), 0, 1);
-      const hornbillT = 1 - Math.pow(1 - hornbillLinear, 1.18);
       const isFlying = t > takeoffAt && t < 0.855;
       if (isFlying) {
-        hornbillPointAt(hornbillT, hornbillPosition);
-        hornbillPointAt(Math.min(1, hornbillT + 0.012), hornbillTarget);
+        hornbillPointAt(t, hornbillPosition);
+        hornbillPointAt(Math.min(0.82, t + 0.004), hornbillTarget);
         hornbill.position.copy(hornbillPosition);
         hornbill.lookAt(hornbillTarget);
       } else if (t <= takeoffAt) {
         hornbill.position.copy(hornbillPerchPosition);
         hornbill.rotation.set(0.03, -Math.PI / 2, -0.04);
       }
-      const flap = Math.sin(performance.now() * 0.012 + hornbillT * 24);
+      const flap = Math.sin(performance.now() * 0.012 + t * 24);
       leftWing.rotation.z = isFlying ? 0.15 + flap * 0.72 : 0.16;
       rightWing.rotation.z = isFlying ? -0.15 - flap * 0.72 : -0.16;
       wingMeshes.forEach((wing) => {
