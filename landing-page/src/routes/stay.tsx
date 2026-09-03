@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 
-import { makeWhatsAppUrl } from "../content";
+import { asset, makeWhatsAppUrl } from "../content";
 
 export const Route = createFileRoute("/stay")({
   component: StayPage,
@@ -21,10 +21,10 @@ function StayPage() {
   const estimateMessage = `Hello Long Taa, I would like to check availability for ${guests} guest${guests === 1 ? "" : "s"}, ${nights} night${nights === 1 ? "" : "s"}, with ${stayType === "meals" ? "accommodation + local meals" : "accommodation only"}${transfer ? `, ${groupUnits} 4WD vehicle${groupUnits === 1 ? "" : "s"}` : ""}${longboat ? `, and ${groupUnits} longboat group${groupUnits === 1 ? "" : "s"} with local guide + porter` : ""}. My planning estimate is RM${total.toLocaleString()}. Please confirm what is available.`;
   return (
     <main>
-      <section className="page-hero stay-hero">
-        <p className="eyebrow">Stay & experiences</p>
-        <h1>Stay in a Sebup longhouse. Experience everyday Long Taa.</h1>
-        <p className="lead">Simple, basic longhouse accommodation for travellers who value a real community stay over conventional hotel tourism.</p>
+      <section className="page-hero photo-page-hero stay-hero">
+        <img className="page-hero-image" src={asset("journal/eco-03.webp")} width="637" height="478" alt="A Long Taa longhouse with palms and open sky" />
+        <div className="page-hero-shade" />
+        <div className="page-hero-content"><p className="eyebrow">Stay & experiences</p><h1>Stay in a Sebup longhouse. Experience everyday Long Taa.</h1><p className="lead">Simple, basic longhouse accommodation for travellers who value a real community stay over conventional hotel tourism.</p></div>
       </section>
       <section className="content-section rate-section" aria-labelledby="stay-options">
         <p className="section-label">Stay choices</p>
@@ -39,6 +39,7 @@ function StayPage() {
         </div>
         <p className="capacity-note">No minimum guest number. Maximum three guests per 4WD vehicle and per longboat. Larger groups need additional vehicles and longboats, subject to availability.</p>
       </section>
+      <section className="content-section stay-photo-spread"><img src={asset("journal/eco-07.webp")} width="1194" height="672" loading="lazy" alt="A gathering in the Long Taa longhouse" /><div><p className="section-label">Simple, welcoming, real</p><h2>Stay close to everyday village life.</h2><p>Long Taa is not a conventional hotel. Guests stay within a working longhouse community, with fresh mountain-sourced water, 24-hour solar electricity and telecommunications connectivity.</p><p>The pace is quieter, and local guidance shapes the experience.</p></div></section>
       <section className="content-section experience-section">
         <p className="section-label">Choose your experience</p>
         <div className="experience-grid">

@@ -56,6 +56,15 @@ function HomePage() {
           </article>
         </div>
       </section>
+      <section className="content-section visual-index" aria-labelledby="ways-title">
+        <div className="gallery-heading"><div><p className="section-label">Four ways to meet Long Taa</p><h2 id="ways-title">The journey is part of the story.</h2></div><p>From longhouse life to river days, every visit is shaped by the place and the people who welcome you.</p></div>
+        <div className="visual-index-grid">
+          <article><img src={asset("journal/eco-03.webp")} width="637" height="478" loading="lazy" alt="A Long Taa longhouse with palms and open sky" /><div><span>Stay</span><h3>Longhouse living</h3></div></article>
+          <article><img src={asset("journal/eco-14.webp")} width="434" height="579" loading="lazy" alt="A longboat journey on the Dapui River" /><div><span>River</span><h3>Move with the water</h3></div></article>
+          <article><img src={asset("journal/eco-13.webp")} width="554" height="739" loading="lazy" alt="A visitor walking through the rainforest" /><div><span>Forest</span><h3>Walk beyond the road</h3></div></article>
+          <article><img src={asset("journal/eco-07.webp")} width="1194" height="672" loading="lazy" alt="A gathering in the Long Taa longhouse" /><div><span>Heritage</span><h3>Listen and learn</h3></div></article>
+        </div>
+      </section>
       <section className="image-statement content-section split-feature">
         <img src={asset("longhouse.webp")} width="801" height="451" loading="lazy" alt="Long Taa longhouse in its green surroundings" />
         <div>

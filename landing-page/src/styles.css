@@ -21,3 +21,36 @@ h1, h2, h3, p { margin-top: 0; } h1, h2, h3 { font-family: "Iowan Old Style", Ba
 .site-footer { display: grid; gap: 1.5rem; padding: 3rem 1.25rem; background: var(--forest-deep); color: var(--cream); }.site-footer strong { font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: 1.5rem; }.site-footer p { margin: .3rem 0 0; color: rgb(241 234 220 / 72%); }.site-footer .footer-note { max-width: 27rem; font-size: .85rem; }.footer-links { display: grid; gap: .6rem; width: fit-content; }.footer-links a { color: var(--moss); font-size: .87rem; }.footer-links .footer-cta { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: .6rem .9rem; border-radius: 999px; background: var(--cream); color: var(--forest-deep); font-weight: 800; text-decoration: none; }.site-footer small { color: rgb(241 234 220 / 58%); }.mobile-booking-bar { display: none; }
 :focus-visible { outline: 3px solid var(--earth); outline-offset: 3px; } @media (min-width: 700px) { .site-header { grid-template-columns: auto 1fr auto; gap: 1.25rem; padding: .7rem clamp(1.5rem, 4vw, 4rem); }.menu-button { display: none; } nav { display: flex; justify-content: center; gap: clamp(.6rem, 1.7vw, 1.3rem); }.nav-link { min-height: 44px; padding: .5rem 0; border-bottom: 2px solid transparent; font-size: .78rem; white-space: nowrap; }.nav-link:hover, .nav-link.is-active { border-color: var(--earth); color: var(--ink); }.mobile-menu-cta, .mobile-booking-bar { display: none; }.hero-content, .content-section, .page-hero { padding-right: clamp(2rem, 8vw, 9rem); padding-left: clamp(2rem, 8vw, 9rem); }.hero-content { padding-bottom: clamp(3rem, 8vw, 7rem); }.split-feature { grid-template-columns: minmax(0, 1.1fr) minmax(15rem, .9fr); align-items: center; }.split-feature img { min-height: 32rem; }.pillars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }.pillars article { min-height: 18rem; padding: 1.5rem; border-right: 1px solid var(--line); border-bottom: 0; }.pillars article:last-child { border-right: 0; }.option-grid, .experience-grid, .values-grid, .condition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.estimator-section { grid-template-columns: minmax(0, .9fr) minmax(22rem, 1.1fr); align-items: start; }.inclusion-section, .feature-copy, .journey-facts, .booking-section, .respect-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }.conservation-panel { grid-template-columns: minmax(16rem, .55fr) minmax(0, 1fr); align-items: stretch; }.conservation-panel img { height: 100%; min-height: 28rem; }.wonders-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }.wonders-grid article { min-height: 15rem; padding: 1.3rem; border-right: 1px solid var(--line); border-bottom: 0; }.wonders-grid article:last-child { border-right: 0; }.gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }.gallery-card { min-height: 15rem; }.gallery-card:hover img { transform: scale(1.04); }.story-section { grid-template-columns: minmax(0, 1.1fr) minmax(16rem, .9fr); align-items: center; }.story-section img { min-height: 30rem; }.facts div { display: grid; grid-template-columns: minmax(10rem, .7fr) 1.3fr; gap: 1rem; }.facts dt { margin: 0; }.site-footer { grid-template-columns: 1fr auto; padding: 3.5rem clamp(2rem, 8vw, 9rem); }.site-footer small { grid-column: 1 / -1; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; }.gallery-card img { transition: none; } }
+
+.photo-page-hero { position: relative; overflow: hidden; color: var(--cream); background: var(--forest-deep); }
+.page-hero-image, .page-hero-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+.page-hero-image { object-fit: cover; object-position: center; }
+.page-hero-shade { background: linear-gradient(180deg, rgb(6 22 15 / 22%) 12%, rgb(6 22 15 / 88%) 100%); }
+.page-hero-content { position: relative; z-index: 1; }
+.photo-page-hero .eyebrow { color: var(--moss); }
+.photo-page-hero .lead { color: rgb(241 234 220 / 86%); }
+.visual-index { background: var(--paper); }
+.visual-index-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+.visual-index-grid article { position: relative; min-height: 14rem; overflow: hidden; background: var(--forest); color: var(--cream); }
+.visual-index-grid img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.visual-index-grid article::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, transparent 35%, rgb(6 22 15 / 88%) 100%); }
+.visual-index-grid div { position: absolute; z-index: 1; right: .9rem; bottom: .8rem; left: .9rem; }
+.visual-index-grid span { display: block; margin-bottom: .25rem; color: var(--moss); font-size: .62rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.visual-index-grid h3 { margin: 0; font-size: 1.35rem; }
+.stay-photo-spread { display: grid; gap: 1.5rem; background: #dce6cc; }
+.stay-photo-spread img { width: 100%; min-height: 20rem; object-fit: cover; }
+.stay-photo-spread p:not(.section-label) { max-width: 32rem; color: rgb(23 32 27 / 76%); }
+.field-journal-grid .gallery-card { min-height: 0; aspect-ratio: 1 / 1; }
+.heritage-image-pair { display: grid; gap: .65rem; padding-top: 0; background: var(--paper); }
+.heritage-image-pair img { width: 100%; min-height: 16rem; object-fit: cover; }
+.journey-photo { width: 100%; min-height: 15rem; margin-top: .75rem; object-fit: cover; }
+@media (min-width: 700px) {
+  .photo-page-hero { min-height: 72svh; }
+  .visual-index-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .visual-index-grid article { min-height: 24rem; }
+  .stay-photo-spread { grid-template-columns: minmax(0, 1.05fr) minmax(18rem, .95fr); align-items: center; }
+  .stay-photo-spread img { height: 100%; min-height: 28rem; }
+  .field-journal-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .heritage-image-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 0; padding-bottom: 0; }
+  .heritage-image-pair img { min-height: 27rem; }
+}
