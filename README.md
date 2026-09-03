@@ -2,6 +2,8 @@
 
 This repository is organised around the three hackathon deliverables.
 
+For an autonomous Zo Computer continuation, start with [`ZO_COMPUTER_HANDOFF.md`](./ZO_COMPUTER_HANDOFF.md).
+
 ## Folder Structure
 
 | Folder | Purpose |
