@@ -35,7 +35,7 @@ Only the primary coordinator commits, pushes, deploys shared output, updates sha
 
 ## Repository Safety
 
-- Work in `/Users/sayyid/Documents/github/borneoecostay`.
+- Work in `/Users/sayyid/Documents/github/longtaaborneo`.
 - Read all relevant files under `docs/` before drafting or building.
 - Preserve original `.docx` files and Markdown conversions.
 - Preserve unrelated existing changes.
@@ -49,6 +49,7 @@ Read these first:
 
 - `docs/execution-plan.md`
 - `docs/website-requirements-document.md`
+- `docs/website-requirements-answers.md`
 - `docs/judging-criteria.md`
 - `docs/submission-list.md`
 - `docs/resource-materials.md`
@@ -228,9 +229,9 @@ Use reference materials selectively:
 
 ### Ownership
 
-`website_builder` owns website application code, website tests, optimized web media, and deployment preparation. It must not edit presentation or video project files.
+`website_builder` owns all website application code, tests, optimized web media, and deployment preparation under `landing-page/`. It must not edit `presentation/` or `video/`.
 
-If no website app exists, default to a static-first **React + TypeScript + Vite** build. Use five real routes with React Router or an equally robust routing solution. Keep architecture small and deployment-friendly. If a better existing stack is discovered, preserve it and explain the choice.
+An existing Vercel-ready **TanStack Start + TanStack Router + React + TypeScript + Vite** app is provided under `landing-page/`. Preserve this stack and its package manager. Build the five real routes using TanStack Router file-based routing. Keep architecture small, server-rendered, and deployment-friendly. Preserve the Nitro Vite plugin required for Vercel. The Vercel project root must remain `landing-page/`.
 
 ### Required Routes
 
@@ -316,9 +317,13 @@ Estimator rules:
 
 ### Website Deployment
 
-- Deploy early to an available HTTPS host, then redeploy final output.
+- Run all website package commands from `landing-page/`.
+- Ensure `npm run check` and `npm run build` pass.
+- Deploy early to Vercel from the `landing-page/` root directory, then redeploy final output.
+- Confirm the Vercel framework preset is `tanstack-start`.
+- Verify the generated deployment URL serves `/` successfully.
 - `longtaaborneo.com` had no resolvable A or CNAME DNS record during research on 2026-09-03. Do not block on custom-domain configuration.
-- Prefer an authenticated deployment path already available in the environment. Use a generated public URL if necessary.
+- Use the generated Vercel URL unless custom-domain access is already configured and verified.
 - Verify the URL in a logged-out/no-login context.
 - Verify direct route loads, not only client-side navigation.
 - Record deployment steps in README.
@@ -327,7 +332,7 @@ Estimator rules:
 
 ### Ownership
 
-`pitch_builder` owns files under `deliverables/presentation/`. It must not edit website or video project files.
+`pitch_builder` owns all source files and exports under `presentation/`. It must not edit `landing-page/` or `video/`. The coordinator alone may copy the approved PDF into `landing-page/public/submission/presentation.pdf` for public hosting.
 
 Create:
 
@@ -372,13 +377,13 @@ Keep to 7–8 slides:
 
 ### Pitch URL
 
-After deck QA, produce a public no-login URL. Preferred low-friction fallback: place the exported PDF in website public assets and submit its deployed direct URL. If Google Slides or another approved public deck host is available, upload and verify access. Never return an unverified or permission-gated link.
+After deck QA, produce a public no-login URL. Preferred low-friction fallback: copy the approved exported PDF to `landing-page/public/submission/presentation.pdf` and verify `/submission/presentation.pdf` on the Vercel deployment. If Google Slides or another approved public deck host is available, upload and verify access. Never return an unverified or permission-gated link.
 
 ## Workstream 3: One-Minute Process Video
 
 ### Ownership
 
-`video_builder` owns files under `videos/long-taa-process/` and final exports under `deliverables/video/`. It must not edit website or presentation source files.
+`video_builder` owns all source files and exports under `video/`. It must not edit `landing-page/` or `presentation/`. The coordinator alone may copy the approved MP4 into `landing-page/public/submission/process-video.mp4` for public hosting.
 
 Create a TikTok-native process film, not a slow corporate slideshow.
 
@@ -420,7 +425,7 @@ Introduce proposition within first three seconds and deliver strong hook within 
 
 ### Video URL
 
-Produce final upload-ready MP4. If submission expects URL, place compressed MP4 in website public assets or another approved public host and verify direct no-login playback/download. If portal expects direct upload, keep the same verified MP4 ready.
+Produce the final upload-ready MP4 under `video/exports/`. If submission expects a URL, copy the approved compressed MP4 to `landing-page/public/submission/process-video.mp4` and verify `/submission/process-video.mp4` on the Vercel deployment. If the portal expects direct upload, keep the same verified MP4 ready.
 
 ## Coordinator Responsibilities
 
@@ -433,7 +438,7 @@ While subagents work:
 5. Track unresolved dependencies without blocking independent work.
 6. Review each subagent's output; send precise fixes and request another pass when needed.
 7. Integrate final website screenshots into pitch and video.
-8. Place final deck PDF and process MP4 under public website assets when URL submission needs them.
+8. Copy the final deck PDF and process MP4 into `landing-page/public/submission/` when URL submission needs them.
 9. Deploy final website and verify all three public links.
 10. Update `docs/submission-list.md` with verified final URLs or explicit blockers.
 11. Add a concise root README covering local run, build, test, and deployment.

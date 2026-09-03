@@ -2,6 +2,14 @@
 
 **Deadline:** Submit by **1:55 PM**. The date was not shown in the supplied screenshot and must be confirmed separately.
 
+## Repository Workspaces
+
+- Website application and Vercel root: `landing-page/`
+- Process-video source and exports: `video/`
+- Pitch-deck source and exports: `presentation/`
+- Optional public presentation URL path: `/submission/presentation.pdf`
+- Optional public process-video URL path: `/submission/process-video.mp4`
+
 - [ ] **3-minute pitch URL**
   - Submit a public presentation-deck URL or pitch-video URL.
   - Check that judges can open it without requesting access.

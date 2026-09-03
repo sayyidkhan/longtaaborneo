@@ -1,5 +1,12 @@
 # Long Taa Borneo Eco Stay — Submission Execution Plan
 
+## Submission Workspace
+
+- Build and deploy the website from `landing-page/` using Vercel with `landing-page` configured as the project root.
+- Keep process-video source and final exports under `video/`.
+- Keep pitch-deck source and final exports under `presentation/`.
+- Copy the approved final PDF and MP4 into `landing-page/public/submission/` only when public Vercel URLs are needed for submission.
+
 ## Verified Deliverables
 
 The supplied submission screenshot confirms three deliverables:
