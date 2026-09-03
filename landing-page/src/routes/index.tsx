@@ -24,6 +24,7 @@ const stageLabels = [
 function HomePage() {
   const [progress, setProgress] = useState(0);
   const [sceneReady, setSceneReady] = useState(false);
+  const [thresholdReady, setThresholdReady] = useState(false);
   const [thresholdVideoDuration, setThresholdVideoDuration] = useState(0);
   const [invitationPhase, setInvitationPhase] = useState<"idle" | "visible" | "complete">("idle");
   const thresholdVideoRef = useRef<HTMLVideoElement>(null);
@@ -64,7 +65,7 @@ function HomePage() {
 
     // The hornbill finishes entering the 3D doorway at 0.855. Start the film
     // afterward so its arrival remains visible before the real-world handoff.
-    const scrubStart = 0.87;
+    const scrubStart = 0.86;
     const scrubEnd = INVITATION_PROGRESS;
     const scrubProgress = Math.min(1, Math.max(0, (progress - scrubStart) / (scrubEnd - scrubStart)));
     const targetTime = scrubProgress * Math.max(0, thresholdVideoDuration - 0.04);
@@ -101,14 +102,18 @@ function HomePage() {
   }, [invitationPhase, progress]);
 
   const stageClass = (index: number) => `tree-story${activeStage === index ? " is-active" : ""}`;
-  const thresholdVideoOpacity = Math.min(1, Math.max(0, (progress - 0.86) / 0.04));
+  const thresholdVideoOpacity = thresholdReady ? Math.min(1, Math.max(0, (progress - 0.855) / 0.04)) : 0;
   const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.94) / 0.035));
 
   return (
     <main className={`tree-home${sceneReady ? " is-ready" : ""}`}>
       <div className="tree-world" aria-hidden="true">
         <img className="tree-world-fallback" src={asset("forest-canopy.webp")} alt="" />
-        <TreeJourneyScene progress={progress} onReady={() => setSceneReady(true)} />
+        <TreeJourneyScene
+          progress={progress}
+          onReady={() => setSceneReady(true)}
+          onThresholdReady={setThresholdReady}
+        />
         <video
           ref={thresholdVideoRef}
           className="tree-threshold-video"

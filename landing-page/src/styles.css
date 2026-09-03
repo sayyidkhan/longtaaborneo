@@ -81,7 +81,7 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
 .tree-world-canvas { display: block; opacity: 0; transition: opacity .8s cubic-bezier(.22, 1, .36, 1); }
 .tree-home.is-ready .tree-world-canvas { opacity: 1; }
 .tree-world-canvas[data-failed="true"] { display: none; }
-.tree-threshold-video { z-index: 1; display: block; object-fit: cover; object-position: center; background: var(--tree-night); filter: saturate(.88) contrast(1.03) brightness(.9); pointer-events: none; will-change: opacity; }
+.tree-threshold-video { z-index: 1; display: block; object-fit: cover; object-position: center; background: var(--tree-night); filter: saturate(.88) contrast(1.03) brightness(.9); pointer-events: none; transition: opacity .9s cubic-bezier(.22, 1, .36, 1); will-change: opacity; }
 .tree-world-vignette { z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgb(3 14 9 / 78%) 0%, transparent 47%, rgb(3 14 9 / 28%) 100%), linear-gradient(180deg, rgb(3 14 9 / 22%), transparent 42%, rgb(3 14 9 / 56%)); }
 .tree-scroll-track { height: 1150svh; }
 

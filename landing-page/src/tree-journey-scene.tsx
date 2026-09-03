@@ -5,6 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 type TreeJourneySceneProps = {
   progress: number;
   onReady: () => void;
+  onThresholdReady: (ready: boolean) => void;
 };
 
 const MODEL_ROOT = "/models/kenney";
@@ -299,10 +300,11 @@ function makeLonghouse(scene: THREE.Scene) {
   return house;
 }
 
-export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
+export function TreeJourneyScene({ progress, onReady, onThresholdReady }: TreeJourneySceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef(progress);
   const onReadyRef = useRef(onReady);
+  const onThresholdReadyRef = useRef(onThresholdReady);
 
   useEffect(() => {
     progressRef.current = progress;
@@ -313,12 +315,17 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
   }, [onReady]);
 
   useEffect(() => {
+    onThresholdReadyRef.current = onThresholdReady;
+  }, [onThresholdReady]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     let frame = 0;
     let disposed = false;
     let currentProgress = 0;
+    let thresholdReady = false;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const compactLayout = window.matchMedia("(max-width: 899px)").matches;
     const scene = new THREE.Scene();
@@ -355,7 +362,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
 
     const world = new THREE.Group();
     scene.add(world);
-    const bark = new THREE.MeshStandardMaterial({ color: 0x4c301d, roughness: 0.96 });
+    const bark = new THREE.MeshStandardMaterial({ color: 0x684326, roughness: 0.96 });
     const rootMaterial = new THREE.MeshStandardMaterial({ color: 0x322216, roughness: 1 });
     const markerMaterial = new THREE.MeshStandardMaterial({
       color: 0xb8e04d,
@@ -365,6 +372,17 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     });
     const markers: THREE.Mesh[] = [];
     const hornbillPerchPosition = new THREE.Vector3(6.35, 26.58, 8.35);
+
+    // A continuous tapered spine keeps every branch visually rooted in one
+    // protagonist tree, including close side angles through the canopy.
+    const lowerTrunk = new THREE.Vector3(0.18, 10.5, 0.08);
+    const middleTrunk = new THREE.Vector3(-0.12, 20.5, 0.18);
+    const crownTrunk = new THREE.Vector3(0.16, 29.6, 0.32);
+    makeLimb(world, new THREE.Vector3(0, 0, 0), lowerTrunk, 1.55, 1.08, bark);
+    makeLimb(world, lowerTrunk, middleTrunk, 1.08, 0.65, bark);
+    makeLimb(world, middleTrunk, crownTrunk, 0.65, 0.22, bark);
+    makeLimb(world, new THREE.Vector3(0, 26.8, 0.28), new THREE.Vector3(-3.2, 29.3, 0.55), 0.34, 0.09, bark);
+    makeLimb(world, new THREE.Vector3(0.08, 27.2, 0.3), new THREE.Vector3(3.15, 29, -0.35), 0.32, 0.08, bark);
 
     // A front-facing crown branch gives the hornbill a believable physical starting point.
     const perchElbow = new THREE.Vector3(3.7, 25.55, 6.1);
@@ -395,6 +413,10 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
 
     const canopyAnchors = [
       new THREE.Vector3(0, 26.5, 0),
+      new THREE.Vector3(-0.2, 23, 0.15),
+      new THREE.Vector3(0.25, 19, -0.1),
+      new THREE.Vector3(-0.2, 15.2, 0.25),
+      new THREE.Vector3(0.2, 11.3, 0.1),
       new THREE.Vector3(-4.4, 25.3, 0.8),
       new THREE.Vector3(4.6, 25, -0.5),
       new THREE.Vector3(-7.2, 22.6, 1.7),
@@ -403,7 +425,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       new THREE.Vector3(5.9, 14.2, 0),
       new THREE.Vector3(-5.2, 10.2, 1.1),
     ];
-    const leafCount = compactLayout ? 104 : 168;
+    const leafCount = compactLayout ? 144 : 220;
     const leafGeometry = new THREE.IcosahedronGeometry(0.72, 1);
     // Instance colors are multiplied by the base material, so keep the base neutral
     // to preserve the intended light/dark canopy variation.
@@ -666,8 +688,13 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       frame = window.requestAnimationFrame(render);
       currentProgress = reducedMotion
         ? progressRef.current
-        : THREE.MathUtils.lerp(currentProgress, progressRef.current, 0.065);
+        : THREE.MathUtils.lerp(currentProgress, progressRef.current, progressRef.current > 0.78 ? 0.14 : 0.065);
       const t = THREE.MathUtils.clamp(currentProgress, 0, 1);
+      const nextThresholdReady = t >= 0.855;
+      if (nextThresholdReady !== thresholdReady) {
+        thresholdReady = nextThresholdReady;
+        onThresholdReadyRef.current(thresholdReady);
+      }
       camera.position.copy(cameraCurve.getPoint(t));
       if (compactLayout && t < 0.78) camera.position.x += t < 0.5 ? 1.35 : -1.05;
       camera.lookAt(targetCurve.getPoint(t));
@@ -720,6 +747,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
 
     return () => {
       disposed = true;
+      onThresholdReadyRef.current(false);
       window.cancelAnimationFrame(frame);
       observer.disconnect();
       scene.traverse((object) => {
