@@ -465,12 +465,13 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
 
     const cameraCurve = new THREE.CatmullRomCurve3(
       [
-        new THREE.Vector3(0, 30, 30),
-        new THREE.Vector3(7.5, 25.1, 26),
-        new THREE.Vector3(-7.5, 20.3, 24),
-        new THREE.Vector3(7.4, 15.2, 22),
-        new THREE.Vector3(-6.8, 10.2, 20),
-        new THREE.Vector3(5.2, 5.4, 18),
+        // A 1.25× camera distance makes the protagonist tree read 20% smaller on screen.
+        new THREE.Vector3(0, 31.5, 37.5),
+        new THREE.Vector3(9.375, 26.125, 32.5),
+        new THREE.Vector3(-9.375, 21.125, 30),
+        new THREE.Vector3(9.25, 15.75, 27.5),
+        new THREE.Vector3(-8.5, 10.75, 25),
+        new THREE.Vector3(6, 5.84, 22),
         new THREE.Vector3(3.5, 7, 17),
         new THREE.Vector3(3.5, 4.2, 7),
         new THREE.Vector3(3.5, 3.25, -4.9),
