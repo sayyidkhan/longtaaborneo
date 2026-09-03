@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Long Taa Borneo Eco Stay, a community-led Sebup longhouse experience in Ulu Tinjar, Baram, Sarawak.">
+  <title>Long Taa Borneo Eco Stay — JungleMind concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night: #06100d;
+      --night-soft: #0c1b16;
+      --canopy: #163c2b;
+      --leaf: #b8f04a;
+      --river: #65dcca;
+      --sun: #ffb347;
+      --mist: #eff6e7;
+      --muted: #a7b6aa;
+      --ink: #101713;
+      --paper: #f3f3e8;
+      --line: rgba(239, 246, 231, .18);
+      --pad: clamp(1.25rem, 4vw, 4.5rem);
+      --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+      --body: "Manrope", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--night); }
+    body { margin: 0; overflow-x: hidden; background: var(--night); color: var(--mist); font-family: var(--body); line-height: 1.6; }
+    body.menu-open { overflow: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-underline-offset: .25em; }
+    button { color: inherit; font: inherit; }
+    ::selection { background: var(--leaf); color: var(--night); }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--night); }
+    ::-webkit-scrollbar-thumb { border: 2px solid var(--night); border-radius: 999px; background: var(--canopy); }
+    :focus-visible { outline: 3px solid var(--sun); outline-offset: 4px; }
+
+    .skip-link { position: fixed; z-index: 100; top: .75rem; left: .75rem; padding: .7rem 1rem; transform: translateY(-160%); background: var(--leaf); color: var(--night); font-weight: 800; text-decoration: none; }
+    .skip-link:focus { transform: none; }
+    .shell { width: min(1480px, 100%); margin-inline: auto; padding-inline: var(--pad); }
+    .section { position: relative; padding-block: clamp(5.5rem, 11vw, 10rem); }
+    .display { font-family: var(--display); letter-spacing: -.035em; line-height: .92; }
+    .measure { max-width: 69ch; }
+    .micro { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .rule { height: 1px; background: currentColor; opacity: .18; }
+
+    .site-header { position: fixed; z-index: 50; top: 0; left: 0; width: 100%; border-bottom: 1px solid transparent; transition: background .25s ease, border-color .25s ease; }
+    .site-header.scrolled { border-color: var(--line); background: rgba(6, 16, 13, .9); backdrop-filter: blur(14px); }
+    .nav-wrap { min-height: 84px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem; }
+    .brand { display: inline-flex; align-items: center; gap: .75rem; width: max-content; color: var(--mist); font-family: var(--display); font-size: .9rem; font-weight: 800; line-height: 1.05; text-decoration: none; }
+    .brand img { width: 38px; height: 54px; object-fit: contain; filter: invert(1); mix-blend-mode: screen; }
+    .brand span { max-width: 8.5rem; }
+    .desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(1.2rem, 3vw, 2.7rem); }
+    .desktop-nav a { position: relative; padding-block: .7rem; color: var(--muted); font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+    .desktop-nav a::after { position: absolute; right: 50%; bottom: .35rem; left: 50%; height: 1px; content: ""; background: var(--leaf); transition: right .2s ease, left .2s ease; }
+    .desktop-nav a:hover, .desktop-nav a[aria-current="true"] { color: var(--mist); }
+    .desktop-nav a:hover::after, .desktop-nav a[aria-current="true"]::after { right: 0; left: 0; }
+    .nav-cta, .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .75rem 1.05rem; border: 1px solid var(--leaf); background: var(--leaf); color: var(--night); font-size: .78rem; font-weight: 800; letter-spacing: .07em; text-decoration: none; text-transform: uppercase; transition: transform .2s ease, background .2s ease, color .2s ease; }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); background: transparent; color: var(--leaf); }
+    .button svg { width: 18px; }
+    .menu-toggle { display: none; width: 48px; height: 48px; padding: 0; border: 1px solid var(--line); background: transparent; }
+    .menu-toggle span, .menu-toggle::before, .menu-toggle::after { width: 20px; height: 1px; display: block; margin: 5px auto; content: ""; background: var(--mist); transition: transform .2s ease; }
+    .menu-toggle[aria-expanded="true"] span { opacity: 0; }
+    .menu-toggle[aria-expanded="true"]::before { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"]::after { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-nav { display: none; }
+
+    .hero { position: relative; min-height: 100svh; display: flex; align-items: end; isolation: isolate; overflow: hidden; background: var(--night); }
+    .hero-photo { position: absolute; z-index: -4; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.85) contrast(1.08); transform: scale(1.04); }
+    .hero-wash { position: absolute; z-index: -3; inset: 0; background: linear-gradient(90deg, rgba(6, 16, 13, .98) 0%, rgba(6, 16, 13, .73) 45%, rgba(6, 16, 13, .18) 77%), linear-gradient(0deg, rgba(6, 16, 13, .94), transparent 48%); }
+    #fieldCanvas { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; opacity: .58; pointer-events: none; }
+    .hero-grid { min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(240px, .5fr); gap: clamp(2rem, 6vw, 7rem); align-items: end; padding-top: 9rem; padding-bottom: clamp(2.5rem, 6vw, 5rem); }
+    .hero-copy { min-width: 0; max-width: 880px; }
+    .hero h1 { max-width: 10ch; margin: 0; font-size: clamp(4.2rem, 10vw, 9.25rem); font-weight: 650; }
+    .hero h1 em { display: block; color: var(--leaf); font-style: normal; }
+    .hero-intro { max-width: 53ch; margin: 1.8rem 0 2rem; color: #d2ded4; font-size: clamp(1rem, 1.6vw, 1.22rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+    .quiet-link { color: var(--mist); font-size: .82rem; font-weight: 700; text-decoration-color: var(--river); text-decoration-thickness: 2px; }
+    .hero-aside { align-self: end; border-top: 1px solid var(--leaf); padding-top: 1.15rem; }
+    .hero-aside p { margin: 0 0 1.5rem; color: #d2ded4; font-size: .92rem; }
+    .hero-aside strong { display: block; margin-bottom: .35rem; color: var(--leaf); font-family: var(--display); font-size: clamp(1.55rem, 2.3vw, 2.3rem); font-weight: 650; line-height: 1; }
+    .scroll-mark { position: absolute; right: var(--pad); bottom: 1rem; display: flex; align-items: center; gap: .7rem; color: var(--muted); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .scroll-mark::after { width: 1px; height: 52px; content: ""; background: linear-gradient(var(--leaf), transparent); }
+
+    .signal-strip { border-block: 1px solid var(--line); background: var(--leaf); color: var(--night); }
+    .signal-strip .shell { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; overflow: hidden; }
+    .signal-strip p { margin: 0; white-space: nowrap; }
+    .signal-strip .dots { display: flex; gap: .65rem; }
+    .signal-strip .dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--night); }
+
+    .path-section { background: var(--paper); color: var(--ink); }
+    .path-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .72fr); gap: 2rem 5rem; align-items: end; margin-bottom: clamp(3rem, 7vw, 6rem); }
+    .path-head h2 { max-width: 11ch; margin: 0; font-size: clamp(3.2rem, 7vw, 6rem); font-weight: 620; }
+    .path-head p { margin: 0; color: #46534a; font-size: 1.05rem; }
+    .field-lens { display: grid; grid-template-columns: minmax(160px, .34fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); }
+    .lens-controls { display: flex; flex-direction: column; align-items: stretch; }
+    .lens-button { position: relative; min-height: 76px; padding: 1rem 2.5rem 1rem 0; border: 0; border-bottom: 1px solid rgba(16, 23, 19, .2); background: transparent; color: #5e6a62; font-family: var(--display); font-size: clamp(1.15rem, 2vw, 1.7rem); font-weight: 600; text-align: left; cursor: pointer; }
+    .lens-button::after { position: absolute; right: .25rem; top: 50%; width: 11px; height: 11px; border: 1px solid currentColor; border-radius: 50%; content: ""; transform: translateY(-50%); }
+    .lens-button[aria-selected="true"] { color: var(--ink); }
+    .lens-button[aria-selected="true"]::after { border-color: var(--canopy); background: var(--leaf); }
+    .lens-stage { position: relative; min-height: min(68vw, 650px); overflow: hidden; background: var(--canopy); }
+    .lens-stage img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; transition: opacity .45s ease, transform .8s cubic-bezier(.16, 1, .3, 1); }
+    .lens-stage.changing img { opacity: .3; transform: scale(1.03); }
+    .lens-overlay { position: absolute; inset: auto 0 0; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; padding: clamp(1.25rem, 4vw, 3rem); background: linear-gradient(transparent, rgba(6, 16, 13, .94)); color: var(--mist); }
+    .lens-overlay h3 { margin: 0 0 .6rem; font-size: clamp(2rem, 4.5vw, 4.5rem); font-weight: 620; }
+    .lens-overlay p { max-width: 46ch; margin: 0; color: #d6e1d8; }
+    .lens-index { color: var(--leaf); font-variant-numeric: tabular-nums; }
+
+    .community { background: var(--night-soft); }
+    .community-grid { display: grid; grid-template-columns: minmax(0, .86fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 8rem); align-items: center; }
+    .community-photo { position: relative; min-height: 650px; }
+    .community-photo img { width: 88%; height: 88%; position: absolute; left: 0; bottom: 0; object-fit: cover; }
+    .community-photo::before { position: absolute; top: 0; right: 0; width: 62%; height: 54%; content: ""; border: 1px solid var(--river); }
+    .community-photo span { position: absolute; z-index: 2; right: 0; bottom: 4%; width: 46%; padding: 1.1rem; background: var(--leaf); color: var(--night); font-size: .8rem; font-weight: 700; line-height: 1.45; }
+    .community-copy h2 { max-width: 10ch; margin: 0 0 2rem; font-size: clamp(3.1rem, 6vw, 6rem); font-weight: 620; }
+    .community-copy > p { max-width: 59ch; color: #bdc9c0; font-size: 1.03rem; }
+    .principle { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+    .principle strong { color: var(--leaf); font-family: var(--display); font-size: 1.2rem; }
+    .principle span { color: var(--muted); font-size: .86rem; }
+
+    .experiences { overflow: hidden; background: var(--canopy); }
+    .experiences h2 { max-width: 10ch; margin: 0 0 clamp(3rem, 7vw, 6rem); font-size: clamp(3.4rem, 8vw, 7.5rem); font-weight: 620; }
+    .experience-row { display: grid; grid-template-columns: .38fr 1fr .65fr; gap: 2rem; align-items: center; min-height: 156px; padding-block: 1.5rem; border-top: 1px solid rgba(239, 246, 231, .24); }
+    .experience-row:last-child { border-bottom: 1px solid rgba(239, 246, 231, .24); }
+    .experience-row h3 { margin: 0; font-family: var(--display); font-size: clamp(1.8rem, 4vw, 3.7rem); font-weight: 580; line-height: 1; }
+    .experience-row p { max-width: 48ch; margin: 0; color: #c4d1c8; }
+    .experience-row img { width: 100%; height: 108px; object-fit: cover; filter: saturate(.7); transition: filter .25s ease, transform .35s ease; }
+    .experience-row:hover img { filter: saturate(1.1); transform: scale(1.025); }
+    .experience-row .availability { color: var(--leaf); }
+
+    .rates { background: var(--paper); color: var(--ink); }
+    .rates-head { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; margin-bottom: 4rem; }
+    .rates-head h2 { max-width: 10ch; margin: 0; font-size: clamp(3.4rem, 7vw, 6.7rem); font-weight: 620; }
+    .rates-head p { max-width: 55ch; margin: 0; color: #49564d; }
+    .rate-list { border-top: 2px solid var(--ink); }
+    .rate-item { display: grid; grid-template-columns: minmax(170px, .7fr) minmax(210px, .72fr) 1fr; gap: 2rem; align-items: center; padding-block: clamp(1.5rem, 3vw, 2.5rem); border-bottom: 1px solid rgba(16, 23, 19, .25); }
+    .rate-item h3 { margin: 0; font-family: var(--display); font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.1; }
+    .price { color: var(--canopy); font-family: var(--display); font-size: clamp(2.6rem, 5vw, 5rem); font-weight: 750; letter-spacing: -.035em; line-height: .95; font-variant-numeric: tabular-nums; }
+    .price small { display: block; margin-top: .35rem; color: #566158; font-family: var(--body); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .rate-item p { margin: 0; color: #4b574f; }
+    .rate-note { display: grid; grid-template-columns: auto 1fr; gap: 1rem; margin-top: 2rem; padding-top: 1.25rem; }
+    .rate-note svg { width: 24px; color: var(--canopy); }
+    .rate-note p { max-width: 72ch; margin: 0; color: #4b574f; }
+
+    .plan { overflow: hidden; background: var(--night); }
+    .plan::before { position: absolute; inset: 0; content: ""; background: linear-gradient(120deg, transparent 40%, rgba(101, 220, 202, .08)); pointer-events: none; }
+    .plan-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .76fr); gap: clamp(3rem, 8vw, 9rem); }
+    .plan h2 { max-width: 9ch; margin: 0 0 2rem; font-size: clamp(3.5rem, 8vw, 7.2rem); font-weight: 620; }
+    .plan-lead { max-width: 55ch; margin: 0 0 2.2rem; color: #bfccc2; }
+    .condition-list { border-top: 1px solid var(--line); }
+    .condition { display: grid; grid-template-columns: 130px 1fr; gap: 1.5rem; padding-block: 1.15rem; border-bottom: 1px solid var(--line); }
+    .condition strong { color: var(--river); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; }
+    .condition span { color: #c8d3ca; font-size: .92rem; }
+    .enquiry-panel { position: sticky; top: 120px; align-self: start; padding: clamp(1.5rem, 3vw, 2.5rem); border: 1px solid rgba(184, 240, 74, .4); background: #0d2119; box-shadow: 0 22px 46px rgba(0, 0, 0, .28); }
+    .enquiry-panel h3 { margin: 0 0 1rem; font-family: var(--display); font-size: clamp(2rem, 4vw, 3.7rem); line-height: .98; }
+    .enquiry-panel p { margin: 0 0 2rem; color: #bac8bd; }
+    .enquiry-panel .button { width: 100%; }
+    .enquiry-panel small { display: block; margin-top: 1.1rem; color: var(--muted); font-size: .75rem; }
+
+    footer { padding-block: 2.5rem; border-top: 1px solid var(--line); background: var(--night); }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; }
+    footer strong { display: block; font-family: var(--display); font-size: 1.2rem; }
+    footer p { max-width: 56ch; margin: .45rem 0 0; color: var(--muted); font-size: .82rem; }
+    footer a { color: var(--leaf); font-size: .8rem; font-weight: 700; }
+    .progress { position: fixed; z-index: 60; top: 0; left: 0; width: 100%; height: 2px; transform: scaleX(0); transform-origin: left; background: var(--leaf); pointer-events: none; }
+
+    @media (max-width: 900px) {
+      .desktop-nav, .nav-cta { display: none; }
+      .nav-wrap { grid-template-columns: 1fr auto; }
+      .menu-toggle { display: block; }
+      .mobile-nav { position: fixed; z-index: 45; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; padding: 7rem var(--pad) 3rem; visibility: hidden; opacity: 0; background: var(--night); transition: opacity .25s ease, visibility .25s ease; }
+      .mobile-nav.open { visibility: visible; opacity: 1; }
+      .mobile-nav a { border-bottom: 1px solid var(--line); padding-block: .7rem; font-family: var(--display); font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1; text-decoration: none; }
+      .mobile-nav .mobile-cta { margin-top: 1rem; border: 0; background: var(--leaf); color: var(--night); font-family: var(--body); font-size: .8rem; text-align: center; }
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+      .hero-aside { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .path-head, .community-grid, .rates-head, .plan-grid { grid-template-columns: 1fr; }
+      .field-lens { grid-template-columns: 1fr; }
+      .lens-controls { flex-direction: row; overflow-x: auto; scrollbar-width: thin; }
+      .lens-button { min-width: max-content; min-height: 54px; padding: .7rem 2rem .7rem 0; margin-right: 1.2rem; }
+      .lens-stage { min-height: 68vw; }
+      .community-photo { min-height: 580px; }
+      .experience-row { grid-template-columns: .7fr 1fr; }
+      .experience-row p { grid-column: 1 / -1; }
+      .rate-item { grid-template-columns: .7fr 1fr; }
+      .rate-item p { grid-column: 1 / -1; }
+      .enquiry-panel { position: relative; top: auto; }
+    }
+
+    @media (max-width: 620px) {
+      .site-header .nav-wrap { min-height: 70px; }
+      .brand img { width: 30px; height: 43px; }
+      .hero-grid { align-content: end; padding-top: 7.5rem; }
+      .hero h1 { max-width: 100%; font-size: clamp(3rem, 13vw, 4rem); }
+      .hero-wash { background: linear-gradient(0deg, rgba(6, 16, 13, .98) 0%, rgba(6, 16, 13, .7) 62%, rgba(6, 16, 13, .38)); }
+      .hero-actions .button { width: 100%; }
+      .hero-aside { grid-template-columns: 1fr; margin-right: 2rem; }
+      .scroll-mark { display: none; }
+      .signal-strip .dots { display: none; }
+      .signal-strip p { white-space: normal; font-size: .64rem; }
+      .path-head h2, .community-copy h2, .experiences h2, .rates-head h2, .plan h2 { font-size: clamp(3rem, 15vw, 4.7rem); }
+      .lens-stage { min-height: 510px; }
+      .lens-overlay { grid-template-columns: 1fr; gap: 1rem; }
+      .lens-index { display: none; }
+      .community-photo { min-height: 450px; }
+      .community-photo img { width: 94%; height: 88%; }
+      .community-photo span { width: 65%; }
+      .principle { grid-template-columns: 1fr; }
+      .experience-row { grid-template-columns: 1fr; gap: 1rem; }
+      .experience-row p { grid-column: auto; }
+      .experience-row img { height: 180px; }
+      .rate-item { grid-template-columns: 1fr; gap: .8rem; }
+      .rate-item p { grid-column: auto; }
+      .rate-note { grid-template-columns: 1fr; }
+      .condition { grid-template-columns: 1fr; gap: .35rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      #fieldCanvas { display: none; }
+      .hero-photo { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- impeccable-direction-contract
+  THESIS: Long Taa is entered as a living landscape, not consumed as a resort; the page refuses the usual centered eco-lodge hero and card stack.
+  OWN-WORLD: Midnight rainforest, electric young-leaf green, river cyan, documentary photography, fine contour lines, exposed editorial rows, and precise field-note typography.
+  STORY: Feel the scale of the forest, understand the Sebup community context, inspect real experiences and rates, then begin a qualified WhatsApp enquiry.
+  FIRST VIEWPORT: A full-height canopy rises behind an asymmetric monumental headline, responsive contour field, compact journey facts, and a leaf-green enquiry action above the fold.
+  FORM: User-pinned seed key USER-PINNED:JUNGLEMIND; intelligent-organic field interface, code-led, with the responsive canopy lens as its signature interaction.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="#top" aria-label="Long Taa Borneo Eco Stay, back to top">
+        <img src="../landing-page/public/images/long-taa-dapui-logo.png" alt="">
+        <span>Long Taa<br>Borneo Eco Stay</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#context">Context</a>
+        <a href="#experiences">Experience</a>
+        <a href="#rates">Rates</a>
+        <a href="#plan">Plan</a>
+      </nav>
+      <a class="nav-cta" href="https://wa.me/60198563536?text=Hello%20Long%20Taa%2C%20I%27d%20like%20to%20check%20availability%20for%20a%20visit." target="_blank" rel="noopener">Check availability</a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span></button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="#context">Context</a>
+    <a href="#experiences">Experience</a>
+    <a href="#rates">Rates</a>
+    <a href="#plan">Plan</a>
+    <a class="mobile-cta" href="https://wa.me/60198563536?text=Hello%20Long%20Taa%2C%20I%27d%20like%20to%20check%20availability%20for%20a%20visit." target="_blank" rel="noopener">Check availability on WhatsApp</a>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <img class="hero-photo" src="../landing-page/public/images/forest-canopy.webp" alt="Looking up through the rainforest canopy at Long Taa">
+      <div class="hero-wash" aria-hidden="true"></div>
+      <canvas id="fieldCanvas" aria-hidden="true"></canvas>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <h1 class="display" id="hero-title">The forest is not the backdrop. <em>It is the way in.</em></h1>
+          <p class="hero-intro">Stay within a living Sebup longhouse community beside the Dapui River—approximately six hours by 4WD from Miri, deep in Ulu Tinjar, Baram.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://wa.me/60198563536?text=Hello%20Long%20Taa%2C%20I%27d%20like%20to%20check%20availability%20for%20a%20visit." target="_blank" rel="noopener">
+              Start an enquiry
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="quiet-link" href="#context">Enter the landscape</a>
+          </div>
+        </div>
+        <aside class="hero-aside" aria-label="Key facts">
+          <p><strong>Living village</strong>20-door Sebup longhouse, not a purpose-built resort.</p>
+          <p><strong>Connected, remotely</strong>Solar electricity, mountain-sourced water and telecommunications.</p>
+        </aside>
+      </div>
+      <div class="scroll-mark" aria-hidden="true">Follow the river</div>
+    </section>
+
+    <div class="signal-strip" aria-label="Long Taa experience pillars">
+      <div class="shell">
+        <p class="micro">Nature · Culture · Adventure · Living Heritage</p>
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <p class="micro">Long Taa, Dapui · Sarawak</p>
+      </div>
+    </div>
+
+    <section class="section path-section" id="context" aria-labelledby="path-title">
+      <div class="shell">
+        <div class="path-head">
+          <h2 class="display" id="path-title">One place. Four ways to meet it.</h2>
+          <p>Long Taa brings river, rainforest, community life and conservation together within one ancestral landscape. Choose a field to look through—the place stays connected.</p>
+        </div>
+        <div class="field-lens">
+          <div class="lens-controls" role="tablist" aria-label="Explore Long Taa">
+            <button class="lens-button" id="tab-river" type="button" role="tab" aria-selected="true" aria-controls="lens-panel" data-image="river-walk.webp" data-title="Move with the river" data-copy="Swim, walk beside the water, or travel by longboat through the Dapui landscape when conditions allow." data-alt="Clear water and rocks along the Dapui River">River</button>
+            <button class="lens-button" id="tab-forest" type="button" role="tab" aria-selected="false" aria-controls="lens-panel" data-image="forest-trail.webp" data-title="Read the forest" data-copy="Follow local routes through tropical rainforest and encounter natural formations beyond conventional visitor trails." data-alt="A narrow trail through the rainforest near Long Taa">Rainforest</button>
+            <button class="lens-button" id="tab-home" type="button" role="tab" aria-selected="false" aria-controls="lens-panel" data-image="longhouse.webp" data-title="Live alongside community" data-copy="Stay simply within a living Sebup village and experience everyday rural life rather than staged tourism." data-alt="The green wooden Long Taa longhouse under a blue sky">Longhouse</button>
+            <button class="lens-button" id="tab-care" type="button" role="tab" aria-selected="false" aria-controls="lens-panel" data-image="fish-conservation.webp" data-title="See care in practice" data-copy="Learn about the community-managed Tagang Fish Conservation Area, subject to river and water-level conditions." data-alt="Fish visible in the community-managed conservation area">Conservation</button>
+          </div>
+          <div class="lens-stage" id="lens-panel" role="tabpanel" aria-labelledby="tab-river" tabindex="0">
+            <img id="lens-image" src="../landing-page/public/images/river-walk.webp" alt="Clear water and rocks along the Dapui River">
+            <div class="lens-overlay">
+              <div>
+                <h3 class="display" id="lens-title">Move with the river</h3>
+                <p id="lens-copy">Swim, walk beside the water, or travel by longboat through the Dapui landscape when conditions allow.</p>
+              </div>
+              <span class="lens-index micro" id="lens-index">Field 01 / 04</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section community" aria-labelledby="community-title">
+      <div class="shell community-grid">
+        <div class="community-photo">
+          <img src="../landing-page/public/images/longhouse.webp" alt="Long Taa's traditional longhouse in its rainforest setting">
+          <span>Come as a visitor.<br>Leave with a story.</span>
+        </div>
+        <div class="community-copy">
+          <h2 class="display" id="community-title">A living village, not a tourist set.</h2>
+          <p>Long Taa Borneo Eco Stay was created to share the natural beauty, Sebup culture and traditional way of life of Long Taa, Dapui while supporting community-based conservation and sustainable rural development.</p>
+          <p>Culture is not placed behind glass here. It remains connected to the people, river, forest and knowledge that sustain it. Visitors enter that context as guests.</p>
+          <div class="principle">
+            <strong>Protect nature.<br>Respect culture.<br>Share heritage.</strong>
+            <span>Follow your hosts and local guides, respect conservation areas and community rules, and ask before photographing people or private spaces.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section experiences" id="experiences" aria-labelledby="experiences-title">
+      <div class="shell">
+        <h2 class="display" id="experiences-title">Borneo beyond the ordinary.</h2>
+        <article class="experience-row">
+          <h3>Dapui River</h3>
+          <p>Traditional longboat journeys, river exploration and swimming in clear water, shaped by local guidance.</p>
+          <img src="../landing-page/public/images/river-walk.webp" alt="Clear water and rocks along the Dapui River">
+        </article>
+        <article class="experience-row">
+          <h3>Forest routes</h3>
+          <p>Jungle trekking and exploration around Acin Salt Spring and distinctive rock formations including Batu Ukat, Batu Nginan, Batu Tatip and Batu Belacek.</p>
+          <img src="../landing-page/public/images/forest-trail.webp" alt="Forest trail leading into dense vegetation">
+        </article>
+        <article class="experience-row">
+          <h3>Longhouse life</h3>
+          <p>Simple accommodation in the longhouse, with the rhythms and hospitality of everyday community life.</p>
+          <img src="../landing-page/public/images/longhouse.webp" alt="Long Taa's green wooden longhouse">
+        </article>
+        <article class="experience-row">
+          <h3>Living heritage</h3>
+          <p>Discover how language, culture, traditional knowledge, river conservation and forest stewardship continue to be practised.</p>
+          <span class="availability micro">All activities depend on local conditions</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section rates" id="rates" aria-labelledby="rates-title">
+      <div class="shell">
+        <div class="rates-head">
+          <h2 class="display" id="rates-title">Clear starting rates. Human planning.</h2>
+          <p>Rates below are those supplied in the Long Taa brochure. Experience pricing depends on your stay, transport, group size and activities; ask for current availability and a confirmed quotation.</p>
+        </div>
+        <div class="rate-list">
+          <article class="rate-item">
+            <h3>Longhouse stay</h3>
+            <div class="price">RM50<small>per person / night</small></div>
+            <p>Accommodation only, with self-cooking facilities. Meals are not included.</p>
+          </article>
+          <article class="rate-item">
+            <h3>Stay + local meals</h3>
+            <div class="price">RM180<small>per person / night</small></div>
+            <p>Accommodation, breakfast, lunch and a local dinner.</p>
+          </article>
+          <article class="rate-item">
+            <h3>Return 4WD transfer</h3>
+            <div class="price">RM1,500<small>per vehicle</small></div>
+            <p>Miri–Long Taa–Miri. Maximum three guests per vehicle.</p>
+          </article>
+          <article class="rate-item">
+            <h3>Longboat + team</h3>
+            <div class="price">RM600<small>per group</small></div>
+            <p>Longboat, local guide and porter. Maximum three guests per longboat.</p>
+          </article>
+        </div>
+        <div class="rate-note">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.5"/></svg>
+          <p>No minimum number of guests is required. Larger groups may be arranged with additional vehicles and longboats, subject to availability. An enquiry is not a confirmed reservation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section plan" id="plan" aria-labelledby="plan-title">
+      <div class="shell plan-grid">
+        <div>
+          <h2 class="display" id="plan-title">Remote means planning together.</h2>
+          <p class="plan-lead">Long Taa is approximately six hours from Miri by 4WD. The final route, pickup details, accommodation, transport and activities are arranged directly with the local team.</p>
+          <div class="condition-list">
+            <div class="condition"><strong>Advance booking</strong><span>Required for accommodation, meals, 4WD transport, longboats, local guides and porters.</span></div>
+            <div class="condition"><strong>Conditions</strong><span>Activities are subject to weather, river, water level, road and safety conditions.</span></div>
+            <div class="condition"><strong>Changes</strong><span>Activities may be changed, postponed or replaced when local conditions are considered unsafe.</span></div>
+            <div class="condition"><strong>What to expect</strong><span>Simple, basic accommodation in a living village—not conventional hotel or luxury-resort tourism.</span></div>
+          </div>
+        </div>
+        <aside class="enquiry-panel">
+          <h3>Ask the people who know the place.</h3>
+          <p>Tell Clement your preferred dates, group size, stay option, activity interests and whether you need transport from Miri.</p>
+          <a class="button" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20enquire%20about%20Long%20Taa.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANumber%20of%20nights%3A%20%0AStay%20option%3A%20%0AExperience%20interest%3A%20%0ATransport%20from%20Miri%3A%20%0AQuestions%3A%20" target="_blank" rel="noopener">
+            Send booking enquiry
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <small>WhatsApp: +60 19-856 3536 · Availability and final arrangements are confirmed in conversation.</small>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div>
+        <strong>Long Taa Borneo Eco Stay</strong>
+        <p>Long Taa, Dapui, Ulu Tinjar, Baram, Sarawak, Malaysia · Escape the city. Experience the real Borneo.</p>
+      </div>
+      <a href="mailto:longtaaborneo@gmail.com">longtaaborneo@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const header = document.querySelector('.site-header');
+      const progress = document.querySelector('.progress');
+      const menuButton = document.querySelector('.menu-toggle');
+      const mobileNav = document.querySelector('.mobile-nav');
+      const navLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+      const sections = [...document.querySelectorAll('main section[id]')];
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const updateScroll = () => {
+        const top = window.scrollY;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        header.classList.toggle('scrolled', top > 24);
+        progress.style.transform = `scaleX(${max > 0 ? top / max : 0})`;
+      };
+      updateScroll();
+      window.addEventListener('scroll', updateScroll, { passive: true });
+
+      menuButton.addEventListener('click', () => {
+        const open = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!open));
+        menuButton.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
+        mobileNav.classList.toggle('open', !open);
+        document.body.classList.toggle('menu-open', !open);
+      });
+
+      navLinks.forEach(link => link.addEventListener('click', () => {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open navigation');
+        mobileNav.classList.remove('open');
+        document.body.classList.remove('menu-open');
+      }));
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach(link => link.toggleAttribute('aria-current', link.getAttribute('href') === `#${entry.target.id}`));
+        });
+      }, { rootMargin: '-35% 0px -58%', threshold: 0 });
+      sections.forEach(section => observer.observe(section));
+
+      const buttons = [...document.querySelectorAll('.lens-button')];
+      const stage = document.querySelector('.lens-stage');
+      const image = document.querySelector('#lens-image');
+      const title = document.querySelector('#lens-title');
+      const copy = document.querySelector('#lens-copy');
+      const index = document.querySelector('#lens-index');
+
+      const selectLens = button => {
+        buttons.forEach(item => item.setAttribute('aria-selected', String(item === button)));
+        stage.setAttribute('aria-labelledby', button.id);
+        stage.classList.add('changing');
+        const commit = () => {
+          image.onload = () => stage.classList.remove('changing');
+          image.src = `../landing-page/public/images/${button.dataset.image}`;
+          image.alt = button.dataset.alt;
+          title.textContent = button.dataset.title;
+          copy.textContent = button.dataset.copy;
+          index.textContent = `Field ${String(buttons.indexOf(button) + 1).padStart(2, '0')} / 04`;
+          if (image.complete) stage.classList.remove('changing');
+        };
+        reduceMotion ? commit() : window.setTimeout(commit, 180);
+      };
+
+      buttons.forEach((button, buttonIndex) => {
+        button.addEventListener('click', () => selectLens(button));
+        button.addEventListener('keydown', event => {
+          if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
+          event.preventDefault();
+          const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1;
+          const next = buttons[(buttonIndex + direction + buttons.length) % buttons.length];
+          next.focus();
+          selectLens(next);
+        });
+      });
+
+      if (!reduceMotion) {
+        const canvas = document.querySelector('#fieldCanvas');
+        const context = canvas.getContext('2d');
+        let width = 0;
+        let height = 0;
+        let frame = 0;
+        let pointer = { x: .72, y: .34 };
+
+        const resize = () => {
+          const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+          width = canvas.clientWidth;
+          height = canvas.clientHeight;
+          canvas.width = width * ratio;
+          canvas.height = height * ratio;
+          context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        };
+
+        const draw = time => {
+          context.clearRect(0, 0, width, height);
+          context.lineWidth = 1;
+          for (let band = 0; band < 15; band += 1) {
+            context.beginPath();
+            const baseY = height * (.14 + band * .057);
+            for (let x = 0; x <= width + 16; x += 16) {
+              const distance = Math.abs(x / width - pointer.x);
+              const influence = Math.max(0, 1 - distance * 3.4);
+              const wave = Math.sin(x * .009 + time * .00028 + band * .62) * (8 + band * .7);
+              const bend = influence * (pointer.y * height - baseY) * .075;
+              const y = baseY + wave + bend;
+              x === 0 ? context.moveTo(x, y) : context.lineTo(x, y);
+            }
+            context.strokeStyle = band % 4 === 0 ? 'rgba(184,240,74,.34)' : 'rgba(239,246,231,.14)';
+            context.stroke();
+          }
+          frame = requestAnimationFrame(draw);
+        };
+
+        canvas.closest('.hero').addEventListener('pointermove', event => {
+          const bounds = canvas.getBoundingClientRect();
+          pointer = { x: (event.clientX - bounds.left) / bounds.width, y: (event.clientY - bounds.top) / bounds.height };
+        }, { passive: true });
+        window.addEventListener('resize', resize, { passive: true });
+        window.addEventListener('pagehide', () => cancelAnimationFrame(frame));
+        resize();
+        frame = requestAnimationFrame(draw);
+      }
+    })();
+  </script>
+</body>
+</html>

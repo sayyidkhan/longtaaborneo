@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  useRouterState,
 } from "@tanstack/react-router";
 
 import { siteRoutes, whatsappUrl } from "../content";
@@ -25,7 +26,9 @@ export const Route = createRootRoute({
           "Nature, culture, adventure, and living heritage in Long Taa, Sarawak.",
       },
     ],
-    links: [{ rel: "stylesheet", href: stylesUrl }],
+    links: [
+      { rel: "stylesheet", href: stylesUrl },
+    ],
   }),
   component: RootComponent,
   notFoundComponent: NotFoundPage,
@@ -33,6 +36,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isHome = useRouterState({ select: (state) => state.location.pathname === "/" });
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
@@ -47,9 +51,14 @@ function RootComponent() {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("tree-experience", isHome);
+    return () => document.body.classList.remove("tree-experience");
+  }, [isHome]);
+
   return (
     <RootDocument>
-      <header className="site-header">
+      <header className={`site-header${isHome ? " tree-site-header" : ""}`}>
         <Link className="brand" to="/" aria-label="Long Taa Borneo Eco Stay homepage">
           <img
             className="brand-mark"
@@ -93,7 +102,7 @@ function RootComponent() {
         </a>
       </header>
       <Outlet />
-      <footer className="site-footer">
+      {!isHome && <footer className="site-footer">
         <div>
           <strong>Long Taa Borneo Eco Stay</strong>
           <p>Nature · Culture · Adventure · Living Heritage</p>
@@ -106,8 +115,8 @@ function RootComponent() {
           <a className="footer-cta" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
         </div>
         <small>© 2026 Long Taa Borneo Eco Stay. All rights reserved.</small>
-      </footer>
-      <a className="mobile-booking-bar" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
+      </footer>}
+      {!isHome && <a className="mobile-booking-bar" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>}
     </RootDocument>
   );
 }

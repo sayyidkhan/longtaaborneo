@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Long Taa Borneo Eco Stay, a community-led Sebup longhouse stay in Ulu Tinjar, Sarawak.">
+  <meta name="theme-color" content="#10130f">
+  <title>Long Taa Borneo Eco Stay — Aethera Studio direction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #11130f;
+      --charcoal: #191b17;
+      --bone: #eeeade;
+      --paper: #f7f4eb;
+      --fern: #b5d334;
+      --moss: #60732a;
+      --rust: #bf5134;
+      --line-dark: rgba(238, 234, 222, .22);
+      --line-light: rgba(17, 19, 15, .2);
+      --sans: "Manrope", "Segoe UI", sans-serif;
+      --display: "Bodoni Moda", "Times New Roman", serif;
+      --pad: clamp(1.1rem, 3vw, 3.75rem);
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body { margin: 0; overflow-x: hidden; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.55; }
+    body.menu-open { overflow: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { color: inherit; font: inherit; }
+    ::selection { background: var(--fern); color: var(--ink); }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { border: 2px solid var(--ink); background: var(--fern); }
+    :focus-visible { outline: 3px solid var(--fern); outline-offset: 4px; }
+
+    .skip-link { position: fixed; z-index: 100; top: .7rem; left: .7rem; padding: .75rem 1rem; background: var(--fern); color: var(--ink); font-weight: 700; transform: translateY(-150%); transition: transform .25s var(--ease); }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header { position: fixed; z-index: 50; top: 0; right: 0; left: 0; height: 5.25rem; display: grid; grid-template-columns: minmax(13rem, 1fr) auto minmax(13rem, 1fr); align-items: center; padding: 0 var(--pad); border-bottom: 1px solid var(--line-dark); color: var(--bone); transition: background .35s ease, color .35s ease; }
+    .site-header.is-scrolled { background: rgba(17, 19, 15, .94); backdrop-filter: blur(12px); }
+    .brand { display: inline-flex; align-items: center; gap: .7rem; width: fit-content; text-decoration: none; }
+    .brand img { width: 2rem; height: 2.9rem; object-fit: contain; }
+    .brand span { display: grid; font-size: .72rem; font-weight: 700; letter-spacing: .08em; line-height: 1.15; text-transform: uppercase; }
+    .brand small { margin-top: .22rem; color: rgba(238, 234, 222, .68); font-size: .54rem; font-weight: 500; letter-spacing: .16em; }
+    .desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(1.15rem, 2.5vw, 2.8rem); }
+    .desktop-nav a { position: relative; padding: .8rem 0; font-size: .66rem; font-weight: 600; letter-spacing: .16em; text-decoration: none; text-transform: uppercase; }
+    .desktop-nav a::after { position: absolute; right: 100%; bottom: .55rem; left: 0; height: 1px; content: ""; background: var(--fern); transition: right .3s var(--ease); }
+    .desktop-nav a:hover::after, .desktop-nav a:focus-visible::after { right: 0; }
+    .header-action { justify-self: end; min-height: 44px; display: inline-flex; align-items: center; gap: .8rem; padding: .65rem 0; font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-decoration: none; text-transform: uppercase; }
+    .header-action svg { width: 1.65rem; transition: transform .3s var(--ease); }
+    .header-action:hover svg { transform: translateX(.35rem); }
+    .menu-toggle, .mobile-nav { display: none; }
+
+    .hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) clamp(15rem, 22vw, 22rem); overflow: hidden; background: var(--ink); color: var(--bone); }
+    .hero-media { position: relative; min-height: 100svh; overflow: hidden; clip-path: inset(0 100% 0 0); animation: curtain 1.35s .1s var(--ease) forwards; }
+    .hero-media::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, rgba(8, 12, 8, .18) 8%, rgba(8, 12, 8, .06) 42%, rgba(8, 12, 8, .84) 100%); }
+    .hero-media img { width: 100%; height: 112%; object-fit: cover; object-position: center; transform: translateY(var(--hero-shift, 0)); will-change: transform; }
+    .hero-title { position: absolute; z-index: 2; bottom: clamp(2rem, 6vh, 5rem); left: var(--pad); width: min(84%, 71rem); margin: 0; font-family: var(--display); font-size: clamp(4.3rem, 10.8vw, 10.7rem); font-weight: 400; letter-spacing: -.04em; line-height: .75; text-wrap: balance; }
+    .hero-title span { display: block; overflow: hidden; }
+    .hero-title i { display: block; font-style: normal; transform: translateY(115%); animation: rise 1.05s .75s var(--ease) forwards; }
+    .hero-title span:nth-child(2) i { margin-left: clamp(1.5rem, 10vw, 10rem); animation-delay: .88s; }
+    .hero-title em { color: var(--fern); font-weight: 400; }
+    .hero-rail { position: relative; z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 7.8rem clamp(1.25rem, 2.5vw, 2.7rem) 3rem; border-left: 1px solid var(--line-dark); background: var(--ink); }
+    .rail-index { position: absolute; top: 7rem; right: clamp(1.25rem, 2.5vw, 2.7rem); color: rgba(238, 234, 222, .6); font-size: .62rem; letter-spacing: .16em; writing-mode: vertical-rl; text-transform: uppercase; }
+    .hero-rail p { margin: 0 0 2rem; color: rgba(238, 234, 222, .76); font-size: clamp(.88rem, 1vw, 1rem); }
+    .rail-location { display: block; margin-bottom: 1rem; color: var(--fern); font-size: .63rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .text-action { min-height: 48px; display: inline-flex; align-items: center; justify-content: space-between; gap: 1.2rem; padding: .9rem 0; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-decoration: none; text-transform: uppercase; transition: color .25s ease, background .3s ease; }
+    .text-action:hover { color: var(--fern); background: rgba(181, 211, 52, .05); }
+    .text-action svg { width: 1.7rem; transition: transform .3s var(--ease); }
+    .text-action:hover svg { transform: translateX(.4rem); }
+    .scroll-note { position: absolute; z-index: 3; right: calc(clamp(15rem, 22vw, 22rem) + var(--pad)); bottom: 2.3rem; display: flex; align-items: center; gap: .65rem; color: rgba(238, 234, 222, .72); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .scroll-note::after { width: 1px; height: 3.5rem; content: ""; background: var(--bone); transform-origin: top; animation: pulse-line 2s ease-in-out infinite; }
+
+    .statement { min-height: 86svh; display: grid; grid-template-columns: minmax(0, .42fr) minmax(0, 1fr); gap: clamp(2rem, 8vw, 9rem); align-items: center; padding: clamp(6rem, 11vw, 11rem) var(--pad); background: var(--bone); }
+    .statement-aside { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; padding-top: .7rem; border-top: 1px solid var(--line-light); }
+    .statement-aside span { max-width: 19rem; font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .statement-aside p { max-width: 21rem; margin: 3rem 0 0; color: rgba(17, 19, 15, .68); font-size: .92rem; }
+    .statement h2 { max-width: 13ch; margin: 0; font-family: var(--display); font-size: clamp(3.25rem, 7.7vw, 7.7rem); font-weight: 400; letter-spacing: -.04em; line-height: .91; }
+    .statement h2 em { color: var(--rust); font-weight: 400; }
+
+    .village { display: grid; grid-template-columns: 42% 1fr; min-height: 100svh; background: var(--charcoal); color: var(--bone); }
+    .village-copy { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(5rem, 9vw, 9rem) var(--pad); border-right: 1px solid var(--line-dark); }
+    .village-copy h2 { max-width: 9ch; margin: 0 0 2.5rem; font-family: var(--display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 400; letter-spacing: -.035em; line-height: .9; }
+    .village-copy > div > p { max-width: 36rem; color: rgba(238, 234, 222, .72); }
+    .truth-line { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; margin-top: 4rem; color: var(--fern); font-size: .67rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .truth-line::before { width: 2.4rem; height: 1px; content: ""; background: currentColor; }
+    .village-photo { position: relative; min-height: 48rem; overflow: hidden; }
+    .village-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.85) contrast(1.03); }
+    .village-photo figcaption { position: absolute; right: 1.25rem; bottom: 1.25rem; padding: .75rem 1rem; background: rgba(17, 19, 15, .88); color: var(--bone); font-size: .61rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    .experience { padding: clamp(6rem, 10vw, 10rem) var(--pad); background: var(--paper); }
+    .experience-head { display: grid; grid-template-columns: 1fr minmax(18rem, .5fr); gap: 2rem; align-items: end; margin-bottom: clamp(3rem, 7vw, 7rem); }
+    .experience h2 { max-width: 11ch; margin: 0; font-family: var(--display); font-size: clamp(3.6rem, 8vw, 8rem); font-weight: 400; letter-spacing: -.04em; line-height: .83; }
+    .experience-intro { max-width: 34rem; justify-self: end; margin: 0; padding-top: 1.1rem; border-top: 1px solid var(--line-light); color: rgba(17, 19, 15, .7); }
+    .story-grid { display: grid; grid-template-columns: 1.15fr .7fr .9fr; grid-template-rows: 20rem 13rem; gap: .8rem; }
+    .story-cell { position: relative; min-width: 0; overflow: hidden; background: var(--ink); color: var(--bone); }
+    .story-cell:first-child { grid-row: 1 / 3; }
+    .story-cell:nth-child(2) { grid-column: 2 / 4; }
+    .story-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease), filter .5s ease; }
+    .story-cell::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, transparent 34%, rgba(8, 10, 8, .82) 100%); }
+    .story-cell:hover img { transform: scale(1.035); filter: saturate(1.06); }
+    .story-cell div { position: absolute; z-index: 2; right: 1.4rem; bottom: 1.25rem; left: 1.4rem; }
+    .story-cell span { color: var(--fern); font-size: .61rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .story-cell h3 { margin: .35rem 0 0; font-family: var(--display); font-size: clamp(1.65rem, 3vw, 3rem); font-weight: 400; line-height: 1; }
+
+    .rates { padding: clamp(6rem, 11vw, 11rem) var(--pad); background: var(--rust); color: var(--bone); }
+    .rates-head { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; margin-bottom: 4rem; }
+    .rates h2 { max-width: 8ch; margin: 0; font-family: var(--display); font-size: clamp(4rem, 9vw, 9rem); font-weight: 400; letter-spacing: -.04em; line-height: .82; }
+    .rates-head p { max-width: 21rem; margin: 0 0 .4rem; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; }
+    .rate-list { margin: 0; border-top: 1px solid rgba(238, 234, 222, .48); }
+    .rate-row { display: grid; grid-template-columns: minmax(12rem, 1fr) minmax(12rem, .75fr) minmax(17rem, .85fr); gap: 2rem; align-items: center; min-height: 9rem; padding: 1.35rem 0; border-bottom: 1px solid rgba(238, 234, 222, .48); }
+    .rate-row dt { font-family: var(--display); font-size: clamp(1.7rem, 3vw, 3rem); line-height: 1; }
+    .rate-row dd { margin: 0; }
+    .price { font-variant-numeric: tabular-nums; font-size: clamp(2.2rem, 4.4vw, 4.7rem); font-weight: 500; letter-spacing: -.04em; line-height: 1; white-space: nowrap; }
+    .price small { font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .rate-note { color: rgba(238, 234, 222, .82); font-size: .84rem; }
+    .rate-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; margin-top: 2rem; color: rgba(238, 234, 222, .82); font-size: .73rem; }
+
+    .journey { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(22rem, .8fr); min-height: 92svh; background: var(--ink); color: var(--bone); }
+    .journey-image { position: relative; min-height: 42rem; overflow: hidden; }
+    .journey-image img { width: 100%; height: 110%; object-fit: cover; transform: translateY(var(--journey-shift, -3%)); will-change: transform; }
+    .journey-image::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, transparent 60%, rgba(17, 19, 15, .38) 100%); }
+    .journey-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(4rem, 8vw, 8rem) var(--pad); border-left: 1px solid var(--line-dark); }
+    .journey-copy h2 { margin: 0 0 2.3rem; font-family: var(--display); font-size: clamp(3.4rem, 6vw, 6.2rem); font-weight: 400; letter-spacing: -.04em; line-height: .88; }
+    .journey-copy > p { max-width: 32rem; margin: 0 0 3rem; color: rgba(238, 234, 222, .72); }
+    .fact-list { margin: 0; }
+    .fact-list div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 1.15rem 0; border-top: 1px solid var(--line-dark); }
+    .fact-list div:last-child { border-bottom: 1px solid var(--line-dark); }
+    .fact-list dt { color: var(--fern); font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .fact-list dd { margin: 0; font-size: .85rem; }
+
+    .conditions { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(3rem, 9vw, 10rem); padding: clamp(6rem, 11vw, 11rem) var(--pad); background: var(--bone); }
+    .conditions h2 { max-width: 9ch; margin: 0; font-family: var(--display); font-size: clamp(3.4rem, 6.8vw, 6.8rem); font-weight: 400; letter-spacing: -.04em; line-height: .89; }
+    .conditions-content { max-width: 48rem; }
+    .conditions-content > p { margin: 0 0 3rem; color: rgba(17, 19, 15, .72); }
+    .condition-item { display: grid; grid-template-columns: 1.7rem 1fr; gap: 1rem; padding: 1.35rem 0; border-top: 1px solid var(--line-light); }
+    .condition-item:last-child { border-bottom: 1px solid var(--line-light); }
+    .condition-item svg { width: 1.35rem; margin-top: .15rem; color: var(--rust); }
+    .condition-item h3 { margin: 0 0 .4rem; font-size: .88rem; letter-spacing: .04em; text-transform: uppercase; }
+    .condition-item p { margin: 0; color: rgba(17, 19, 15, .68); font-size: .88rem; }
+
+    .close { position: relative; min-height: 92svh; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; padding: 6rem var(--pad) 3rem; background: var(--ink); color: var(--bone); }
+    .close-photo { position: absolute; inset: 0; opacity: .46; }
+    .close-photo::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(17, 19, 15, .97) 0%, rgba(17, 19, 15, .78) 46%, rgba(17, 19, 15, .3) 100%); }
+    .close-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .close-content { position: relative; z-index: 2; max-width: 67rem; }
+    .close h2 { margin: 0 0 2rem; font-family: var(--display); font-size: clamp(4rem, 9.5vw, 9.5rem); font-weight: 400; letter-spacing: -.04em; line-height: .82; }
+    .close h2 em { color: var(--fern); font-weight: 400; }
+    .close-content p { max-width: 35rem; margin: 0 0 2.5rem; color: rgba(238, 234, 222, .76); }
+    .close .text-action { width: min(100%, 27rem); }
+    .footer-line { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto auto; gap: 2rem; align-items: end; padding-top: 1.25rem; border-top: 1px solid var(--line-dark); font-size: .62rem; letter-spacing: .11em; text-transform: uppercase; }
+    .footer-line a { text-underline-offset: .3em; }
+
+    [data-reveal] { opacity: 1; transform: none; }
+    .js [data-reveal] { opacity: 0; transform: translateY(2.5rem); transition: opacity .8s ease, transform .9s var(--ease); }
+    .js [data-reveal].is-seen { opacity: 1; transform: none; }
+
+    @keyframes curtain { to { clip-path: inset(0); } }
+    @keyframes rise { to { transform: translateY(0); } }
+    @keyframes pulse-line { 0%, 100% { transform: scaleY(.2); opacity: .35; } 50% { transform: scaleY(1); opacity: 1; } }
+
+    @media (max-width: 900px) {
+      .site-header { height: 4.75rem; grid-template-columns: 1fr auto; }
+      .desktop-nav, .header-action { display: none; }
+      .menu-toggle { justify-self: end; min-width: 48px; min-height: 48px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; }
+      .menu-toggle span, .menu-toggle::before, .menu-toggle::after { width: 1.55rem; height: 1px; content: ""; background: currentColor; transition: transform .3s var(--ease), opacity .2s ease; }
+      .menu-toggle { gap: .32rem; }
+      .menu-toggle[aria-expanded="true"] span { opacity: 0; }
+      .menu-toggle[aria-expanded="true"]::before { transform: translateY(.38rem) rotate(45deg); }
+      .menu-toggle[aria-expanded="true"]::after { transform: translateY(-.38rem) rotate(-45deg); }
+      .mobile-nav { position: fixed; z-index: 45; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: .55rem; padding: 6rem var(--pad) 3rem; background: var(--ink); color: var(--bone); visibility: hidden; opacity: 0; transform: translateY(-1rem); transition: opacity .3s ease, transform .45s var(--ease), visibility .3s; }
+      .mobile-nav.is-open { visibility: visible; opacity: 1; transform: none; }
+      .mobile-nav a { width: fit-content; font-family: var(--display); font-size: clamp(2.7rem, 11vw, 4.5rem); line-height: 1.05; text-decoration: none; }
+      .mobile-nav .mobile-contact { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line-dark); color: var(--fern); font-family: var(--sans); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-media { min-height: 76svh; }
+      .hero-title { bottom: 2rem; width: calc(100% - 2 * var(--pad)); font-size: clamp(4rem, 17vw, 8rem); line-height: .78; }
+      .hero-title span:nth-child(2) i { margin-left: clamp(.5rem, 7vw, 3rem); }
+      .hero-rail { min-height: 24svh; padding: 2rem var(--pad); border-top: 1px solid var(--line-dark); border-left: 0; }
+      .rail-index, .scroll-note { display: none; }
+      .hero-rail p { max-width: 38rem; margin-bottom: 1.2rem; }
+
+      .statement { min-height: auto; grid-template-columns: 1fr; gap: 3rem; }
+      .statement-aside { min-height: 9rem; }
+      .village { grid-template-columns: 1fr; }
+      .village-copy { min-height: 38rem; }
+      .village-photo { min-height: 70svh; }
+      .experience-head { grid-template-columns: 1fr; }
+      .experience-intro { justify-self: start; }
+      .story-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 30rem 17rem 17rem; }
+      .story-cell:first-child { grid-column: 1 / 3; grid-row: auto; }
+      .story-cell:nth-child(2) { grid-column: 1 / 3; }
+      .rate-row { grid-template-columns: 1fr 1fr; }
+      .rate-note { grid-column: 1 / -1; }
+      .journey { grid-template-columns: 1fr; }
+      .journey-image { min-height: 66svh; }
+      .conditions { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .brand span { font-size: .64rem; }
+      .hero-title { font-size: clamp(3.6rem, 19vw, 6.2rem); }
+      .statement h2, .experience h2, .rates h2, .journey-copy h2, .conditions h2, .close h2 { font-size: clamp(3.15rem, 15vw, 5.2rem); }
+      .statement { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+      .village-copy { min-height: auto; padding-top: 5.5rem; padding-bottom: 5.5rem; }
+      .village-photo { min-height: 58svh; margin: 0; }
+      .experience { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+      .story-grid { display: block; }
+      .story-cell { min-height: 24rem; margin-bottom: .7rem; }
+      .rates-head { grid-template-columns: 1fr; }
+      .rate-row { grid-template-columns: 1fr; gap: .7rem; min-height: 0; padding: 1.6rem 0; }
+      .rate-note { grid-column: auto; }
+      .journey-image { min-height: 55svh; }
+      .journey-copy { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+      .fact-list div { grid-template-columns: 5.5rem 1fr; }
+      .conditions { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+      .close { min-height: 88svh; padding-top: 7rem; }
+      .footer-line { grid-template-columns: 1fr; gap: .7rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .hero-media { clip-path: none; }
+      .hero-title i { transform: none; }
+      .js [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    THESIS: Long Taa is presented as a cinematic encounter with a living landscape, rejecting the generic eco-resort hero-and-card stack.
+    OWN-WORLD: Ink black, bone, fern and river-rust; full-bleed documentary photography, Bodoni-scale headlines, fine rules and square editorial controls.
+    STORY: Meet the place, understand the living Sebup village, see how a day can unfold, check real costs and conditions, then begin a human conversation.
+    FIRST VIEWPORT: A river image occupies most of the screen; a dark information rail holds context and the enquiry action while an oversized two-line title crosses the image.
+    FORM: User-pinned direction, Aethera Studio; seed key USER-PINNED-AETHERA-STUDIO-03.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#top" aria-label="Long Taa Borneo Eco Stay, back to top">
+      <img src="../landing-page/public/images/long-taa-dapui-logo.png" width="48" height="70" alt="">
+      <span>Long Taa<small>Borneo Eco Stay</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#village">The village</a>
+      <a href="#experience">Experience</a>
+      <a href="#rates">Rates</a>
+      <a href="#plan">Plan</a>
+    </nav>
+    <a class="header-action" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20check%20availability%20for%20Long%20Taa%20Borneo%20Eco%20Stay." target="_blank" rel="noreferrer">
+      Check availability
+      <svg viewBox="0 0 32 14" fill="none" aria-hidden="true"><path d="M0 7h29M23 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span></button>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="#village">The village</a>
+    <a href="#experience">Experience</a>
+    <a href="#rates">Rates</a>
+    <a href="#plan">Plan</a>
+    <a class="mobile-contact" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20check%20availability%20for%20Long%20Taa%20Borneo%20Eco%20Stay." target="_blank" rel="noreferrer">Start a WhatsApp enquiry →</a>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img src="../landing-page/public/images/river-walk.webp" width="1600" height="900" alt="A calm stretch of the Dapui River framed by dense rainforest">
+        <h1 class="hero-title" id="hero-title"><span><i>Escape the city.</i></span><span><i>Enter <em>Borneo.</em></i></span></h1>
+      </div>
+      <aside class="hero-rail" aria-label="Long Taa introduction">
+        <span class="rail-index">Long Taa · Dapui · Sarawak</span>
+        <div>
+          <span class="rail-location">Approximately 6 hours from Miri</span>
+          <p>A community-led stay in a living Sebup longhouse, where the Dapui River and rainforest shape each visit.</p>
+          <a class="text-action" href="#village">Meet Long Taa <svg viewBox="0 0 32 14" fill="none" aria-hidden="true"><path d="M0 7h29M23 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </aside>
+      <span class="scroll-note" aria-hidden="true">Scroll to enter</span>
+    </section>
+
+    <section class="statement" aria-labelledby="statement-title">
+      <div class="statement-aside" data-reveal>
+        <span>A living village, not a tourist resort</span>
+        <p>Long Taa is a traditional 20-door longhouse and home of the Indigenous Sebup community in Ulu Tinjar, Baram.</p>
+      </div>
+      <h2 id="statement-title" data-reveal>Come for the rainforest. Understand the <em>life within it.</em></h2>
+    </section>
+
+    <section class="village" id="village" aria-labelledby="village-title">
+      <div class="village-copy">
+        <div data-reveal>
+          <h2 id="village-title">Simple living. Deep context.</h2>
+          <p>Stay inside the longhouse and experience everyday rural life rather than conventional hotel tourism. The accommodation is basic; the invitation is to slow down, listen and learn.</p>
+          <p>Guests retain essential conveniences: 24-hour solar electricity, fresh mountain-sourced water and telecommunications connectivity.</p>
+        </div>
+        <div class="truth-line" data-reveal>Protect nature. Respect culture. Share heritage.</div>
+      </div>
+      <figure class="village-photo">
+        <img src="../landing-page/public/images/longhouse.webp" width="1600" height="900" loading="lazy" alt="Long Taa longhouse in a grassy clearing beneath a bright sky">
+        <figcaption>Long Taa, Dapui · A living Sebup village</figcaption>
+      </figure>
+    </section>
+
+    <section class="experience" id="experience" aria-labelledby="experience-title">
+      <div class="experience-head">
+        <h2 id="experience-title" data-reveal>Move at the pace of the place.</h2>
+        <p class="experience-intro" data-reveal>River, rainforest, longhouse life and living heritage meet within one community landscape. Activities are arranged with local guidance and depend on conditions.</p>
+      </div>
+      <div class="story-grid">
+        <article class="story-cell" data-reveal>
+          <img src="../landing-page/public/images/journal/eco-14.webp" width="868" height="1158" loading="lazy" alt="View from a longboat moving along the forest-lined Dapui River">
+          <div><span>Dapui River</span><h3>Travel by longboat</h3></div>
+        </article>
+        <article class="story-cell" data-reveal>
+          <img src="../landing-page/public/images/forest-canopy.webp" width="900" height="1200" loading="lazy" alt="Looking upward along a tall rainforest tree into the canopy">
+          <div><span>Rainforest</span><h3>Walk beyond the road</h3></div>
+        </article>
+        <article class="story-cell" data-reveal>
+          <img src="../landing-page/public/images/dapui-river.webp" width="900" height="1200" loading="lazy" alt="A longboat beside the Dapui River under trees">
+          <div><span>Landscape</span><h3>Follow the water</h3></div>
+        </article>
+        <article class="story-cell" data-reveal>
+          <img src="../landing-page/public/images/journal/eco-03.webp" width="1274" height="956" loading="lazy" alt="The Long Taa longhouse and surrounding palms in afternoon light">
+          <div><span>Living heritage</span><h3>Stay with the story</h3></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="rates" id="rates" aria-labelledby="rates-title">
+      <div class="rates-head">
+        <h2 id="rates-title" data-reveal>Clear costs. Human planning.</h2>
+        <p data-reveal>Published rates from the supplied brochure. Confirm current rates and availability when enquiring.</p>
+      </div>
+      <dl class="rate-list">
+        <div class="rate-row" data-reveal>
+          <dt>Accommodation only</dt>
+          <dd class="price">RM50 <small>person / night</small></dd>
+          <dd class="rate-note">Longhouse accommodation with self-cooking facilities. Meals are not included.</dd>
+        </div>
+        <div class="rate-row" data-reveal>
+          <dt>Stay + local meals</dt>
+          <dd class="price">RM180 <small>person / night</small></dd>
+          <dd class="rate-note">Accommodation, breakfast, lunch and a local dinner.</dd>
+        </div>
+        <div class="rate-row" data-reveal>
+          <dt>Return 4WD transfer</dt>
+          <dd class="price">RM1,500 <small>vehicle</small></dd>
+          <dd class="rate-note">Miri–Long Taa–Miri. Maximum three guests per vehicle.</dd>
+        </div>
+        <div class="rate-row" data-reveal>
+          <dt>Longboat + support</dt>
+          <dd class="price">RM600 <small>group</small></dd>
+          <dd class="rate-note">Longboat, local guide and porter. Maximum three guests per longboat.</dd>
+        </div>
+      </dl>
+      <div class="rate-foot">
+        <span>No minimum guest count.</span>
+        <span>Package totals are quoted after your stay, transport, group size and activities are discussed.</span>
+      </div>
+    </section>
+
+    <section class="journey" aria-labelledby="journey-title">
+      <div class="journey-image">
+        <img src="../landing-page/public/images/journey-road.webp" width="1600" height="900" loading="lazy" alt="A remote road through dense green vegetation on the journey from Miri">
+      </div>
+      <div class="journey-copy" data-reveal>
+        <h2 id="journey-title">The journey is part of the experience.</h2>
+        <p>Leave Miri by 4WD and travel approximately six hours into the Borneo interior. Final transport and arrival instructions are arranged directly with Long Taa.</p>
+        <dl class="fact-list">
+          <div><dt>Start</dt><dd>Miri, Sarawak</dd></div>
+          <div><dt>Destination</dt><dd>Long Taa, Dapui, Ulu Tinjar, Baram</dd></div>
+          <div><dt>Travel</dt><dd>Approximately six hours by 4WD</dd></div>
+          <div><dt>Arrange</dt><dd>Advance booking is required</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="conditions" aria-labelledby="conditions-title">
+      <h2 id="conditions-title" data-reveal>Arrive with the right expectations.</h2>
+      <div class="conditions-content" data-reveal>
+        <p>Remote travel changes with the landscape. Long Taa confirms each visit through a direct conversation so plans can reflect local conditions and capacity.</p>
+        <article class="condition-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.5"/></svg>
+          <div><h3>Conditions shape activities</h3><p>Weather, river, water level, road and safety conditions may change, postpone or replace an activity.</p></div>
+        </article>
+        <article class="condition-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19V8l8-5 8 5v11M8 19v-6h8v6" stroke="currentColor" stroke-width="1.5"/></svg>
+          <div><h3>A home, not a set</h3><p>Visitors are expected to respect Sebup customs, community rules and conservation areas, and to follow host and guide instructions.</p></div>
+        </article>
+        <article class="condition-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <div><h3>An enquiry starts the process</h3><p>Booking is confirmed only after accommodation, transport and local-guide availability have been checked.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="close" id="plan" aria-labelledby="close-title">
+      <div class="close-photo"><img src="../landing-page/public/images/river-swimmer.webp" width="1600" height="900" loading="lazy" alt="A swimmer in the Dapui River surrounded by rainforest"></div>
+      <div class="close-content" data-reveal>
+        <h2 id="close-title">Come as a visitor. Leave with a <em>story.</em></h2>
+        <p>Tell Clement your preferred dates, group size, stay option, experience interests and whether you need transport from Miri.</p>
+        <a class="text-action" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20check%20availability%20for%20Long%20Taa%20Borneo%20Eco%20Stay.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANumber%20of%20nights%3A%20%0AStay%20option%3A%20%0AExperience%20interest%3A%20%0ATransport%20from%20Miri%3A%20" target="_blank" rel="noreferrer">
+          Send a WhatsApp enquiry
+          <svg viewBox="0 0 32 14" fill="none" aria-hidden="true"><path d="M0 7h29M23 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+      </div>
+      <footer class="footer-line">
+        <span>Long Taa Borneo Eco Stay</span>
+        <a href="mailto:longtaaborneo@gmail.com">longtaaborneo@gmail.com</a>
+        <span>Ulu Tinjar · Baram · Sarawak</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    document.documentElement.classList.add('js');
+
+    const header = document.getElementById('site-header');
+    const menuButton = document.querySelector('.menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function setMenu(open) {
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      mobileNav.classList.toggle('is-open', open);
+      document.body.classList.toggle('menu-open', open);
+    }
+
+    menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+    mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
+
+    const revealElements = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window && !reduceMotion.matches) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-seen');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .14, rootMargin: '0px 0px -8% 0px' });
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add('is-seen'));
+    }
+
+    let ticking = false;
+    function updateScrollEffects() {
+      const y = window.scrollY;
+      header.classList.toggle('is-scrolled', y > 24);
+      if (!reduceMotion.matches && window.innerWidth > 900) {
+        document.documentElement.style.setProperty('--hero-shift', `${Math.min(y * .12, 80)}px`);
+        const journey = document.querySelector('.journey');
+        const rect = journey.getBoundingClientRect();
+        const shift = Math.max(-35, Math.min(35, (window.innerHeight - rect.top) * .035 - 22));
+        document.documentElement.style.setProperty('--journey-shift', `${shift}px`);
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollEffects);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateScrollEffects();
+  </script>
+</body>
+</html>

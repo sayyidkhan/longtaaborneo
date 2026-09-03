@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Four exploratory landing-page directions for Long Taa Borneo Eco Stay.">
+  <title>Long Taa — Design Direction Demos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; --bg: #101411; --panel: #182019; --ink: #f2efe5; --muted: #aeb8ac; --line: #344137; --accent: #d9ef70; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Chivo", sans-serif; }
+    header { max-width: 92rem; margin: auto; padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem) 2rem; }
+    h1 { max-width: 13ch; margin: 0; font-size: clamp(2.8rem, 8vw, 7rem); line-height: .9; letter-spacing: -.04em; }
+    header p { max-width: 60ch; margin: 1.5rem 0 0; color: var(--muted); font-size: 1.05rem; line-height: 1.65; }
+    main { max-width: 92rem; margin: auto; padding: 1rem clamp(1rem, 4vw, 3rem) 5rem; }
+    .concepts { display: grid; gap: 3rem; }
+    article { border-top: 1px solid var(--line); padding-top: 1.25rem; }
+    .meta { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    h2 { margin: 0; font-size: clamp(1.7rem, 4vw, 3rem); letter-spacing: -.03em; }
+    .meta p { max-width: 58ch; margin: .5rem 0 0; color: var(--muted); line-height: 1.55; }
+    a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: .7rem 1rem; border: 1px solid var(--accent); color: var(--accent); font-weight: 700; text-decoration: none; }
+    a:hover { background: var(--accent); color: var(--bg); }
+    a:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+    .preview { height: min(72vh, 52rem); overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
+    iframe { width: 100%; height: 100%; border: 0; background: white; }
+    footer { max-width: 92rem; margin: auto; padding: 0 clamp(1rem, 4vw, 3rem) 3rem; color: var(--muted); }
+    @media (max-width: 720px) { .preview { height: 42rem; } .meta { align-items: start; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Four ways into Long Taa.</h1>
+    <p>One destination, four distinct visual worlds. Open each concept full-screen to compare its first impression, storytelling rhythm, practical clarity, and path to a respectful WhatsApp enquiry.</p>
+  </header>
+  <main>
+    <section class="concepts" aria-label="Landing-page design concepts">
+      <article>
+        <div class="meta">
+          <div><h2>Mostar Guide</h2><p>A scroll-cinematic destination guide built around the six-hour journey from road to river to longhouse.</p></div>
+          <a href="mostar-guide.html">Open full demo</a>
+        </div>
+        <div class="preview"><iframe src="mostar-guide.html" title="Mostar Guide design demo" loading="lazy"></iframe></div>
+      </article>
+      <article>
+        <div class="meta">
+          <div><h2>JungleMind</h2><p>An intelligent-organic field interface with contour motion, deep rainforest contrast, and an immersive image lens.</p></div>
+          <a href="junglemind.html">Open full demo</a>
+        </div>
+        <div class="preview"><iframe src="junglemind.html" title="JungleMind design demo" loading="lazy"></iframe></div>
+      </article>
+      <article>
+        <div class="meta">
+          <div><h2>Aethera Studio</h2><p>A cinematic studio treatment using art-directed documentary photography, oversized type, and restrained editorial motion.</p></div>
+          <a href="aethera-studio.html">Open full demo</a>
+        </div>
+        <div class="preview"><iframe src="aethera-studio.html" title="Aethera Studio design demo" loading="lazy"></iframe></div>
+      </article>
+      <article>
+        <div class="meta">
+          <div><h2>The Tree Journey</h2><p>An immersive Three.js descent from rainforest canopy, along story-bearing branches, through the longhouse doorway and into an enquiry room.</p></div>
+          <a href="tree-journey.html">Open full demo</a>
+        </div>
+        <div class="preview"><iframe src="tree-journey.html" title="The Tree Journey design demo" loading="lazy"></iframe></div>
+      </article>
+    </section>
+  </main>
+  <footer>Exploratory design prototypes. Business facts are drawn from the supplied Long Taa materials.</footer>
+</body>
+</html>
