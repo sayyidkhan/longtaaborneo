@@ -211,7 +211,7 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
   .tree-connected-story { width: auto; max-width: calc(100vw - 1.7rem); display: block; }
   .tree-threshold { right: .85rem !important; bottom: 3rem; left: .85rem !important; }
   .tree-threshold h2 { font-size: clamp(3.4rem, 16vw, 5rem); }
-  .tree-booking-room { inset: 0; top: 0; right: 0 !important; bottom: 0; left: 0 !important; display: block; width: 100%; max-width: 100vw; max-height: 100svh; overflow-x: hidden; overflow-y: auto; padding: 5.5rem 1rem 2rem; background: linear-gradient(135deg, #05140d, #071b12); }
+  .tree-booking-room { inset: 0; top: 0; right: 0 !important; bottom: 0; left: 0 !important; display: block; width: 100%; max-width: 100vw; max-height: 100svh; overflow-x: hidden; overflow-y: auto; padding: 5.5rem 1rem 2rem; background: linear-gradient(135deg, rgb(5 20 13 / 90%), rgb(7 27 18 / 72%)); }
   .tree-booking-copy h2 { font-size: clamp(2.8rem, 13vw, 4.2rem); }
   .tree-booking-room .tree-actions { display: grid; grid-template-columns: 1fr; }
   .tree-booking-room .tree-primary-action, .tree-booking-room .tree-secondary-action { width: 100%; }

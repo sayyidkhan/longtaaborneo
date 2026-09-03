@@ -57,8 +57,8 @@ function HomePage() {
     const video = thresholdVideoRef.current;
     if (!video || !thresholdVideoDuration) return;
 
-    const scrubStart = 0.85;
-    const scrubEnd = 0.97;
+    const scrubStart = 0.82;
+    const scrubEnd = 0.98;
     const scrubProgress = Math.min(1, Math.max(0, (progress - scrubStart) / (scrubEnd - scrubStart)));
     const targetTime = scrubProgress * Math.max(0, thresholdVideoDuration - 0.04);
     const frame = window.requestAnimationFrame(() => {
@@ -74,14 +74,14 @@ function HomePage() {
     if (progress < 0.44) return 2;
     if (progress < 0.61) return 3;
     if (progress < 0.76) return 4;
-    if (progress < 0.84) return 5;
-    if (progress < 0.97) return 6;
+    if (progress < 0.82) return 5;
+    if (progress < 0.98) return 6;
     return 7;
   }, [progress]);
 
   const stageClass = (index: number) => `tree-story${activeStage === index ? " is-active" : ""}`;
-  const thresholdVideoOpacity = Math.min(1, Math.max(0, (progress - 0.845) / 0.025));
-  const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.865) / 0.03));
+  const thresholdVideoOpacity = Math.min(1, Math.max(0, (progress - 0.81) / 0.035));
+  const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.91) / 0.045));
 
   return (
     <main className={`tree-home${sceneReady ? " is-ready" : ""}`}>
