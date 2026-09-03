@@ -44,6 +44,41 @@ h1, h2, h3, p { margin-top: 0; } h1, h2, h3 { font-family: "Iowan Old Style", Ba
 .heritage-image-pair { display: grid; gap: .65rem; padding-top: 0; background: var(--paper); }
 .heritage-image-pair img { width: 100%; min-height: 16rem; object-fit: cover; }
 .journey-photo { width: 100%; min-height: 15rem; margin-top: .75rem; object-fit: cover; }
+
+.chat-assistant { position: fixed; z-index: 60; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); display: grid; justify-items: end; gap: .75rem; pointer-events: none; }
+.chat-launcher, .chat-panel { pointer-events: auto; }
+.chat-launcher { min-height: 50px; display: inline-flex; align-items: center; gap: .55rem; padding: .72rem 1rem; border: 1px solid rgb(241 234 220 / 25%); border-radius: 999px; background: var(--forest-deep); color: var(--cream); box-shadow: 0 .8rem 2.2rem rgb(10 33 25 / 24%); font-size: .82rem; font-weight: 800; }
+.chat-launcher-mark { width: 1.55rem; height: 1.55rem; display: inline-grid; place-items: center; border-radius: 50%; background: var(--earth); color: var(--paper); font-size: .8rem; }
+.chat-panel { width: min(29rem, calc(100vw - 1rem)); max-height: min(43rem, calc(100svh - 6.8rem)); display: grid; grid-template-rows: auto minmax(8rem, 1fr) auto auto auto; overflow: hidden; border: 1px solid rgb(23 32 27 / 18%); background: var(--paper); box-shadow: 0 1.5rem 4rem rgb(10 33 25 / 28%); }
+.chat-loading { min-height: 7rem; place-items: center; padding: 1rem; color: var(--forest-deep); font-size: .82rem; font-weight: 800; }
+.chat-header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding: 1rem; background: var(--forest-deep); color: var(--cream); }
+.chat-header > div { min-width: 0; }
+.chat-header h2 { margin: .15rem 0 0; font-size: 1.55rem; letter-spacing: -.025em; }
+.chat-kicker { display: inline; margin: 0; color: var(--moss); font-size: .65rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.chat-status-dot { width: .52rem; height: .52rem; display: inline-block; margin-right: .4rem; border-radius: 50%; background: var(--moss); box-shadow: 0 0 0 .2rem rgb(181 199 152 / 16%); }
+.chat-close { min-width: 44px; min-height: 44px; padding: .4rem; border: 0; background: transparent; color: var(--moss); font-size: .72rem; font-weight: 800; }
+.chat-messages { min-height: 0; padding: 1rem; overflow-y: auto; overscroll-behavior: contain; background: linear-gradient(180deg, var(--cream), var(--paper)); }
+.chat-message { width: fit-content; max-width: 88%; margin: 0 0 .85rem; padding: .8rem .9rem; border: 1px solid var(--line); background: var(--paper); }
+.chat-message.is-user { margin-left: auto; border-color: var(--forest); background: var(--forest); color: var(--cream); }
+.chat-message span { display: block; margin-bottom: .28rem; color: var(--earth); font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.chat-message.is-user span { color: var(--moss); }
+.chat-message p { margin: 0; white-space: pre-wrap; font-size: .88rem; line-height: 1.5; }
+.chat-progress { margin: .2rem 0 .8rem; color: var(--river); font-size: .78rem; font-weight: 750; }
+.chat-error { margin: .4rem 0; padding: .75rem; border-left: 3px solid var(--earth); background: #f4ded5; color: var(--ink); }
+.chat-error p { margin: 0 0 .45rem; font-size: .8rem; }
+.chat-error button, .chat-footer button { min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--earth); font-size: .75rem; font-weight: 800; text-decoration: underline; text-underline-offset: .2em; }
+.chat-suggestions { display: grid; gap: .45rem; padding: 0 1rem .8rem; background: var(--paper); }
+.chat-suggestions-label { margin: 0; color: rgb(23 32 27 / 62%); font-size: .64rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.chat-suggestions button { min-height: 44px; padding: .6rem .75rem; border: 1px solid var(--line); background: transparent; color: var(--forest-deep); font-size: .78rem; font-weight: 750; text-align: left; }
+.chat-suggestions button:hover { border-color: var(--earth); }
+.chat-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; padding: .75rem 1rem; border-top: 1px solid var(--line); background: var(--paper); }
+.chat-form input { min-width: 0; min-height: 48px; padding: .68rem .75rem; border: 1px solid var(--line); border-radius: 0; background: white; color: var(--ink); font-size: .82rem; }
+.chat-send { min-width: 4.2rem; min-height: 48px; padding: .6rem .8rem; border: 0; background: var(--earth); color: var(--paper); font-size: .78rem; font-weight: 800; }
+.chat-send:disabled { cursor: not-allowed; opacity: .45; }
+.chat-footer { padding: .75rem 1rem 1rem; border-top: 1px solid var(--line); background: var(--paper); }
+.chat-footer p { margin: 0 0 .45rem; color: rgb(23 32 27 / 65%); font-size: .68rem; line-height: 1.45; }
+.chat-footer div { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.chat-footer a { min-height: 44px; display: inline-flex; align-items: center; color: var(--earth); font-size: .75rem; font-weight: 800; }
 @media (min-width: 700px) {
   .photo-page-hero { min-height: 72svh; }
   .visual-index-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -53,4 +88,6 @@ h1, h2, h3, p { margin-top: 0; } h1, h2, h3 { font-family: "Iowan Old Style", Ba
   .field-journal-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .heritage-image-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 0; padding-bottom: 0; }
   .heritage-image-pair img { min-height: 27rem; }
+  .chat-assistant { right: 1.5rem; bottom: 1.5rem; }
+  .chat-panel { border-radius: .4rem; }
 }

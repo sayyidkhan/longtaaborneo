@@ -16,8 +16,11 @@
     "check": "npm run lint && npm run typecheck && npm run test"
   },
   "dependencies": {
+    "@ai-sdk/openai-compatible": "^3.0.43",
+    "@ai-sdk/react": "^4.0.94",
     "@tanstack/react-router": "1.170.32",
     "@tanstack/react-start": "1.168.49",
+    "ai": "^7.0.91",
     "nitro": "3.0.260610-beta",
     "react": "19.2.8",
     "react-dom": "19.2.8"

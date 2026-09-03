@@ -7,6 +7,7 @@ import {
   createRootRoute,
 } from "@tanstack/react-router";
 
+import { ChatAssistant } from "../chat-assistant";
 import { siteRoutes, whatsappUrl } from "../content";
 import stylesUrl from "../styles.css?url";
 
@@ -108,6 +109,7 @@ function RootComponent() {
         <small>© 2026 Long Taa Borneo Eco Stay. All rights reserved.</small>
       </footer>
       <a className="mobile-booking-bar" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
+      <ChatAssistant />
     </RootDocument>
   );
 }

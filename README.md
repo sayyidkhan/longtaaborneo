@@ -51,3 +51,26 @@ npm run start
 ```
 
 Then verify `http://localhost:3000/` returns the homepage.
+
+## Kimi Visitor Chatbot
+
+The mobile-first visitor chatbot uses the Vercel AI SDK with Kimi's OpenAI-compatible API. The API key is read only by the TanStack server route and is never exposed through a `VITE_` variable.
+
+The public interface tells visitors that their messages are processed by Kimi AI and asks them not to share sensitive information.
+
+For local development:
+
+```bash
+cd landing-page
+cp .env.example .env.local
+```
+
+Add your Kimi key to `landing-page/.env.local`:
+
+```dotenv
+KIMI_API_KEY=your_key_here
+```
+
+For production, add `KIMI_API_KEY` to the existing `longtaaborneo` Vercel project for Production and Preview, then redeploy. Optional `KIMI_MODEL` and `KIMI_BASE_URL` values are documented in `.env.example`.
+
+Never commit `.env.local` or the key itself.
