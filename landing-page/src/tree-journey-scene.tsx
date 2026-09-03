@@ -121,6 +121,71 @@ function makeHornbill(scene: THREE.Scene) {
   return { bird, leftWing: wings[0], rightWing: wings[1], wingMeshes };
 }
 
+type CloudBank = {
+  group: THREE.Group;
+  origin: THREE.Vector3;
+  material: THREE.MeshBasicMaterial;
+  baseOpacity: number;
+  speed: number;
+  phase: number;
+};
+
+function makeCloudField(scene: THREE.Scene, compactLayout: boolean) {
+  const puffGeometry = new THREE.IcosahedronGeometry(1, 1);
+  const puffLayout: Array<{
+    position: [number, number, number];
+    scale: [number, number, number];
+  }> = [
+    { position: [-1.75, -0.08, 0.18], scale: [2.25, 0.78, 1.05] },
+    { position: [-0.7, 0.5, -0.04], scale: [1.75, 1.08, 1.05] },
+    { position: [0.35, 0.72, 0.08], scale: [1.95, 1.2, 1.16] },
+    { position: [1.55, 0.35, -0.12], scale: [2.1, 0.92, 1.02] },
+    { position: [2.35, -0.12, 0.14], scale: [1.65, 0.68, 0.96] },
+    { position: [0.15, -0.38, 0.28], scale: [2.8, 0.56, 1.16] },
+  ];
+  const presets = [
+    { position: [-13.5, 29, 14], scale: 1.22, opacity: 0.16, speed: 0.07, phase: 0.4 },
+    { position: [13.8, 26.5, 10], scale: 1.08, opacity: 0.14, speed: 0.055, phase: 2.1 },
+    { position: [-12.2, 22, -4], scale: 1.18, opacity: 0.12, speed: 0.06, phase: 3.6 },
+    { position: [13, 18.3, 1], scale: 1.06, opacity: 0.13, speed: 0.075, phase: 5.2 },
+    { position: [-11.8, 14.2, 8], scale: 0.96, opacity: 0.12, speed: 0.065, phase: 1.35 },
+    { position: [11.6, 10.2, 5], scale: 0.88, opacity: 0.11, speed: 0.08, phase: 4.3 },
+    { position: [-8.5, 6.2, -5], scale: 0.82, opacity: 0.09, speed: 0.05, phase: 2.8 },
+  ];
+
+  return presets.slice(0, compactLayout ? 6 : presets.length).map((preset, bankIndex) => {
+    const group = new THREE.Group();
+    const material = new THREE.MeshBasicMaterial({
+      color: bankIndex % 3 === 0 ? 0xcbded6 : 0xa9c7be,
+      transparent: true,
+      opacity: preset.opacity,
+      depthWrite: false,
+      fog: true,
+    });
+    puffLayout.forEach(({ position, scale }, puffIndex) => {
+      const puff = new THREE.Mesh(puffGeometry, material);
+      puff.position.set(...position);
+      puff.position.z += ((puffIndex + bankIndex) % 3) * 0.16;
+      puff.scale.set(...scale).multiplyScalar(preset.scale);
+      puff.rotation.set(puffIndex * 0.13, bankIndex * 0.31 + puffIndex * 0.23, puffIndex * 0.08);
+      group.add(puff);
+    });
+    const [cloudX, cloudY, cloudZ] = preset.position;
+    group.position.set(cloudX * (compactLayout ? 0.76 : 1), cloudY, cloudZ);
+    group.rotation.y = bankIndex % 2 === 0 ? -0.12 : 0.16;
+    group.renderOrder = 1;
+    scene.add(group);
+    return {
+      group,
+      origin: group.position.clone(),
+      material,
+      baseOpacity: preset.opacity,
+      speed: preset.speed,
+      phase: preset.phase,
+    } satisfies CloudBank;
+  });
+}
+
 function makeLonghouse(scene: THREE.Scene) {
   const house = new THREE.Group();
   house.position.set(3.5, 0, -11);
@@ -388,6 +453,7 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
       new THREE.PointsMaterial({ color: 0xd6f67c, size: 0.055, transparent: true, opacity: 0.75, depthWrite: false }),
     );
     scene.add(fireflies);
+    const cloudBanks = makeCloudField(scene, compactLayout);
 
     const loader = new GLTFLoader();
     const loadModel = (name: string) =>
@@ -582,6 +648,18 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         marker.scale.setScalar(0.88 + proximity * 0.5);
       });
       canopy.rotation.y = currentProgress * 0.055;
+      const cloudTime = reducedMotion ? 0 : performance.now() * 0.001;
+      const cloudFade = 1 - THREE.MathUtils.smoothstep(t, 0.7, 0.84);
+      cloudBanks.forEach(({ group, origin, material, baseOpacity, speed, phase }) => {
+        group.position.set(
+          origin.x + Math.sin(cloudTime * speed + phase) * 1.05 + Math.sin(t * Math.PI + phase) * 0.34,
+          origin.y + Math.cos(cloudTime * speed * 0.72 + phase) * 0.18,
+          origin.z + Math.cos(cloudTime * speed * 0.58 + phase) * 0.32,
+        );
+        group.rotation.y += reducedMotion ? 0 : 0.00008;
+        material.opacity = baseOpacity * cloudFade;
+        group.visible = material.opacity > 0.004;
+      });
       const takeoffAt = 0.075;
       const isFlying = t > takeoffAt && t < 0.855;
       if (isFlying) {
