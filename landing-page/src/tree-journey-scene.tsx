@@ -405,7 +405,9 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     ];
     const leafCount = compactLayout ? 104 : 168;
     const leafGeometry = new THREE.IcosahedronGeometry(0.72, 1);
-    const leafMaterial = new THREE.MeshStandardMaterial({ color: 0x2f7a45, roughness: 0.9, flatShading: true });
+    // Instance colors are multiplied by the base material, so keep the base neutral
+    // to preserve the intended light/dark canopy variation.
+    const leafMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, flatShading: true });
     const canopy = new THREE.InstancedMesh(leafGeometry, leafMaterial, leafCount);
     const leafDummy = new THREE.Object3D();
     const leafColors = [new THREE.Color(0x1d6339), new THREE.Color(0x2f7a45), new THREE.Color(0x70a23e)];
@@ -480,15 +482,20 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         if (!(child instanceof THREE.Mesh)) return;
         const materials = Array.isArray(child.material) ? child.material : [child.material];
         const recolored = materials.map((source) => {
-          const material = source.clone() as THREE.MeshStandardMaterial;
-          const name = material.name.toLowerCase();
-          if (name.includes("leaf")) material.color.setHex(0x2f7a45);
-          else if (name.includes("bark") || name.includes("wood")) material.color.setHex(0x56351f);
-          else material.color.setHex(0x335b38);
-          material.roughness = 0.92;
-          material.flatShading = true;
-          material.needsUpdate = true;
-          return material;
+          const name = source.name.toLowerCase();
+          const color = name.includes("leaf")
+            ? 0x347f48
+            : name.includes("bark") || name.includes("wood")
+              ? 0x624127
+              : 0x3c6841;
+          return new THREE.MeshStandardMaterial({
+            name: source.name,
+            color,
+            roughness: 0.9,
+            metalness: 0,
+            flatShading: true,
+            side: source.side,
+          });
         });
         child.material = Array.isArray(child.material) ? recolored : recolored[0];
       });
@@ -503,6 +510,13 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
         protagonist.rotation.y = -0.35;
         protagonist.traverse((child) => {
           if (child instanceof THREE.Mesh) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            const protagonistMaterials = materials.map((source) => {
+              const material = source.clone();
+              if (material.name.toLowerCase().includes("leaf")) material.visible = false;
+              return material;
+            });
+            child.material = Array.isArray(child.material) ? protagonistMaterials : protagonistMaterials[0];
             child.castShadow = true;
             child.receiveShadow = true;
           }
@@ -546,9 +560,10 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
 
     const cameraCurve = new THREE.CatmullRomCurve3(
       [
-        // A 1.25× camera distance makes the protagonist tree read 20% smaller on screen.
-        new THREE.Vector3(0, 31.5, 37.5),
-        new THREE.Vector3(9.375, 26.125, 32.5),
+        // Begin below and slightly beside the crown so the tree reads as a full silhouette,
+        // rather than looking down onto a single block of foliage.
+        new THREE.Vector3(-4, 24.5, 42),
+        new THREE.Vector3(8.5, 23.8, 34.5),
         new THREE.Vector3(-9.375, 21.125, 30),
         new THREE.Vector3(9.25, 15.75, 27.5),
         new THREE.Vector3(-8.5, 10.75, 25),
@@ -563,9 +578,9 @@ export function TreeJourneyScene({ progress, onReady }: TreeJourneySceneProps) {
     );
     const targetCurve = new THREE.CatmullRomCurve3(
       [
-        new THREE.Vector3(0, 24, 0),
-        new THREE.Vector3(0, 21, 0),
-        new THREE.Vector3(0, 17, 0),
+        new THREE.Vector3(0, 19.5, 0),
+        new THREE.Vector3(0, 18.8, 0),
+        new THREE.Vector3(0, 16.5, 0),
         new THREE.Vector3(0, 13, 0),
         new THREE.Vector3(0, 8, 0),
         new THREE.Vector3(1.2, 3.2, -2),
