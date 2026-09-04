@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Long Taa Borneo Eco Stay - Process Video</title>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Taa Borneo Eco Stay — Fourth-Wall Tourism Film</title>
+    <script src="assets/gsap.min.js"></script>
     <style>
       :root {
         --forest: #102d25;
@@ -12,211 +12,502 @@
         --paper: #e9e1d0;
         --clay: #c77a37;
         --ink: #151917;
+        --mist: #e9e1d0;
       }
+
       * { box-sizing: border-box; }
       html, body { width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: var(--forest); }
       body { font-family: "Liberation Mono", monospace; }
       #main-video { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--forest); }
       .clip { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
       .scene { color: var(--paper); background: var(--forest); }
-      .scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,45,37,.05) 0%, rgba(16,45,37,.2) 30%, rgba(16,45,37,.9) 100%); z-index: 1; }
       .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .photo.dark { filter: brightness(.58) saturate(.82); }
-      .photo.river { object-position: 58% center; }
-      .photo.road { object-position: 63% center; }
-      .photo.boat { object-position: center; }
-      .grain { position: absolute; inset: 0; opacity: .13; z-index: 4; pointer-events: none; background-image: radial-gradient(rgba(233,225,208,.35) .65px, transparent .8px); background-size: 7px 7px; mix-blend-mode: soft-light; }
-      .scene-content { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; height: 100%; padding: 112px 78px 138px; gap: 28px; }
-      .scene-content.top { justify-content: flex-start; padding-top: 132px; }
-      .kicker { display: flex; align-items: center; gap: 15px; color: var(--paper); font-size: 24px; line-height: 1.15; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
-      .kicker::before { content: ""; width: 38px; height: 4px; background: var(--clay); }
-      .title { max-width: 900px; margin: 0; color: var(--paper); font-family: Georgia, "DejaVu Serif", serif; font-weight: 700; font-size: 87px; line-height: .97; letter-spacing: -.055em; text-wrap: balance; }
-      .title.large { font-size: 118px; }
-      .body { max-width: 790px; margin: 0; color: rgba(233,225,208,.94); font-family: Georgia, "DejaVu Serif", serif; font-size: 35px; line-height: 1.26; }
-      .caption { max-width: 870px; margin: 7px 0 0; padding: 20px 24px; border-left: 6px solid var(--clay); color: var(--paper); background: rgba(16,45,37,.72); font-size: 27px; line-height: 1.28; letter-spacing: -.025em; }
-      .meta { color: rgba(233,225,208,.76); font-size: 19px; line-height: 1.3; letter-spacing: .12em; text-transform: uppercase; }
-      .logo-card { position: absolute; top: 76px; right: 64px; z-index: 4; width: 130px; height: 180px; padding: 12px; background: var(--paper); box-shadow: 0 14px 35px rgba(0,0,0,.2); }
-      .logo-card img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-      .number { color: var(--clay); font-family: Georgia, "DejaVu Serif", serif; font-size: 136px; font-weight: 700; line-height: .8; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
-      .source-card { position: absolute; z-index: 3; top: 262px; left: 78px; width: 524px; padding: 30px; background: rgba(233,225,208,.95); color: var(--ink); transform: rotate(-2deg); box-shadow: 0 22px 50px rgba(0,0,0,.22); }
-      .source-card h2, .fact-card h2 { margin: 0 0 17px; font-family: Georgia, "DejaVu Serif", serif; font-size: 55px; line-height: 1.05; letter-spacing: -.045em; }
-      .source-card .meta { display: block; margin-bottom: 25px; }
-      .source-card p { margin: 0; font-size: 23px; line-height: 1.45; }
-      .source-card .rule, .fact-card .rule { width: 74px; height: 5px; margin: 22px 0; background: var(--clay); }
-      .contact-sheet { position: absolute; z-index: 2; top: 300px; right: -80px; width: 590px; height: 790px; object-fit: cover; transform: rotate(4deg); filter: brightness(.88) saturate(.88); }
-      .route-stack { position: absolute; z-index: 3; left: 78px; right: 78px; top: 272px; display: grid; gap: 15px; }
-      .route { display: flex; align-items: center; justify-content: space-between; min-height: 106px; padding: 0 28px; border: 2px solid rgba(233,225,208,.55); background: rgba(16,45,37,.74); color: var(--paper); font-size: 28px; font-weight: 700; letter-spacing: .02em; }
-      .route span { color: var(--clay); font-size: 22px; }
-      .fact-grid { position: absolute; z-index: 3; top: 247px; left: 78px; right: 78px; display: grid; gap: 16px; }
-      .fact-card { padding: 27px 28px; background: var(--paper); color: var(--ink); box-shadow: 0 18px 32px rgba(0,0,0,.18); }
-      .fact-card h2 { font-size: 48px; margin-bottom: 8px; }
-      .fact-card p { margin: 0; color: #33423b; font-size: 23px; line-height: 1.36; }
-      .fact-card.accent { background: #96501c; color: var(--paper); }
-      .fact-card.accent .meta, .fact-card.accent p { color: var(--paper) !important; }
-      .phone { position: absolute; z-index: 3; top: 175px; left: 105px; width: 870px; height: 1180px; padding: 26px; border: 18px solid var(--paper); border-radius: 78px; background: var(--forest); box-shadow: 0 28px 60px rgba(0,0,0,.42); }
-      .phone::before { content: ""; position: absolute; top: 17px; left: 50%; width: 190px; height: 25px; border-radius: 30px; background: var(--paper); transform: translateX(-50%); }
-      .phone-head { margin: 58px 25px 38px; color: var(--paper); font-family: Georgia, "DejaVu Serif", serif; font-size: 53px; line-height: .98; letter-spacing: -.045em; }
-      .phone-line { height: 72px; margin: 15px 25px; border-bottom: 2px solid rgba(233,225,208,.56); color: rgba(233,225,208,.78); font-size: 23px; line-height: 72px; }
-      .whatsapp { margin: 49px 25px 0; padding: 22px 20px; background: var(--clay); color: var(--ink); font-weight: 700; font-size: 26px; text-align: center; }
-      .pitch-grid { position: absolute; z-index: 3; top: 277px; left: 78px; right: 78px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-      .pitch-card { min-height: 330px; padding: 25px 20px; background: rgba(233,225,208,.95); color: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
-      .pitch-card strong { font-family: Georgia, "DejaVu Serif", serif; font-size: 44px; line-height: .95; letter-spacing: -.04em; }
-      .pitch-card span { font-size: 19px; line-height: 1.35; }
-      .qa-grid { position: absolute; z-index: 3; top: 324px; left: 78px; right: 78px; display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
-      .qa { min-height: 180px; padding: 29px; border: 2px solid rgba(233,225,208,.58); background: rgba(16,45,37,.76); }
-      .qa strong { display: block; color: var(--clay); font-family: Georgia, "DejaVu Serif", serif; font-size: 64px; line-height: .85; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
-      .qa span { display: block; margin-top: 16px; font-size: 20px; line-height: 1.25; }
-      .closing { align-items: flex-start; justify-content: center; padding-bottom: 0; }
-      .closing .title { max-width: 850px; font-size: 112px; }
-      .url { display: inline-block; margin-top: 16px; padding: 17px 19px; border: 2px solid var(--paper); color: var(--paper); font-size: 23px; letter-spacing: .04em; }
-      .wipe { z-index: 20; background: var(--river); transform: translateY(100%); }
-      .wipe::after { content: ""; position: absolute; inset: 0; opacity: .32; background-image: radial-gradient(rgba(233,225,208,.48) .7px, transparent .9px); background-size: 9px 9px; }
+      .scrim { position: absolute; inset: 0; z-index: 1; background: rgba(10, 30, 25, .3); }
+      .scrim.deep { background: rgba(10, 30, 25, .62); }
+      .scrim.bottom { background: radial-gradient(circle at 70% 18%, rgba(30, 100, 84, .08), rgba(10, 30, 25, .18) 35%, rgba(10, 30, 25, .94) 84%); }
+      .paper-scene { background: var(--paper); color: var(--ink); }
+      .grain { position: absolute; inset: 0; z-index: 9; opacity: .12; pointer-events: none; background-image: repeating-linear-gradient(108deg, rgba(233,225,208,.12) 0, rgba(233,225,208,.12) 1px, transparent 1px, transparent 8px); mix-blend-mode: soft-light; }
+      .frame-rule { position: absolute; z-index: 4; left: 66px; right: 66px; height: 3px; background: var(--clay); transform-origin: left center; }
+      .frame-rule.top { top: 96px; }
+      .frame-rule.bottom { bottom: 96px; }
+      .edge-label { position: absolute; z-index: 5; top: 52px; left: 66px; font-size: 21px; line-height: 1; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+      .counter { position: absolute; z-index: 5; top: 52px; right: 66px; font-size: 21px; line-height: 1; letter-spacing: .12em; color: var(--paper); }
+      .content { position: relative; z-index: 4; display: flex; flex-direction: column; width: 100%; height: 100%; padding: 116px 66px 132px; }
+      .content.bottom { justify-content: flex-end; }
+      .content.center { justify-content: center; }
+      .eyebrow { margin: 0 0 24px; color: var(--clay); font-size: 24px; line-height: 1.15; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+      .display { margin: 0; max-width: 940px; font-family: Georgia, "DejaVu Serif", serif; font-size: 108px; font-weight: 700; line-height: .93; letter-spacing: -.06em; text-wrap: balance; }
+      .display.xl { font-size: 132px; }
+      .display.small { font-size: 82px; line-height: .96; }
+      .support { margin: 28px 0 0; max-width: 820px; color: rgba(233,225,208,.92); font-family: Georgia, "DejaVu Serif", serif; font-size: 34px; line-height: 1.28; }
+      .caption-line { position: absolute; z-index: 7; left: 66px; right: 66px; bottom: 50px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--paper); font-size: 21px; line-height: 1.1; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+      .caption-line.dark { color: var(--ink); }
+      .caption-line .dash { flex: 1; height: 2px; background: currentColor; opacity: .38; }
+      #s3 .caption-line { padding: 12px 14px; background: var(--forest); }
+      .logo-card { position: absolute; z-index: 6; top: 126px; right: 58px; width: 162px; height: 244px; filter: drop-shadow(0 18px 28px rgba(0,0,0,.34)); }
+      .logo-card .logo-mark { width: 100%; height: 100%; background: var(--paper); -webkit-mask: url("assets/logo-transparent.png") center / contain no-repeat; mask: url("assets/logo-transparent.png") center / contain no-repeat; }
+
+      /* 00 — premium brand reveal */
+      #brand-reveal { background: var(--forest); }
+      .brand-stage { position: absolute; inset: 0; overflow: hidden; }
+      .brand-halo { position: absolute; z-index: 1; left: 50%; top: 49%; width: 920px; height: 920px; border-radius: 50%; background: radial-gradient(circle, rgba(30,100,84,.78) 0, rgba(16,45,37,.18) 53%, rgba(16,45,37,0) 72%); transform: translate(-50%, -50%); }
+      .brand-orbit { position: absolute; z-index: 2; left: 50%; top: 49%; border: 2px solid rgba(199,122,55,.58); border-radius: 50%; transform: translate(-50%, -50%); }
+      .brand-orbit.outer { width: 790px; height: 1040px; }
+      .brand-orbit.inner { width: 650px; height: 900px; border-color: rgba(233,225,208,.34); }
+      .brand-emblem { position: absolute; z-index: 5; left: 50%; top: 49%; width: 570px; height: 855px; overflow: hidden; filter: drop-shadow(0 28px 52px rgba(0,0,0,.42)); transform: translate(-50%, -50%); }
+      .brand-emblem img { position: relative; z-index: 3; width: 100%; height: 100%; object-fit: contain; filter: brightness(0) saturate(100%) invert(93%) sepia(11%) saturate(317%) hue-rotate(354deg) brightness(99%) contrast(88%); }
+      .brand-sweep { position: absolute; z-index: 4; top: 0; bottom: 0; left: -150px; width: 150px; overflow: hidden; filter: drop-shadow(0 0 12px rgba(199,122,55,.62)); }
+      .brand-sweep-mark { position: absolute; top: 0; left: 150px; width: 570px; height: 855px; background: var(--clay); -webkit-mask: url("assets/logo-transparent.png") center / contain no-repeat; mask: url("assets/logo-transparent.png") center / contain no-repeat; }
+      .brand-kicker { position: absolute; z-index: 6; left: 80px; right: 80px; bottom: 154px; color: var(--paper); font-size: 19px; line-height: 1; font-weight: 800; letter-spacing: .23em; text-align: center; text-transform: uppercase; }
+      .brand-kicker::before, .brand-kicker::after { content: ""; display: inline-block; width: 86px; height: 2px; margin: 0 22px 5px; background: var(--clay); }
+      .shooting-stars, .spark-field { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+      .star-streak { position: absolute; width: 300px; height: 3px; background: linear-gradient(90deg, transparent, var(--clay)); transform-origin: right center; }
+      .star-streak::after { content: ""; position: absolute; right: -8px; top: -7px; width: 16px; height: 16px; background: var(--paper); transform: rotate(45deg); box-shadow: 0 0 24px rgba(233,225,208,.82); }
+      .star-streak:nth-child(1) { top: 310px; left: -78px; transform: rotate(20deg); }
+      .star-streak:nth-child(2) { top: 550px; right: -92px; transform: rotate(160deg); }
+      .star-streak:nth-child(3) { bottom: 520px; left: -90px; transform: rotate(-17deg); }
+      .star-streak:nth-child(4) { bottom: 330px; right: -64px; transform: rotate(197deg); }
+      .spark { position: absolute; width: 18px; height: 18px; border: 3px solid var(--clay); transform: rotate(45deg); }
+      .spark::before, .spark::after { content: ""; position: absolute; left: 50%; top: 50%; background: var(--paper); transform: translate(-50%, -50%); }
+      .spark::before { width: 44px; height: 2px; }
+      .spark::after { width: 2px; height: 44px; }
+      .spark:nth-child(1) { left: 160px; top: 690px; }
+      .spark:nth-child(2) { right: 150px; top: 430px; transform: rotate(45deg) scale(.72); }
+      .spark:nth-child(3) { right: 180px; bottom: 570px; transform: rotate(45deg) scale(.55); }
+
+      /* 01 — journey */
+      #s1 .photo { object-position: 64% center; }
+      .route-map { position: absolute; z-index: 3; top: 228px; right: 54px; width: 302px; height: 930px; }
+      .route-map .track { position: absolute; top: 38px; right: 64px; width: 8px; height: 700px; background: var(--paper); transform-origin: top center; }
+      .route-map .track::after { content: ""; position: absolute; left: -8px; bottom: -14px; width: 24px; height: 24px; border-radius: 50%; background: var(--clay); box-shadow: 0 0 0 12px rgba(199,122,55,.25); }
+      .route-pin { position: absolute; right: 0; padding: 14px 18px; border: 2px solid rgba(233,225,208,.7); background: rgba(16,45,37,.8); color: var(--paper); font-size: 22px; line-height: 1; font-weight: 800; letter-spacing: .08em; }
+      .route-pin.miri { top: 0; }
+      .route-pin.longtaa { top: 750px; border-color: var(--clay); background: var(--clay); color: var(--ink); }
+      .travel-time { position: absolute; z-index: 4; top: 312px; left: 66px; max-width: 610px; color: var(--paper); }
+      .travel-time strong { display: block; font-family: Georgia, "DejaVu Serif", serif; font-size: 188px; line-height: .78; letter-spacing: -.09em; }
+      .travel-time span { display: block; margin-top: 28px; max-width: 570px; font-family: Georgia, "DejaVu Serif", serif; font-size: 70px; line-height: .94; letter-spacing: -.045em; }
+
+      /* 02 — place */
+      #s2 .photo { object-position: 56% center; }
+      .longhouse-window { position: absolute; z-index: 3; top: 314px; right: 58px; width: 442px; height: 560px; border: 12px solid var(--paper); box-shadow: 0 28px 60px rgba(0,0,0,.32); }
+      .longhouse-window img { width: 100%; height: 100%; object-fit: cover; }
+      .pillars { display: flex; flex-wrap: wrap; gap: 12px; max-width: 820px; margin-top: 34px; }
+      .pillar { padding: 13px 17px; border: 2px solid rgba(233,225,208,.7); color: var(--paper); font-size: 20px; line-height: 1; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+
+      /* 03 — experience mosaic */
+      .mosaic { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); gap: 8px; background: var(--forest); }
+      .tile { position: relative; overflow: hidden; }
+      .tile img { width: 100%; height: 100%; object-fit: cover; }
+      .tile::after { content: ""; position: absolute; inset: 0; background: rgba(10,30,25,.13); }
+      .experience-banner { position: absolute; z-index: 5; left: 46px; right: 46px; bottom: 162px; padding: 34px 38px; background: rgba(16,45,37,.94); color: var(--paper); border: 3px solid var(--paper); }
+      .experience-banner strong { display: block; font-family: Georgia, "DejaVu Serif", serif; font-size: 66px; line-height: .92; letter-spacing: -.05em; }
+      .experience-banner span { display: block; margin-top: 18px; color: var(--clay); font-size: 21px; line-height: 1.25; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+
+      /* 04 — honest positioning */
+      .truth-panel { position: absolute; z-index: 4; left: 48px; right: 48px; top: 250px; padding: 48px 42px 54px; background: var(--paper); color: var(--ink); }
+      .truth-panel .crossed { position: relative; display: inline-block; color: var(--river); font-family: Georgia, "DejaVu Serif", serif; font-size: 62px; line-height: 1; }
+      .truth-panel .crossed::after { content: ""; position: absolute; left: -8px; right: -8px; top: 50%; height: 8px; background: var(--clay); }
+      .truth-panel .point { margin-top: 28px; font-family: Georgia, "DejaVu Serif", serif; font-size: 92px; line-height: .92; font-weight: 700; letter-spacing: -.06em; }
+      .truth-panel .point em { color: var(--clay); font-style: normal; }
+      .truth-facts { position: absolute; z-index: 4; left: 48px; right: 48px; bottom: 174px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .truth-fact { min-height: 170px; padding: 24px 18px; border: 2px solid rgba(233,225,208,.55); background: rgba(16,45,37,.82); text-align: center; }
+      .truth-fact strong { display: block; color: var(--clay); font-family: Georgia, "DejaVu Serif", serif; font-size: 45px; line-height: .95; }
+      .truth-fact span { display: block; margin-top: 14px; font-size: 17px; line-height: 1.25; text-transform: uppercase; letter-spacing: .07em; }
+
+      /* 05 — planning friction */
+      #s5 .photo { object-position: 63% center; }
+      .distance-badge { position: absolute; z-index: 4; top: 178px; left: 66px; padding: 22px 25px; background: var(--clay); color: var(--ink); }
+      .distance-badge strong { display: block; font-family: Georgia, "DejaVu Serif", serif; font-size: 84px; line-height: .8; letter-spacing: -.08em; }
+      .distance-badge span { display: block; margin-top: 13px; font-size: 18px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+      .questions { position: absolute; z-index: 4; top: 500px; left: 66px; right: 66px; display: grid; gap: 13px; }
+      .question { display: flex; align-items: center; gap: 22px; min-height: 100px; padding: 18px 24px; border: 2px solid rgba(233,225,208,.62); background: rgba(16,45,37,.84); font-family: Georgia, "DejaVu Serif", serif; font-size: 31px; line-height: 1.12; }
+      .question b { flex: 0 0 46px; color: var(--clay); font-family: "Liberation Mono", monospace; font-size: 23px; }
+
+      /* 06 — who Long Taa is for */
+      .audience-layout { position: absolute; z-index: 4; inset: 160px 52px 145px; }
+      .audience-layout h2 { max-width: 820px; margin: 26px 0 38px; font-family: Georgia, "DejaVu Serif", serif; font-size: 78px; line-height: .9; letter-spacing: -.055em; }
+      .audience-kicker { color: var(--clay); font-size: 21px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+      .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+      .audience-card { min-height: 244px; padding: 28px 25px; border: 3px solid rgba(233,225,208,.82); background: rgba(16,45,37,.88); }
+      .audience-card:nth-child(2), .audience-card:nth-child(3) { background: var(--paper); color: var(--ink); }
+      .audience-card b { display: block; color: var(--clay); font-size: 18px; letter-spacing: .12em; text-transform: uppercase; }
+      .audience-card strong { display: block; margin-top: 19px; font-family: Georgia, "DejaVu Serif", serif; font-size: 37px; line-height: .98; letter-spacing: -.035em; }
+      .audience-note { margin-top: 28px; padding: 19px 22px; border-left: 5px solid var(--clay); background: rgba(16,45,37,.9); color: var(--paper); font-family: Georgia, "DejaVu Serif", serif; font-size: 25px; line-height: 1.2; }
+
+      /* 07 — real mobile product */
+      .phone-stage { position: absolute; inset: 500px 0 132px; z-index: 3; overflow: hidden; perspective: 1600px; }
+      .phone-rail { position: absolute; top: 56px; left: 50%; display: flex; align-items: center; gap: 42px; width: max-content; transform-style: preserve-3d; }
+      .site-phone { position: relative; flex: 0 0 390px; width: 390px; height: 844px; overflow: hidden; border: 13px solid var(--paper); border-radius: 54px; background: var(--paper); box-shadow: 0 34px 70px rgba(0,0,0,.34); transform-style: preserve-3d; transform-origin: center center; }
+      .site-phone img { width: 100%; height: 100%; object-fit: cover; }
+      .site-phone::after { content: ""; position: absolute; left: 50%; top: 8px; width: 118px; height: 20px; border-radius: 20px; background: var(--ink); transform: translateX(-50%); }
+      .focus-copy { position: absolute; z-index: 6; left: 58px; right: 58px; top: 438px; height: 42px; overflow: hidden; }
+      .focus-copy span { position: absolute; inset: 0; color: var(--clay); font-size: 20px; line-height: 42px; font-weight: 800; letter-spacing: .12em; text-align: center; text-transform: uppercase; }
+      .product-caption { position: absolute; z-index: 6; left: 58px; right: 58px; bottom: 116px; display: flex; justify-content: space-between; gap: 12px; }
+      .product-caption span { padding: 12px 15px; border: 2px solid rgba(233,225,208,.44); background: var(--forest); color: var(--paper); font-size: 17px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+      .simple-rate { position: absolute; z-index: 7; top: 260px; right: 58px; width: 390px; padding: 25px 28px 22px; background: var(--clay); color: var(--ink); box-shadow: 0 20px 40px rgba(0,0,0,.22); }
+      .simple-rate span { display: block; font-size: 18px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+      .simple-rate strong { display: block; margin-top: 13px; font-family: Georgia, "DejaVu Serif", serif; font-size: 92px; line-height: .8; letter-spacing: -.07em; }
+      .simple-rate small { display: block; margin-top: 17px; font-size: 16px; line-height: 1.25; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
+
+      /* 08 — conversion */
+      .whatsapp-card { position: absolute; z-index: 4; left: 50px; right: 50px; top: 274px; padding: 34px 34px 30px; border: 3px solid var(--paper); background: rgba(16,45,37,.94); }
+      .whatsapp-card .tag { color: var(--clay); font-size: 18px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+      .whatsapp-card h2 { margin: 16px 0 0; font-family: Georgia, "DejaVu Serif", serif; font-size: 58px; line-height: .94; letter-spacing: -.055em; }
+      .whatsapp-card .message { display: grid; gap: 8px; margin-top: 22px; color: var(--ink); font-size: 18px; line-height: 1.2; }
+      .message-row { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; min-height: 52px; padding: 12px 16px; background: var(--paper); }
+      .message-row b { color: var(--river); font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+      .message-row span { font-weight: 800; }
+      .enquiry-cta { margin-top: 16px; padding: 18px 20px; background: var(--clay); color: var(--ink); font-size: 18px; font-weight: 900; letter-spacing: .08em; text-align: center; text-transform: uppercase; transform-origin: center center; }
+      .whatsapp-card .contact { margin-top: 16px; color: var(--mist); font-size: 17px; letter-spacing: .06em; text-align: center; }
+      .conditions { position: absolute; z-index: 4; left: 50px; right: 50px; bottom: 112px; color: rgba(233,225,208,.82); font-size: 17px; line-height: 1.45; text-align: center; letter-spacing: .04em; }
+
+      /* 09 — close */
+      #s9 .photo { object-position: 57% center; }
+      .closing-stack { position: absolute; z-index: 5; left: 60px; right: 60px; bottom: 176px; }
+      .closing-stack .values { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+      .closing-stack .values span { padding: 11px 14px; background: var(--paper); color: var(--ink); font-size: 17px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+      .closing-stack h2 { margin: 0; max-width: 900px; font-family: Georgia, "DejaVu Serif", serif; font-size: 92px; line-height: .94; letter-spacing: -.06em; }
+      .closing-stack .url { display: inline-block; margin-top: 28px; padding: 16px 20px; border: 3px solid var(--clay); background: rgba(16,45,37,.78); color: var(--paper); font-size: 22px; line-height: 1; font-weight: 800; letter-spacing: .04em; }
+      .closing-rule { width: 100%; height: 4px; margin-top: 20px; background: var(--clay); transform-origin: left center; }
+
+      /* fourth-wall hook and presenter windows */
+      .claim-overlay { z-index: 34; color: var(--paper); background: rgba(16,45,37,.66); }
+      .claim-overlay::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 76% 22%, rgba(199,122,55,.22), rgba(16,45,37,0) 46%); }
+      .claim-copy { position: absolute; z-index: 2; left: 58px; right: 58px; top: 210px; bottom: 132px; display: flex; flex-direction: column; justify-content: space-between; }
+      .claim-kicker { max-width: 800px; color: var(--paper); font-size: 22px; line-height: 1.2; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+      .claim-title { margin: 0; max-width: 960px; font-family: Georgia, "DejaVu Serif", serif; font-size: 108px; line-height: .9; letter-spacing: -.065em; }
+      .claim-title em { display: block; margin-top: 24px; color: var(--clay); font-style: normal; font-size: .69em; line-height: .95; letter-spacing: -.04em; }
+      .claim-brand { display: flex; align-items: center; gap: 18px; font-size: 22px; line-height: 1; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+      .claim-brand::before { content: ""; display: block; width: 110px; height: 4px; background: var(--clay); }
+      .reaction-copy { z-index: 41; color: var(--paper); background: var(--forest); }
+      .reaction-copy::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 72% 74%, rgba(199,122,55,.24), rgba(16,45,37,0) 58%); }
+      .reaction-copy .reaction-kicker { position: absolute; left: 56px; right: 56px; top: 156px; color: var(--paper); font-size: 22px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+      .reaction-copy h2 { position: absolute; left: 56px; right: 56px; top: 216px; margin: 0; max-width: 880px; font-family: Georgia, "DejaVu Serif", serif; font-size: 126px; line-height: .88; letter-spacing: -.07em; }
+      .reaction-copy .reaction-rule { position: absolute; left: 56px; top: 500px; width: 430px; height: 4px; background: var(--clay); transform-origin: left center; }
+      .proof-copy { z-index: 35; color: var(--paper); background: rgba(16,45,37,.44); }
+      .proof-copy strong { position: absolute; left: 54px; right: 54px; top: 192px; padding: 28px 30px; border: 4px solid var(--paper); background: var(--forest); font-family: Georgia, "DejaVu Serif", serif; font-size: 64px; line-height: .96; letter-spacing: -.04em; }
+      .proof-copy span { display: block; margin-top: 16px; color: var(--clay); font-family: "Liberation Mono", monospace; font-size: 20px; line-height: 1.2; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+      .pip-shell { position: absolute; z-index: 45; overflow: hidden; visibility: hidden; opacity: 0; border: 8px solid var(--paper); border-radius: 34px; background: var(--forest); box-shadow: 0 28px 64px rgba(0,0,0,.48); }
+      .pip-shell::after { content: ""; position: absolute; z-index: 4; right: 18px; top: 18px; width: 36px; height: 36px; border-top: 7px solid var(--clay); border-right: 7px solid var(--clay); }
+      .pip-shell .pip-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .pip-sure-shell { right: 46px; bottom: 134px; width: 448px; height: 796px; }
+      .pip-rock-shell { left: 46px; bottom: 134px; width: 392px; height: 392px; border-color: var(--clay); border-radius: 28px; }
+      .pip-rock-shell::after { border-color: var(--paper); }
+      .pip-come-shell { right: 44px; bottom: 104px; width: 458px; height: 814px; }
+      .pip-tag { position: absolute; z-index: 46; visibility: hidden; opacity: 0; padding: 13px 16px; background: var(--clay); color: var(--ink); font-size: 18px; line-height: 1; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 14px 26px rgba(0,0,0,.3); }
+      .pip-sure-tag { right: 70px; bottom: 100px; }
+      .pip-rock-tag { left: 68px; bottom: 100px; }
+      .pip-come-tag { right: 72px; bottom: 68px; font-family: Georgia, "DejaVu Serif", serif; font-size: 34px; letter-spacing: -.02em; text-transform: none; }
+      .come-copy { z-index: 41; color: var(--paper); }
+      .come-copy strong { position: absolute; left: 58px; top: 720px; width: 470px; font-family: Georgia, "DejaVu Serif", serif; font-size: 104px; line-height: .9; letter-spacing: -.065em; }
+      .come-copy span { display: block; margin-top: 22px; color: var(--paper); font-family: "Liberation Mono", monospace; font-size: 20px; line-height: 1.25; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+
+      .wipe { z-index: 30; background: var(--clay); }
+      .wipe::after { content: ""; position: absolute; inset: 0; opacity: .24; background-image: repeating-linear-gradient(90deg, rgba(21,25,23,.28) 0, rgba(21,25,23,.28) 2px, transparent 2px, transparent 14px); }
     </style>
   </head>
   <body>
-    <main id="main-video" data-composition-id="longtaa-process" data-width="1080" data-height="1920" data-start="0" data-duration="59.5">
-      <audio id="narration" data-start="0" data-duration="59.5" data-track-index="10" src="assets/narration.wav" data-volume="1"></audio>
-      <audio id="ambient" data-start="0" data-duration="59.5" data-track-index="11" src="assets/ambient-bed.wav" data-volume="0.75"></audio>
-
-      <section id="s1" class="scene clip" data-start="0" data-duration="5.4" data-track-index="1">
-        <img class="photo dark river" src="assets/river.jpg" alt="Authentic supplied Dapui River photograph" />
-        <div class="logo-card"><img src="assets/logo.png" alt="Long Taa logo" /></div>
-        <div class="scene-content">
-          <div class="kicker">Long Taa Borneo Eco Stay</div>
-          <h1 class="title large">A real village. A clearer way to visit.</h1>
-          <p class="caption">A real village deserves a clearer way to visit.</p>
+    <main data-hf-id="hf-gvh3" id="main-video" data-composition-id="longtaa-business-first" data-width="1080" data-height="1920" data-start="0" data-duration="49.5">
+      <section data-hf-id="hf-brand-00" id="brand-reveal" class="scene clip" data-start="0" data-duration="2.6" data-track-index="1">
+        <div data-hf-id="hf-brand-stage" class="brand-stage">
+          <div data-hf-id="hf-brand-halo" class="brand-halo"></div>
+          <div data-hf-id="hf-brand-orbit-a" class="brand-orbit outer"></div>
+          <div data-hf-id="hf-brand-orbit-b" class="brand-orbit inner"></div>
+          <div data-hf-id="hf-brand-stars" class="shooting-stars"><span data-hf-id="hf-star-1" class="star-streak"></span><span data-hf-id="hf-star-2" class="star-streak"></span><span data-hf-id="hf-star-3" class="star-streak"></span><span data-hf-id="hf-star-4" class="star-streak"></span></div>
+          <div data-hf-id="hf-brand-sparks" class="spark-field"><span data-hf-id="hf-spark-1" class="spark"></span><span data-hf-id="hf-spark-2" class="spark"></span><span data-hf-id="hf-spark-3" class="spark"></span></div>
+          <div data-hf-id="hf-brand-emblem" class="brand-emblem"><img data-hf-id="hf-brand-logo" src="assets/logo-transparent.png" alt="Long Taa Dapui Living Heritage Village logo"><div data-hf-id="hf-brand-sweep" class="brand-sweep"><div data-hf-id="hf-brand-sweep-mark" class="brand-sweep-mark"></div></div></div>
+          <div data-hf-id="hf-brand-kicker" class="brand-kicker">Borneo · Living heritage · Est. 1896</div>
+          <div data-hf-id="hf-brand-grain" class="grain"></div>
         </div>
-        <div class="grain"></div>
       </section>
 
-      <section id="s2" class="scene clip" data-start="5.4" data-duration="6.6" data-track-index="1">
-        <img class="photo dark" data-layout-allow-overflow src="assets/longhouse.jpg" alt="Authentic supplied Long Taa longhouse photograph" />
-        <div class="scene-content top">
-          <div class="kicker">The challenge</div>
-          <h2 class="title">Remote should not mean unclear.</h2>
-          <p class="body">Long Taa is a living Sebup community, around six hours by 4WD from Miri.</p>
-          <p class="caption">A living Sebup community. Around six hours from Miri.</p>
+      <section data-hf-id="hf-hook-claim" id="hook-claim" class="claim-overlay clip" data-start="2.6" data-duration="6.7" data-track-index="3" data-layout-allow-overlap="" data-layout-allow-occlusion="">
+        <div data-hf-id="hf-claim-copy" class="claim-copy">
+          <div data-hf-id="hf-claim-kicker" class="claim-kicker">I want to introduce you to</div>
+          <h1 data-hf-id="hf-claim-title" class="claim-title">The best longhouse eco-stay <em data-hf-id="hf-claim-region">in Southeast Asia?</em></h1>
+          <div data-hf-id="hf-claim-brand" class="claim-brand" data-layout-allow-overlap="">Long Taa Eco Stay</div>
         </div>
-        <div class="grain"></div>
       </section>
 
-      <section id="s3" class="scene clip" data-start="12" data-duration="6.8" data-track-index="1">
-        <img class="photo dark" src="assets/forest.jpg" alt="Authentic supplied rainforest photograph" />
-        <article class="source-card">
-          <div class="meta" style="color:#1e6454">Build input</div>
-          <h2>Start with the record.</h2>
-          <div class="rule"></div>
-          <p>Supplied brochure<br />Authentic photography<br />Booking facts<br />Community context</p>
-        </article>
-        <img class="contact-sheet" data-layout-allow-overflow src="assets/river-vertical.jpg" alt="Authentic supplied Long Taa river photograph" />
-        <div class="scene-content">
-          <p class="caption">Supplied facts. Not assumptions.</p>
-        </div>
-        <div class="grain"></div>
+      <section data-hf-id="hf-reaction-copy" id="reaction-copy" class="reaction-copy clip" data-start="9.3" data-duration="3.9" data-track-index="3" data-layout-allow-occlusion="">
+        <div data-hf-id="hf-reaction-kicker" class="reaction-kicker">Breaking the fourth wall</div>
+        <h2 data-hf-id="hf-reaction-title">Sure or not?</h2>
+        <div data-hf-id="hf-reaction-rule" class="reaction-rule"></div>
+      </section>
+      <div data-hf-id="hf-sure-shell" id="sure-shell" class="pip-shell pip-sure-shell" data-layout-allow-occlusion="">
+        <video data-hf-id="hf-sure-video" id="sure-video" class="clip pip-video" src="assets/sayyid-sure-or-not.mp4" data-start="9.3" data-duration="1.733" data-track-index="4" data-layout-allow-occlusion="" muted playsinline></video>
+      </div>
+      <div data-hf-id="hf-rock-shell" id="rock-shell" class="pip-shell pip-rock-shell" data-layout-allow-occlusion="">
+        <video data-hf-id="hf-rock-video" id="rock-video" class="clip pip-video" src="assets/rock-eyebrow-reaction.mp4" data-start="9.3" data-duration="3.9" data-track-index="5" data-layout-allow-occlusion="" muted playsinline></video>
+      </div>
+      <div data-hf-id="hf-sure-tag" id="sure-tag" class="pip-tag pip-sure-tag">Sayyid</div>
+      <div data-hf-id="hf-rock-tag" id="rock-tag" class="pip-tag pip-rock-tag">Reaction check</div>
+      <audio data-hf-id="hf-sure-audio" id="sure-audio" src="assets/sayyid-sure-or-not.mp4" data-start="9.3" data-duration="1.733" data-track-index="11" data-volume="1" preload="auto"></audio>
+      <audio data-hf-id="hf-rock-audio" id="rock-audio" src="assets/rock-eyebrow-reaction.mp4" data-start="9.3" data-duration="3.9" data-track-index="12" data-volume="0.72" preload="auto"></audio>
+      <audio data-hf-id="hf-jessie-opening-audio" id="jessie-opening-audio" src="assets/narration-jessie-opening.m4a" data-start="2.6" data-duration="5.65" data-track-index="10" data-audio-group="voiceover" data-volume="1" preload="auto"></audio>
+      <audio data-hf-id="hf-jessie-main-audio" id="jessie-main-audio" src="assets/narration-jessie-main-short-pricing.m4a" data-start="13.2" data-duration="34.884" data-track-index="10" data-audio-group="voiceover" data-volume="1" preload="auto"></audio>
+
+      <section data-hf-id="hf-proof-copy" id="proof-copy" class="proof-copy clip" data-start="13.2" data-duration="2.7" data-track-index="3">
+        <strong data-hf-id="hf-proof-title">Fair question. Here's the proof.<span data-hf-id="hf-proof-subtitle">Authentic place · Real community · Clear journey</span></strong>
       </section>
 
-      <section id="s4" class="scene clip" data-start="18.8" data-duration="8.5" data-track-index="1">
-        <img class="photo dark boat" src="assets/boat.jpg" alt="Authentic supplied longboat photograph" />
-        <div class="route-stack">
-          <div class="route">01&nbsp;&nbsp; Home <span>Discover</span></div>
-          <div class="route">02&nbsp;&nbsp; Stay <span>Understand</span></div>
-          <div class="route">03&nbsp;&nbsp; Explore <span>Imagine</span></div>
-          <div class="route">04&nbsp;&nbsp; Heritage <span>Respect</span></div>
-          <div class="route">05&nbsp;&nbsp; Plan <span>Enquire</span></div>
-        </div>
-        <div class="scene-content">
-          <div class="kicker">Mobile-first structure</div>
-          <h2 class="title">Five pages. One considered journey.</h2>
-          <p class="caption">Discover. Understand. Respect. Plan. Enquire.</p>
-        </div>
-        <div class="grain"></div>
+      <section data-hf-id="hf-19oo" id="s1" class="scene clip" data-start="2.6" data-duration="2.6" data-track-index="1" data-layout-allow-occlusion="" data-layout-allow-overlap="">
+        <img data-hf-id="hf-sjb9" class="photo" data-layout-allow-overflow="" src="assets/journey-road.webp" alt="Supplied photograph of the road journey into Long Taa">
+        <div data-hf-id="hf-1vfc" class="scrim deep"></div>
+        <div data-hf-id="hf-fu07" class="frame-rule top"></div>
+        <div data-hf-id="hf-mnjw" class="edge-label">The journey in</div><div data-hf-id="hf-80gl" class="counter">01 / 09</div>
+        <div data-hf-id="hf-nwzi" class="travel-time"><strong data-hf-id="hf-u0z8">6H</strong><span data-hf-id="hf-iga6">from Miri, the city disappears.</span></div>
+        <div data-hf-id="hf-6k2a" class="route-map"><div data-hf-id="hf-64lp" class="track"></div><div data-hf-id="hf-tpll" class="route-pin miri">MIRI</div><div data-hf-id="hf-y4d5" class="route-pin longtaa">LONG TAA</div></div>
+        <div data-hf-id="hf-fkzx" class="caption-line"><span data-hf-id="hf-lgv3">Six hours from Miri</span><span data-hf-id="hf-m8mp" class="dash"></span><span data-hf-id="hf-2fx6">Ulu Tinjar · Sarawak</span></div>
+        <div data-hf-id="hf-h60x" class="grain"></div>
       </section>
 
-      <section id="s5" class="scene clip" data-start="27.3" data-duration="7.9" data-track-index="1">
-        <img class="photo dark" src="assets/longhouse-interior.jpg" alt="Authentic supplied longhouse interior photograph" />
-        <div class="fact-grid">
-          <article class="fact-card"><div class="meta" style="color:#1e6454">Stay</div><h2>RM50 / RM180</h2><p>Accommodation-only or accommodation with local meals, per person per night.</p></article>
-          <article class="fact-card"><div class="meta" style="color:#1e6454">Transfer</div><h2>RM1,500</h2><p>Miri–Long Taa–Miri 4WD transfer, maximum three guests per vehicle.</p></article>
-          <article class="fact-card accent"><div class="meta">Conditions</div><h2>Visible, not buried.</h2><p>Activities depend on weather, road, river, water-level, availability and safety conditions.</p></article>
+      <section data-hf-id="hf-9oen" id="s2" class="scene clip" data-start="5.2" data-duration="7.3" data-track-index="1" data-layout-allow-occlusion="" data-layout-allow-overlap="">
+        <img data-hf-id="hf-c1bu" class="photo" data-layout-allow-overflow="" src="assets/mosaic-river-hero.png" alt="Supplied photograph of the Dapui River">
+        <div data-hf-id="hf-jep7" class="scrim bottom"></div>
+        <div data-hf-id="hf-hfpv" class="longhouse-window"><img data-hf-id="hf-52rm" src="assets/longhouse-exterior.png" alt="Supplied photograph of the Long Taa longhouse"></div>
+        <div data-hf-id="hf-942s" class="logo-card" role="img" aria-label="Long Taa Dapui Living Heritage Village logo"><div data-hf-id="hf-qnu7" class="logo-mark"></div></div>
+        <div data-hf-id="hf-hjg8" class="content bottom">
+          <p data-hf-id="hf-e7am" class="eyebrow">Long Taa · Dapui</p>
+          <h1 data-hf-id="hf-iiyb" class="display">A living Sebup village.</h1>
+          <div data-hf-id="hf-autr" class="pillars"><span data-hf-id="hf-ib1e" class="pillar">Nature</span><span data-hf-id="hf-cri1" class="pillar">Culture</span><span data-hf-id="hf-1lxv" class="pillar">Adventure</span><span data-hf-id="hf-y82l" class="pillar">Living heritage</span></div>
         </div>
-        <div class="scene-content"><p class="caption">Clear rates. No invented package prices. Conditions stay visible.</p></div>
-        <div class="grain"></div>
+        <div data-hf-id="hf-4nr5" class="caption-line"><span data-hf-id="hf-411r">River · Rainforest · Community</span><span data-hf-id="hf-2mg5" class="dash"></span><span data-hf-id="hf-rpvl">02 / 09</span></div>
+        <div data-hf-id="hf-3l5h" class="grain"></div>
       </section>
 
-      <section id="s6" class="scene clip" data-start="35.2" data-duration="7.8" data-track-index="1">
-        <img class="photo dark road" src="assets/road.jpg" alt="Authentic supplied road journey photograph" />
-        <div class="phone">
-          <div class="phone-head">Your journey starts with a conversation.</div>
-          <div class="phone-line">Name</div><div class="phone-line">Preferred date</div><div class="phone-line">Guests &amp; nights</div><div class="phone-line">Stay &amp; experience</div>
-          <div class="whatsapp">Generate WhatsApp enquiry</div>
+      <section data-hf-id="hf-mnb4" id="s3" class="scene clip" data-start="12.5" data-duration="8.5" data-track-index="1">
+        <div data-hf-id="hf-zqd4" class="mosaic">
+          <div data-hf-id="hf-f6ek" class="tile"><img data-hf-id="hf-5ha7" data-layout-allow-overflow="" src="assets/mosaic-community.jpg" alt="Supplied photograph of the Long Taa community"></div>
+          <div data-hf-id="hf-8r7o" class="tile"><img data-hf-id="hf-mbke" data-layout-allow-overflow="" src="assets/mosaic-meal.jpg" alt="Supplied photograph of a community meal"></div>
+          <div data-hf-id="hf-7kal" class="tile"><img data-hf-id="hf-tam5" data-layout-allow-overflow="" src="assets/mosaic-longboat.png" alt="Supplied photograph of a longboat on the river"></div>
+          <div data-hf-id="hf-7ylm" class="tile"><img data-hf-id="hf-dasy" data-layout-allow-overflow="" src="assets/mosaic-trail.jpg" alt="Supplied photograph of a rainforest trail"></div>
+          <div data-hf-id="hf-9y4r" class="tile"><img data-hf-id="hf-ffvc" data-layout-allow-overflow="" src="assets/mosaic-river.png" alt="Supplied photograph of the Dapui River"></div>
+          <div data-hf-id="hf-acfs" class="tile"><img data-hf-id="hf-x6dn" data-layout-allow-overflow="" src="assets/mosaic-tagang.png" alt="Supplied photograph of conservation activity beside the river"></div>
         </div>
-        <div class="scene-content"><p class="caption">Plan it simply. Enquire on WhatsApp.</p></div>
-        <div class="grain"></div>
+        <div data-hf-id="hf-8087" class="experience-banner"><strong data-hf-id="hf-n1rv">You don't just see Borneo. You live it.</strong><span data-hf-id="hf-mx58">Longhouse · Local meals · Longboat · Trails · Tagang conservation</span></div>
+        <div data-hf-id="hf-5uo8" class="caption-line"><span data-hf-id="hf-ncoc">Live it · Hear it · Feel it</span><span data-hf-id="hf-3td8" class="dash"></span><span data-hf-id="hf-ox9w">03 / 09</span></div>
+        <div data-hf-id="hf-4s2k" class="grain"></div>
       </section>
 
-      <section id="s7" class="scene clip" data-start="43" data-duration="7.7" data-track-index="1">
-        <img class="photo dark" src="assets/river-vertical.jpg" alt="Authentic supplied Long Taa river photograph" />
-        <div class="pitch-grid">
-          <article class="pitch-card"><strong>The need</strong><span>Reduce discovery and planning friction.</span></article>
-          <article class="pitch-card"><strong>The build</strong><span>Five useful routes and a qualified enquiry path.</span></article>
-          <article class="pitch-card"><strong>The value</strong><span>Community-led, respectful travel positioning.</span></article>
+      <section data-hf-id="hf-qdez" id="s4" class="scene clip" data-start="21" data-duration="6" data-track-index="1">
+        <img data-hf-id="hf-qoxn" class="photo" data-layout-allow-overflow="" src="assets/longhouse-stay-source.png" alt="Supplied photograph of the Long Taa longhouse">
+        <div data-hf-id="hf-jxyo" class="scrim deep"></div>
+        <div data-hf-id="hf-si2m" class="truth-panel">
+          <span data-hf-id="hf-4bi8" class="crossed">Five-star luxury</span>
+          <div data-hf-id="hf-i3vl" class="point">That's not the point. <em data-hf-id="hf-d0s8">This is real Borneo.</em></div>
         </div>
-        <div class="scene-content"><div class="kicker">One story across every deliverable</div><h2 class="title">Community-led. Clear. Respectful.</h2><p class="caption">The pitch and site tell one story: community-led value, clear planning, respectful travel.</p></div>
-        <div class="grain"></div>
+        <div data-hf-id="hf-1h21" class="truth-facts"><div data-hf-id="hf-ygfy" class="truth-fact"><strong data-hf-id="hf-owk4">24H</strong><span data-hf-id="hf-uib3">solar electricity</span></div><div data-hf-id="hf-804i" class="truth-fact"><strong data-hf-id="hf-nyn2">Fresh</strong><span data-hf-id="hf-bsv9">mountain water</span></div><div data-hf-id="hf-8efj" class="truth-fact"><strong data-hf-id="hf-65u5">Telco</strong><span data-hf-id="hf-nw3a">connectivity</span></div></div>
+        <div data-hf-id="hf-5gd7" class="caption-line"><span data-hf-id="hf-ktp1">Not a resort. A real village.</span><span data-hf-id="hf-3f27" class="dash"></span><span data-hf-id="hf-ws8b">04 / 09</span></div>
+        <div data-hf-id="hf-4drj" class="grain"></div>
       </section>
 
-      <section id="s8" class="scene clip" data-start="50.7" data-duration="5.5" data-track-index="1">
-        <img class="photo dark" src="assets/transfer.jpg" alt="Authentic supplied Long Taa transfer photograph" />
-        <div class="qa-grid">
-          <div class="qa"><strong>360</strong><span>narrow phone QA</span></div>
-          <div class="qa"><strong>375</strong><span>mobile reading QA</span></div>
-          <div class="qa"><strong>390</strong><span>reference layout</span></div>
-          <div class="qa"><strong>430</strong><span>larger phone QA</span></div>
-        </div>
-        <div class="scene-content"><div class="kicker">Quality gate</div><h2 class="title">Phone first, every next step clear.</h2><p class="caption">Built for the phone first.</p></div>
-        <div class="grain"></div>
+      <section data-hf-id="hf-8zfo" id="s5" class="scene clip" data-start="27" data-duration="4.5" data-track-index="1">
+        <img data-hf-id="hf-xojd" class="photo" data-layout-allow-overflow="" src="assets/journey-4wd.jpg" alt="Supplied photograph of the four-wheel-drive journey to Long Taa">
+        <div data-hf-id="hf-ir1l" class="scrim deep"></div>
+        <div data-hf-id="hf-s5-label" class="edge-label">Who it is for</div><div data-hf-id="hf-s5-counter" class="counter">05 / 09</div>
+        <div data-hf-id="hf-s5-audience" class="audience-layout"><div data-hf-id="hf-s5-kicker" class="audience-kicker">Come for something real</div><h2 data-hf-id="hf-s5-title">Borneo for people who want to feel it, not just visit it.</h2><div data-hf-id="hf-s5-grid" class="audience-grid"><div data-hf-id="hf-audience-curious" class="audience-card"><b>01</b><strong>Curious travellers</strong></div><div data-hf-id="hf-audience-groups" class="audience-card"><b>02</b><strong>Small group escapes</strong></div><div data-hf-id="hf-audience-culture" class="audience-card"><b>03</b><strong>Culture seekers</strong></div><div data-hf-id="hf-audience-responsible" class="audience-card"><b>04</b><strong>Responsible explorers</strong></div></div></div>
+        <div data-hf-id="hf-s5-caption" class="caption-line"><span data-hf-id="hf-s5-caption-left">Real connection</span><span data-hf-id="hf-s5-caption-dash" class="dash"></span><span data-hf-id="hf-s5-caption-right">Community-led</span></div>
+        <div data-hf-id="hf-5kom" class="grain"></div>
       </section>
 
-      <section id="s9" class="scene clip" data-start="56.2" data-duration="3.3" data-track-index="1">
-        <img class="photo dark river" src="assets/river.jpg" alt="Authentic supplied Dapui River photograph" />
-        <div class="logo-card"><img src="assets/logo.png" alt="Long Taa logo" /></div>
-        <div class="scene-content closing"><div class="kicker">Long Taa Borneo Eco Stay</div><h2 class="title">Escape the city. Experience the real Borneo.</h2><div class="url">longtaaborneo.vercel.app</div><p class="caption">Escape the city. Experience the real Borneo.</p></div>
-        <div class="grain"></div>
+      <section data-hf-id="hf-24j7" id="s6" class="scene clip" data-start="31.5" data-duration="2.98" data-track-index="1">
+        <img data-hf-id="hf-d0ev" class="photo" data-layout-allow-overflow="" src="assets/forest.jpg" alt="Supplied photograph of the Long Taa rainforest">
+        <div data-hf-id="hf-j5cm" class="scrim deep"></div>
+        <div data-hf-id="hf-tt6v" class="edge-label">Simple pricing</div><div data-hf-id="hf-4e16" class="counter">06 / 09</div>
+        <div data-hf-id="hf-s6-content" class="content center"><p data-hf-id="hf-s6-kicker" class="eyebrow">Start with your stay</p><h2 data-hf-id="hf-s6-title" class="display xl">Stays from RM50.</h2><p data-hf-id="hf-s6-support" class="support">Per person, per night. The rest is planned around your group.</p></div>
+        <div data-hf-id="hf-32j1" class="caption-line"><span data-hf-id="hf-bwzb">Clear start</span><span data-hf-id="hf-47o9" class="dash"></span><span data-hf-id="hf-rcdu">Your group plan</span></div>
+        <div data-hf-id="hf-56dl" class="grain"></div>
       </section>
 
-      <div id="w1" class="wipe clip" data-start="4.9" data-duration="0.5" data-track-index="2"></div>
-      <div id="w2" class="wipe clip" data-start="11.5" data-duration="0.5" data-track-index="2"></div>
-      <div id="w3" class="wipe clip" data-start="18.3" data-duration="0.5" data-track-index="2"></div>
-      <div id="w4" class="wipe clip" data-start="26.8" data-duration="0.5" data-track-index="2"></div>
-      <div id="w5" class="wipe clip" data-start="34.7" data-duration="0.5" data-track-index="2"></div>
-      <div id="w6" class="wipe clip" data-start="42.5" data-duration="0.5" data-track-index="2"></div>
-      <div id="w7" class="wipe clip" data-start="50.2" data-duration="0.5" data-track-index="2"></div>
-      <div id="w8" class="wipe clip" data-start="55.7" data-duration="0.5" data-track-index="2"></div>
+      <section data-hf-id="hf-ta6i" id="s7" class="scene clip" data-start="34.48" data-duration="5.5" data-track-index="1">
+        <div data-hf-id="hf-24wy" class="edge-label">Your mobile guide</div><div data-hf-id="hf-nvqv" class="counter">07 / 09</div>
+        <div data-hf-id="hf-mcm7" class="content"><p data-hf-id="hf-5wjb" class="eyebrow">Explore with confidence</p><h2 data-hf-id="hf-xj8l" class="display small">Explore. Compare. Plan.</h2></div>
+        <div data-hf-id="hf-focus-copy" class="focus-copy"><span data-hf-id="hf-focus-discover" id="focus-discover">01 · Discover the village</span><span data-hf-id="hf-focus-compare" id="focus-compare">02 · Compare your stay</span><span data-hf-id="hf-focus-enquire" id="focus-enquire">03 · Plan and enquire</span></div>
+        <div data-hf-id="hf-7wwl" class="phone-stage"><div data-hf-id="hf-v6p0" class="phone-rail" data-layout-allow-overflow=""><div data-hf-id="hf-xb0l" id="product-home-phone" class="site-phone" data-layout-allow-overflow=""><img data-hf-id="hf-6jyf" src="assets/site-home-mobile.png" alt="Long Taa website home page on mobile"></div><div data-hf-id="hf-9p2b" id="product-stay-phone" class="site-phone" data-layout-allow-overflow=""><img data-hf-id="hf-7d0j" src="assets/site-stay-mobile.png" alt="Long Taa website stay page on mobile"></div><div data-hf-id="hf-ki77" id="product-book-phone" class="site-phone" data-layout-allow-overflow=""><img data-hf-id="hf-j0pp" src="assets/site-book-mobile.png" alt="Long Taa website plan and book page on mobile"></div></div></div>
+        <div data-hf-id="hf-33aw" class="product-caption"><span data-hf-id="hf-kiq2" id="chip-discover">Discover</span><span data-hf-id="hf-6pkg" id="chip-compare">Compare</span><span data-hf-id="hf-0bzm" id="chip-plan">Plan</span><span data-hf-id="hf-2pru" id="chip-enquire">Enquire</span></div>
+        <div data-hf-id="hf-49g4" class="caption-line"><span data-hf-id="hf-jrn1">Real mobile pages</span><span data-hf-id="hf-5elc" class="dash"></span><span data-hf-id="hf-bojk">07 / 09</span></div>
+        <div data-hf-id="hf-6dao" class="grain"></div>
+      </section>
+
+      <section data-hf-id="hf-5l7h" id="s8" class="scene clip" data-start="39.98" data-duration="6.42" data-track-index="1">
+        <img data-hf-id="hf-02vs" class="photo" data-layout-allow-overflow="" src="assets/river-vertical.jpg" alt="Supplied photograph of the river landscape at Long Taa">
+        <div data-hf-id="hf-hyfj" class="scrim deep"></div>
+        <div data-hf-id="hf-dqbl" class="whatsapp-card"><div data-hf-id="hf-d06h" class="tag">Direct enquiry · availability checked by Clement</div><h2 data-hf-id="hf-arlj">Tell us your plan. We will shape the rest.</h2><div data-hf-id="hf-t67e" class="message"><div data-hf-id="hf-message-stay" class="message-row"><b data-hf-id="hf-sjz4">Dates</b><span data-hf-id="hf-rwcb">Your preferred travel dates</span></div><div data-hf-id="hf-message-transport" class="message-row"><b data-hf-id="hf-8mxe">Guests</b><span data-hf-id="hf-cc3m">Your group size</span></div><div data-hf-id="hf-message-package" class="message-row"><b data-hf-id="hf-syrf">Stay</b><span data-hf-id="hf-uqi2">Stay only or local meals</span></div><div data-hf-id="hf-message-river" class="message-row"><b data-hf-id="hf-fm1a">Journey</b><span data-hf-id="hf-zea9">4WD and river support if needed</span></div></div><div data-hf-id="hf-enquiry-cta" class="enquiry-cta">Request availability &amp; group quote</div><div data-hf-id="hf-3ymt" class="contact">WhatsApp · +60 19-856 3536</div></div>
+        <div data-hf-id="hf-agit" class="conditions">Activities remain subject to weather, road, river, water level, availability and safety conditions.</div>
+        <div data-hf-id="hf-3v53" class="caption-line"><span data-hf-id="hf-8xxz">Plan with confidence</span><span data-hf-id="hf-50ab" class="dash"></span><span data-hf-id="hf-vmuf">08 / 09</span></div>
+        <div data-hf-id="hf-5yzn" class="grain"></div>
+      </section>
+
+      <section data-hf-id="hf-109o" id="s9" class="scene clip" data-start="46.4" data-duration="3.1" data-track-index="1">
+        <img data-hf-id="hf-dqa2" class="photo" data-layout-allow-overflow="" src="assets/closing-longboat.jpg" alt="Supplied photograph of a longboat journey on the Dapui River">
+        <div data-hf-id="hf-7pjf" class="scrim bottom"></div>
+        <div data-hf-id="hf-r924" class="logo-card" role="img" aria-label="Long Taa Dapui Living Heritage Village logo"><div data-hf-id="hf-ayro" class="logo-mark"></div></div>
+        <div data-hf-id="hf-1xq2" class="closing-stack"><div data-hf-id="hf-b4qi" class="values"><span data-hf-id="hf-1un7">Protect nature</span><span data-hf-id="hf-e5w3">Respect culture</span><span data-hf-id="hf-o05f">Share our heritage</span></div><h2 data-hf-id="hf-p2lh">What are you waiting for?</h2><div data-hf-id="hf-uimm" class="url">longtaaborneo.vercel.app</div><div data-hf-id="hf-closing-rule" class="closing-rule"></div></div>
+        <div data-hf-id="hf-0t0a" class="grain"></div>
+      </section>
+
+      <section data-hf-id="hf-come-copy" id="come-copy" class="come-copy clip" data-start="47" data-duration="2.3" data-track-index="3">
+        <strong data-hf-id="hf-come-title">Come, come.<span data-hf-id="hf-come-subtitle">Long Taa is waiting</span></strong>
+      </section>
+      <div data-hf-id="hf-come-shell" id="come-shell" class="pip-shell pip-come-shell" data-layout-allow-occlusion="">
+        <video data-hf-id="hf-come-video" id="come-video" class="clip pip-video" src="assets/sayyid-come-come.mp4" data-start="47" data-duration="2.333" data-track-index="4" data-layout-allow-occlusion="" muted playsinline></video>
+      </div>
+      <div data-hf-id="hf-come-tag" id="come-tag" class="pip-tag pip-come-tag">Your invitation →</div>
+      <audio data-hf-id="hf-come-audio" id="come-audio" src="assets/sayyid-come-come.mp4" data-start="47" data-duration="2.333" data-track-index="11" data-volume="1" preload="auto"></audio>
+
+      <div data-hf-id="hf-boxo" id="w1" class="wipe clip" data-start="4.82" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-8ja7" id="w2" class="wipe clip" data-start="12.12" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-nrre" id="w3" class="wipe clip" data-start="20.62" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-8i5f" id="w4" class="wipe clip" data-start="26.62" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-qgrt" id="w5" class="wipe clip" data-start="31.12" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-4s5w" id="w6" class="wipe clip" data-start="34.10" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-u8yf" id="w7" class="wipe clip" data-start="39.60" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-0ojn" id="w8" class="wipe clip" data-start="46.02" data-duration="0.38" data-track-index="2"></div>
 
       <script>
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
-        const scenes = [
-          ["#s1", 0], ["#s2", 5.4], ["#s3", 12], ["#s4", 18.8], ["#s5", 27.3], ["#s6", 35.2], ["#s7", 43], ["#s8", 50.7], ["#s9", 56.2]
-        ];
-        const fromIfPresent = (selector, vars, at) => {
-          if (document.querySelector(selector)) tl.from(selector, vars, at);
+        const sceneStarts = [2.6, 5.2, 12.5, 21, 27, 31.5, 34.48, 39.98, 46.4];
+        const sceneDurations = [2.6, 7.3, 8.5, 6, 4.5, 2.98, 5.5, 6.42, 3.1];
+        const sceneIds = ["#s1", "#s2", "#s3", "#s4", "#s5", "#s6", "#s7", "#s8", "#s9"];
+        const fromIfPresent = (selector, fromVars, toVars, at) => {
+          if (document.querySelector(selector)) tl.fromTo(selector, fromVars, toVars, at);
         };
-        scenes.forEach(([id, at], i) => {
-          fromIfPresent(`${id} .photo`, { scale: i % 2 ? 1.12 : 1.07, opacity: 0, duration: i === 8 ? 0.42 : 0.72, ease: i % 2 ? "sine.out" : "power3.out" }, at + 0.12);
-          fromIfPresent(`${id} .kicker`, { x: i % 2 ? -48 : 48, opacity: 0, duration: 0.38, ease: "expo.out" }, at + 0.28);
-          fromIfPresent(`${id} .meta`, { x: i % 2 ? -48 : 48, opacity: 0, duration: 0.38, ease: "expo.out" }, at + 0.28);
-          fromIfPresent(`${id} .title, ${id} h2`, { y: 65, opacity: 0, duration: 0.6, ease: "power4.out" }, at + 0.43);
-          fromIfPresent(`${id} .body`, { y: 34, opacity: 0, duration: 0.46, ease: "back.out(1.25)" }, at + 0.72);
-          fromIfPresent(`${id} .caption`, { y: 34, opacity: 0, duration: 0.46, ease: "back.out(1.25)" }, at + 0.72);
-          fromIfPresent(`${id} .logo-card, ${id} .source-card, ${id} .route, ${id} .fact-card, ${id} .phone, ${id} .pitch-card, ${id} .qa`, { scale: 0.88, y: 45, opacity: 0, duration: 0.55, stagger: 0.08, ease: "elastic.out(0.7, 0.5)" }, at + 0.24);
+
+        sceneIds.forEach((id, index) => {
+          const at = sceneStarts[index];
+          const photoFrom = index === 8 ? { scale: 1.12, x: 28 } : { scale: 1.085 };
+          const photoTo = index === 8
+            ? { scale: 1.03, x: -16, duration: 3.3, ease: "sine.out" }
+            : { scale: 1, duration: Math.max(1, sceneDurations[index] - .1), ease: "sine.out" };
+          fromIfPresent(`${id} > .photo`, photoFrom, photoTo, at);
+          fromIfPresent(`${id} .edge-label`, { x: -34, opacity: 0 }, { x: 0, opacity: 1, duration: .42, ease: "expo.out" }, at + .18);
+          fromIfPresent(`${id} .counter`, { x: 34, opacity: 0 }, { x: 0, opacity: 1, duration: .42, ease: "expo.out" }, at + .18);
+          fromIfPresent(`${id} .frame-rule`, { scaleX: 0 }, { scaleX: 1, duration: .62, ease: "power3.out" }, at + .1);
+          fromIfPresent(`${id} .eyebrow`, { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: .38, ease: "power2.out" }, at + .25);
+          fromIfPresent(`${id} .display`, { y: 76, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: "power4.out" }, at + .38);
+          fromIfPresent(`${id} .caption-line`, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .42, ease: "power2.out" }, at + .72);
         });
-        for (let i = 1; i <= 8; i += 1) {
-          const at = [4.9, 11.5, 18.3, 26.8, 34.7, 42.5, 50.2, 55.7][i - 1];
-          tl.fromTo(`#w${i}`, { y: 1920 }, { y: -1920, duration: 0.5, ease: "power3.inOut" }, at);
-        }
-        tl.to("#s9 .scene-content, #s9 .logo-card", { opacity: 0, duration: 0.35, ease: "power2.in" }, 59.1);
-        window.__timelines["longtaa-process"] = tl;
+
+        gsap.set("#s5 .audience-card", { opacity: 0 });
+        gsap.set("#s7 .product-caption span", { opacity: 0 });
+
+        tl.fromTo("#brand-reveal .brand-halo", { scale: .58, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.25, ease: "power3.out" }, 0);
+        tl.fromTo("#brand-reveal .brand-orbit", { scale: .72, opacity: 0, rotation: -14 }, { scale: 1, opacity: 1, rotation: 0, duration: .9, stagger: .09, ease: "expo.out" }, .08);
+        tl.fromTo("#brand-reveal .brand-emblem", { y: 64, scale: .72, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .78, ease: "power4.out" }, .24);
+        tl.fromTo("#brand-reveal .star-streak", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .42, stagger: .08, ease: "power4.out" }, .18);
+        tl.to("#brand-reveal .star-streak", { opacity: 0, duration: .34, stagger: .06, ease: "power2.in" }, .72);
+        tl.fromTo("#brand-reveal .spark", { scale: 0, opacity: 0, rotation: 15 }, { scale: 1, opacity: 1, rotation: 45, duration: .38, stagger: .12, ease: "back.out(1.7)" }, .56);
+        tl.to("#brand-reveal .spark", { scale: .38, opacity: .22, duration: .55, stagger: .08, ease: "sine.inOut" }, 1.2);
+        tl.fromTo("#brand-reveal .brand-sweep", { x: 0 }, { x: 870, duration: .74, ease: "power2.inOut" }, .68);
+        tl.fromTo("#brand-reveal .brand-sweep-mark", { x: 0 }, { x: -870, duration: .74, ease: "power2.inOut" }, .68);
+        tl.fromTo("#brand-reveal .brand-kicker", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: .62, ease: "power3.out" }, .72);
+        tl.to("#brand-reveal .brand-stage", { opacity: 0, scale: .98, duration: .28, ease: "power2.in" }, 2.27);
+        tl.set("#brand-reveal .brand-stage", { opacity: 0, visibility: "hidden" }, 2.55);
+
+        tl.fromTo("#hook-claim .claim-kicker", { x: -54, opacity: 0 }, { x: 0, opacity: 1, duration: .5, ease: "power4.out" }, 2.76);
+        tl.fromTo("#hook-claim .claim-title", { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: .78, ease: "expo.out" }, 3.08);
+        tl.fromTo("#hook-claim .claim-title em", { x: 70, opacity: 0 }, { x: 0, opacity: 1, duration: .58, ease: "power4.out" }, 3.68);
+        tl.fromTo("#hook-claim .claim-brand", { x: -42, opacity: 0 }, { x: 0, opacity: 1, duration: .5, ease: "power3.out" }, 4.12);
+
+        tl.fromTo("#reaction-copy h2", { y: 72, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "back.out(1.25)" }, 9.36);
+        tl.fromTo("#reaction-copy .reaction-kicker", { x: -42, opacity: 0 }, { x: 0, opacity: 1, duration: .38, ease: "power3.out" }, 9.34);
+        tl.fromTo("#reaction-copy .reaction-rule", { scaleX: 0 }, { scaleX: 1, duration: .5, ease: "power3.out" }, 9.58);
+        tl.fromTo("#sure-shell", { y: 120, scale: .7, autoAlpha: 0 }, { y: 0, scale: 1, autoAlpha: 1, duration: .5, ease: "back.out(1.32)" }, 9.34);
+        tl.fromTo("#sure-tag", { y: 32, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .3, ease: "power3.out" }, 9.66);
+        tl.to(["#sure-shell", "#sure-tag"], { y: -20, autoAlpha: 0, duration: .25, ease: "power2.in" }, 10.78);
+        tl.set(["#sure-shell", "#sure-tag"], { autoAlpha: 0 }, 11.03);
+        tl.fromTo("#rock-shell", { x: -90, scale: .82, autoAlpha: 0 }, { x: 0, scale: 1, autoAlpha: 1, duration: .46, ease: "power4.out" }, 9.72);
+        tl.fromTo("#rock-tag", { y: 28, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .3, ease: "power3.out" }, 10.04);
+        tl.to(["#rock-shell", "#rock-tag"], { scale: .96, autoAlpha: 0, duration: .24, ease: "power2.in" }, 12.92);
+        tl.set(["#rock-shell", "#rock-tag"], { autoAlpha: 0 }, 13.2);
+
+        tl.fromTo("#proof-copy strong", { x: -96, opacity: 0 }, { x: 0, opacity: 1, duration: .56, ease: "power4.out" }, 13.28);
+        tl.fromTo("#proof-copy strong span", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .38, ease: "power3.out" }, 13.62);
+
+        tl.fromTo("#s1 .photo", { scale: 1.14, x: 28 }, { scale: 1.02, x: -18, duration: 2.55, ease: "sine.out" }, 2.6);
+        tl.fromTo("#s1 .travel-time", { x: -88, opacity: 0 }, { x: 0, opacity: 1, duration: .58, ease: "power4.out" }, 2.72);
+        tl.fromTo("#s1 .route-map .track", { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: "power2.inOut" }, 2.94);
+        tl.fromTo("#s1 .route-pin", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: .38, stagger: .72, ease: "back.out(1.25)" }, 2.84);
+
+        tl.fromTo("#s2 .longhouse-window", { x: 110, y: -30, opacity: 0, rotation: 3 }, { x: 0, y: 0, opacity: 1, rotation: 0, duration: .72, ease: "power4.out" }, 5.52);
+        tl.fromTo("#s2 .logo-card", { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: .58, ease: "back.out(1.3)" }, 5.36);
+        tl.fromTo("#s2 .pillar", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: .38, stagger: .09, ease: "power3.out" }, 6.24);
+
+        tl.fromTo("#s3 .tile", { scale: .84, opacity: 0 }, { scale: 1, opacity: 1, duration: .52, stagger: .11, ease: "power3.out" }, 12.58);
+        tl.fromTo("#s3 .tile img", { scale: 1.12 }, { scale: 1.02, duration: 7.8, stagger: .08, ease: "sine.out" }, 12.6);
+        tl.fromTo("#s3 .experience-banner", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: .72, ease: "expo.out" }, 14.0);
+
+        tl.fromTo("#s4 .truth-panel", { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: .68, ease: "power4.out" }, 21.16);
+        tl.fromTo("#s4 .truth-fact", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: .45, stagger: .11, ease: "back.out(1.15)" }, 22.28);
+
+        const audienceCards = gsap.utils.toArray("#s5 .audience-card");
+        audienceCards.forEach((token, index) => {
+          const at = 27.15 + index * .24;
+          tl.set(token, { opacity: 1, y: index % 2 === 0 ? 72 : 46, scale: .94 }, at);
+          tl.to(token, { y: 0, scale: 1, duration: .34, ease: "power4.out" }, at);
+        });
+        tl.fromTo("#s5 .audience-kicker, #s5 h2", { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: .45, stagger: .12, ease: "power3.out" }, 27.08);
+
+        const productPhones = ["#product-home-phone", "#product-stay-phone", "#product-book-phone"];
+        const productLabels = ["#focus-discover", "#focus-compare", "#focus-enquire"];
+        const productChips = ["#chip-discover", "#chip-compare", "#chip-plan", "#chip-enquire"];
+        tl.set(productPhones[0], { scale: 1, opacity: 1, rotationY: 0 }, 34.9);
+        tl.set(productPhones[1], { scale: .82, opacity: .52, rotationY: -12 }, 34.9);
+        tl.set(productPhones[2], { scale: .72, opacity: .28, rotationY: -16 }, 34.9);
+        tl.fromTo("#s7 .phone-rail", { x: -195, y: 110, opacity: 0 }, { x: -195, y: 0, opacity: 1, duration: .6, ease: "power4.out" }, 34.92);
+        tl.set(productLabels, { opacity: 0, y: 18 }, 34.48);
+        tl.to(productLabels[0], { opacity: 1, y: 0, duration: .3, ease: "power3.out" }, 35.18);
+        productChips.forEach((chip, index) => {
+          const at = 35.32 + index * .1;
+          tl.set(chip, { opacity: 1, y: 42 }, at);
+          tl.to(chip, { y: 0, duration: .15, ease: "power4.out" }, at);
+        });
+        tl.to(productChips[0], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .25, ease: "power2.out" }, 35.52);
+        tl.to("#s7 .phone-rail", { x: -570, duration: .25, ease: "power4.out" }, 36.35);
+        tl.to("#s7 .phone-rail", { x: -627, duration: .42, ease: "power2.out" }, 36.60);
+        tl.to(productPhones[0], { scale: .82, opacity: .52, rotationY: 12, duration: .66, ease: "power2.out" }, 36.35);
+        tl.to(productPhones[1], { scale: 1, opacity: 1, rotationY: 0, duration: .66, ease: "power2.out" }, 36.35);
+        tl.to(productLabels[0], { opacity: 0, y: -18, duration: .16, ease: "power2.in" }, 36.35);
+        tl.fromTo(productLabels[1], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .24, ease: "power3.out" }, 36.55);
+        tl.to(productChips[0], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .16 }, 36.38);
+        tl.to(productChips[1], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .18 }, 36.52);
+        tl.to("#s7 .phone-rail", { x: -1002, duration: .25, ease: "power4.out" }, 38.0);
+        tl.to("#s7 .phone-rail", { x: -1059, duration: .42, ease: "power2.out" }, 38.25);
+        tl.to(productPhones[1], { scale: .82, opacity: .52, rotationY: 12, duration: .66, ease: "power2.out" }, 38.0);
+        tl.to(productPhones[2], { scale: 1, opacity: 1, rotationY: 0, duration: .66, ease: "power2.out" }, 38.0);
+        tl.to(productLabels[1], { opacity: 0, y: -18, duration: .16, ease: "power2.in" }, 38.0);
+        tl.fromTo(productLabels[2], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .24, ease: "power3.out" }, 38.2);
+        tl.to(productChips[1], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .16 }, 38.03);
+        tl.to(productChips[2], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .18 }, 38.17);
+        tl.fromTo("#s8 .whatsapp-card", { y: 104, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "power4.out" }, 40.32);
+        tl.fromTo("#s8 .message-row", { x: 72, opacity: 0 }, { x: 0, opacity: 1, duration: .28, stagger: .34, ease: "power4.out" }, 40.76);
+        tl.fromTo("#s8 .enquiry-cta", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .42, ease: "power3.out" }, 42.22);
+        tl.fromTo("#s8 .contact", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .3, ease: "power3.out" }, 42.62);
+        tl.fromTo("#s8 .conditions", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .32, ease: "power2.out" }, 42.83);
+        tl.to("#s8 .enquiry-cta", { scale: .965, duration: .12, ease: "power1.in" }, 43.2);
+        tl.to("#s8 .enquiry-cta", { scale: 1, duration: .32, ease: "back.out(2)" }, 43.32);
+
+        tl.set("#s9 h2, #s9 .values", { autoAlpha: 0 }, 46.4);
+        tl.fromTo("#s9 .logo-card", { y: -72, opacity: 0, rotation: -3 }, { y: 0, opacity: 1, rotation: 0, duration: .5, ease: "back.out(1.3)" }, 46.48);
+        tl.fromTo("#s9 .url", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: "power3.out" }, 46.72);
+        tl.fromTo("#s9 .closing-rule", { scaleX: 0 }, { scaleX: 1, duration: .62, ease: "power3.out" }, 46.92);
+
+        tl.fromTo("#come-copy strong", { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: .44, ease: "power4.out" }, 47.02);
+        tl.fromTo("#come-shell", { x: 90, y: 80, scale: .72, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .52, ease: "back.out(1.35)" }, 47.04);
+        tl.fromTo("#come-tag", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .34, ease: "power3.out" }, 47.36);
+        tl.to("#come-shell", { scale: 1.025, duration: .16, ease: "power1.in" }, 48.78);
+        tl.to("#come-shell", { scale: 1, duration: .28, ease: "back.out(1.8)" }, 48.94);
+
+        const wipeStarts = [4.82, 12.12, 20.62, 26.62, 31.12];
+        wipeStarts.forEach((at, index) => {
+          tl.fromTo(`#w${index + 1}`, { y: 1920 }, { y: -1920, duration: .38, ease: "power4.inOut" }, at);
+        });
+        tl.fromTo("#w6", { x: 1080 }, { x: -1080, duration: .38, ease: "power4.inOut" }, 34.10);
+        tl.fromTo("#w7", { y: -1920 }, { y: 1920, duration: .38, ease: "power4.inOut" }, 39.60);
+        tl.fromTo("#w8", { x: -1080 }, { x: 1080, duration: .38, ease: "power4.inOut" }, 46.02);
+        window.__timelines["longtaa-business-first"] = tl;
       </script>
     </main>
   </body>

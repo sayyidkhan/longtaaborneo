@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as HeritageRouteImport } from './routes/heritage'
 import { Route as PlanRouteImport } from './routes/plan'
+import { Route as RumputRouteImport } from './routes/rumput'
 import { Route as StayRouteImport } from './routes/stay'
 import { Route as ApiChatRouteImport } from './routes/api.chat'
 
@@ -36,6 +37,11 @@ const PlanRoute = PlanRouteImport.update({
   path: '/plan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RumputRoute = RumputRouteImport.update({
+  id: '/rumput',
+  path: '/rumput',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StayRoute = StayRouteImport.update({
   id: '/stay',
   path: '/stay',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/heritage': typeof HeritageRoute
   '/plan': typeof PlanRoute
+  '/rumput': typeof RumputRoute
   '/stay': typeof StayRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/heritage': typeof HeritageRoute
   '/plan': typeof PlanRoute
+  '/rumput': typeof RumputRoute
   '/stay': typeof StayRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -69,20 +77,24 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/heritage': typeof HeritageRoute
   '/plan': typeof PlanRoute
+  '/rumput': typeof RumputRoute
   '/stay': typeof StayRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/heritage' | '/plan' | '/stay' | '/api/chat'
+  fullPaths:
+    '/' | '/explore' | '/heritage' | '/plan' | '/rumput' | '/stay' | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/heritage' | '/plan' | '/stay' | '/api/chat'
+  to:
+    '/' | '/explore' | '/heritage' | '/plan' | '/rumput' | '/stay' | '/api/chat'
   id:
     | '__root__'
     | '/'
     | '/explore'
     | '/heritage'
     | '/plan'
+    | '/rumput'
     | '/stay'
     | '/api/chat'
   fileRoutesById: FileRoutesById
@@ -92,6 +104,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   HeritageRoute: typeof HeritageRoute
   PlanRoute: typeof PlanRoute
+  RumputRoute: typeof RumputRoute
   StayRoute: typeof StayRoute
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -126,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rumput': {
+      id: '/rumput'
+      path: '/rumput'
+      fullPath: '/rumput'
+      preLoaderRoute: typeof RumputRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/stay': {
       id: '/stay'
       path: '/stay'
@@ -148,6 +168,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   HeritageRoute: HeritageRoute,
   PlanRoute: PlanRoute,
+  RumputRoute: RumputRoute,
   StayRoute: StayRoute,
   ApiChatRoute: ApiChatRoute,
 }

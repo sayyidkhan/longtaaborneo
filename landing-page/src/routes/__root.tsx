@@ -5,10 +5,12 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  useRouterState,
 } from "@tanstack/react-router";
 
 import { ChatAssistant } from "../chat-assistant";
 import { siteRoutes, whatsappUrl } from "../content";
+import { LanguageProvider, LanguageToggle, useLanguage } from "../language";
 import stylesUrl from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -26,14 +28,30 @@ export const Route = createRootRoute({
           "Nature, culture, adventure, and living heritage in Long Taa, Sarawak.",
       },
     ],
-    links: [{ rel: "stylesheet", href: stylesUrl }],
+    links: [
+      { rel: "stylesheet", href: stylesUrl },
+    ],
   }),
   component: RootComponent,
   notFoundComponent: NotFoundPage,
 });
 
 function RootComponent() {
+  return <LanguageProvider><RootContent /></LanguageProvider>;
+}
+
+function RootContent() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isHome = useRouterState({ select: (state) => state.location.pathname === "/" });
+  const { copy, language } = useLanguage();
+  const navigationLabels = language === "en" ? siteRoutes : [
+    { ...siteRoutes[0], label: "Utama" },
+    { ...siteRoutes[1], label: "Penginapan & pengalaman" },
+    { ...siteRoutes[2], label: "Teroka" },
+    { ...siteRoutes[3], label: "Kisah kami" },
+    { ...siteRoutes[4], label: "Kenali Rumput" },
+    { ...siteRoutes[5], label: "Rancang & tempah" },
+  ];
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
@@ -48,13 +66,18 @@ function RootComponent() {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("tree-experience", isHome);
+    return () => document.body.classList.remove("tree-experience");
+  }, [isHome]);
+
   return (
     <RootDocument>
-      <header className="site-header">
+      <header className={`site-header${isHome ? " tree-site-header" : ""}`}>
         <Link className="brand" to="/" aria-label="Long Taa Borneo Eco Stay homepage">
           <img
             className="brand-mark"
-            src="/images/long-taa-dapui-logo.png"
+            src="/images/long-taa-dapui-logo-transparent.png"
             alt="Long Taa Dapui Living Heritage Village logo"
           />
           <span className="brand-wordmark">
@@ -69,11 +92,11 @@ function RootComponent() {
           aria-controls="site-navigation"
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <span aria-hidden="true">{menuOpen ? "Close" : "Menu"}</span>
-          <span className="sr-only">{menuOpen ? "Close" : "Open"} navigation menu</span>
+          <span aria-hidden="true">{menuOpen ? copy.close : copy.menu}</span>
+          <span className="sr-only">{menuOpen ? copy.close : copy.menu} navigation menu</span>
         </button>
         <nav id="site-navigation" className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
-          {siteRoutes.map((item) => (
+          {navigationLabels.map((item) => (
             <Link
               key={item.to}
               className="nav-link"
@@ -86,30 +109,31 @@ function RootComponent() {
             </Link>
           ))}
           <a className="mobile-menu-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
-            Start an enquiry on WhatsApp
+            {copy.enquiry}
           </a>
         </nav>
+        <LanguageToggle />
         <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
-          <span aria-hidden="true">WhatsApp</span><span className="sr-only">Start an enquiry on WhatsApp</span>
+          <span aria-hidden="true">WhatsApp</span><span className="sr-only">{copy.enquiry}</span>
         </a>
       </header>
       <Outlet />
-      <footer className="site-footer">
+      <ChatAssistant />
+      {!isHome && <footer className="site-footer">
         <div>
           <strong>Long Taa Borneo Eco Stay</strong>
-          <p>Nature · Culture · Adventure · Living Heritage</p>
-          <p className="footer-note">A respectful visit begins with listening to the people and place that welcome you.</p>
+          <p>{copy.footerTagline}</p>
+          <p className="footer-note">{copy.footerNote}</p>
         </div>
         <div className="footer-links">
-          <Link to="/heritage">Visit with respect</Link>
+          <Link to="/heritage">{copy.visitRespectfully}</Link>
           <a href="mailto:longtaaborneo@gmail.com">longtaaborneo@gmail.com</a>
           <a href={whatsappUrl} target="_blank" rel="noreferrer">+60 19-856 3536</a>
-          <a className="footer-cta" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
+          <a className="footer-cta" href={whatsappUrl} target="_blank" rel="noreferrer">{copy.mobileBooking}</a>
         </div>
-        <small>© 2026 Long Taa Borneo Eco Stay. All rights reserved.</small>
-      </footer>
-      <a className="mobile-booking-bar" href={whatsappUrl} target="_blank" rel="noreferrer">Book on WhatsApp</a>
-      <ChatAssistant />
+        <small>© 2026 Long Taa Borneo Eco Stay. {copy.rights}</small>
+      </footer>}
+      {!isHome && <a className="mobile-booking-bar" href={whatsappUrl} target="_blank" rel="noreferrer">{copy.mobileBooking}</a>}
     </RootDocument>
   );
 }

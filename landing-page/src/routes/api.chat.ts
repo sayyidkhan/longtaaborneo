@@ -56,9 +56,9 @@ export const Route = createFileRoute("/api/chat")({
           return jsonError("Too many requests. Please wait a moment.", 429);
         }
 
-        let body: { messages?: unknown };
+        let body: { messages?: unknown; language?: unknown };
         try {
-          body = (await request.json()) as { messages?: unknown };
+          body = (await request.json()) as { messages?: unknown; language?: unknown };
         } catch {
           return jsonError("Invalid request body.", 400);
         }
@@ -83,7 +83,7 @@ export const Route = createFileRoute("/api/chat")({
 
         const result = streamText({
           model: kimi(process.env.KIMI_MODEL ?? "kimi-k2.6"),
-          instructions: longTaaGuideInstructions,
+          instructions: `${longTaaGuideInstructions}\n\nThe visitor selected ${body.language === "ms" ? "Bahasa Malaysia. Reply in clear Bahasa Malaysia unless they ask otherwise." : "English. Reply in clear English unless they ask otherwise."}`,
           messages: await convertToModelMessages(validation.data),
           maxOutputTokens: 450,
           providerOptions: {

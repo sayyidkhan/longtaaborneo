@@ -1,0 +1,24 @@
+{
+  "duration": 49.5,
+  "maxStaticSec": 2.5,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#brand-reveal .brand-emblem", "bySec": 1.1 },
+    { "kind": "before", "a": "#brand-reveal .brand-emblem", "b": "#s1 .travel-time" },
+    { "kind": "appearsBy", "selector": "#s1 .travel-time", "bySec": 3.6 },
+    { "kind": "before", "a": "#s1 .travel-time", "b": "#s2 .display" },
+    { "kind": "before", "a": "#audience-curious", "b": "#s6-title" },
+    { "kind": "appearsBy", "selector": "#audience-responsible", "bySec": 28.3 },
+    { "kind": "appearsBy", "selector": "#s6-title", "bySec": 32.4 },
+    { "kind": "appearsBy", "selector": "#product-home-phone", "bySec": 35.7 },
+    { "kind": "before", "a": "#product-home-phone", "b": "#s8 .enquiry-cta" },
+    { "kind": "appearsBy", "selector": "#s8 .enquiry-cta", "bySec": 43.0 },
+    { "kind": "appearsBy", "selector": "#s9 .closing-rule", "bySec": 47.7 },
+    { "kind": "appearsBy", "selector": "#hook-claim .claim-title", "bySec": 4.0 },
+    { "kind": "appearsBy", "selector": "#sure-shell", "bySec": 9.9 },
+    { "kind": "appearsBy", "selector": "#rock-shell", "bySec": 10.3 },
+    { "kind": "appearsBy", "selector": "#come-shell", "bySec": 47.7 },
+    { "kind": "staysInFrame", "selector": ".truth-panel" },
+    { "kind": "staysInFrame", "selector": ".whatsapp-card" },
+    { "kind": "keepsMoving", "withinSelector": "#main-video", "maxStaticSec": 2.5 }
+  ]
+}

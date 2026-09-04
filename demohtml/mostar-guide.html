@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Long Taa Borneo Eco Stay, a community-led Sebup longhouse experience in Ulu Tinjar, Sarawak.">
+  <meta name="theme-color" content="#101914">
+  <title>Long Taa Borneo Eco Stay — Mostar Guide direction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #101914;
+      --ink-soft: #293b31;
+      --mist: #e3ece5;
+      --paper: #f5f1df;
+      --river: #94c9c7;
+      --leaf: #d9ff63;
+      --clay: #e65b3c;
+      --line: rgba(16, 25, 20, .22);
+      --page: min(92vw, 1440px);
+      --pad: clamp(1.15rem, 4vw, 4.5rem);
+      --display: "Libre Caslon Display", Georgia, serif;
+      --body: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+      --p: 0;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body { margin: 0; overflow-x: clip; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+    body.menu-open { overflow: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-underline-offset: .2em; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    ::selection { background: var(--leaf); color: var(--ink); }
+    ::-webkit-scrollbar { width: 11px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: var(--leaf); border: 3px solid var(--ink); }
+    :focus-visible { outline: 3px solid var(--leaf); outline-offset: 4px; }
+
+    .skip-link { position: fixed; z-index: 100; top: .75rem; left: .75rem; padding: .75rem 1rem; transform: translateY(-180%); background: var(--leaf); color: var(--ink); font-weight: 800; }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header { position: fixed; z-index: 40; inset: 0 0 auto; height: 78px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--pad); color: white; text-shadow: 0 1px 18px rgba(0,0,0,.42); }
+    .brand { display: inline-flex; align-items: center; gap: .75rem; width: fit-content; font-weight: 750; letter-spacing: -.02em; text-decoration: none; }
+    .brand-mark { width: 1.8rem; height: 2.2rem; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50% 50% 42% 42%; font-family: var(--display); font-size: 1.05rem; }
+    .brand small { display: block; font-size: .58rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; opacity: .75; }
+    .desktop-nav { display: flex; gap: clamp(1rem, 2.4vw, 2.5rem); }
+    .desktop-nav a { position: relative; padding: .65rem 0; font-size: .73rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+    .desktop-nav a::after { position: absolute; right: 0; bottom: .35rem; left: 0; height: 1px; content: ""; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .25s ease; }
+    .desktop-nav a:hover::after, .desktop-nav a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left; }
+    .header-action { justify-self: end; display: inline-flex; align-items: center; gap: .45rem; font-size: .75rem; font-weight: 800; text-decoration: none; text-transform: uppercase; }
+    .header-action svg { width: 1rem; }
+    .menu-button { display: none; justify-self: end; width: 48px; height: 48px; border: 1px solid currentColor; border-radius: 50%; background: transparent; color: inherit; }
+    .menu-button span, .menu-button::before { display: block; width: 18px; height: 1px; margin: 5px auto; content: ""; background: currentColor; transition: transform .25s ease; }
+    .menu-button[aria-expanded="true"] span { transform: translateY(-3px) rotate(-45deg); }
+    .menu-button[aria-expanded="true"]::before { transform: translateY(3px) rotate(45deg); }
+    .mobile-menu { position: fixed; z-index: 35; inset: 0; display: grid; align-content: center; gap: 1.5rem; padding: 6rem var(--pad) 3rem; visibility: hidden; background: var(--ink); color: var(--paper); opacity: 0; transition: opacity .25s ease, visibility .25s; }
+    .mobile-menu.is-open { visibility: visible; opacity: 1; }
+    .mobile-menu a { width: fit-content; font-family: var(--display); font-size: clamp(2.3rem, 13vw, 4rem); line-height: .95; text-decoration: none; }
+    .mobile-menu .mobile-cta { margin-top: 1rem; padding: .9rem 1.2rem; border: 1px solid var(--leaf); border-radius: 999px; color: var(--leaf); font-family: var(--body); font-size: .85rem; line-height: 1; }
+
+    .hero-track { height: 310vh; background: var(--ink); }
+    .hero { position: sticky; top: 0; height: 100svh; min-height: 640px; overflow: hidden; color: white; isolation: isolate; }
+    .hero-media, .hero-frame, .hero-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-media { z-index: -2; }
+    .hero-frame { object-fit: cover; filter: saturate(.82) contrast(1.03); will-change: transform, opacity; }
+    .frame-road { opacity: calc(1 - min(1, var(--p) * 3)); transform: scale(calc(1.08 - var(--p) * .05)); }
+    .frame-river { opacity: clamp(0, calc((var(--p) - .18) * 3.5), 1); transform: scale(calc(1.1 - var(--p) * .07)); }
+    .frame-home { opacity: clamp(0, calc((var(--p) - .66) * 3.5), 1); transform: scale(calc(1.12 - var(--p) * .09)); }
+    .hero-shade { z-index: -1; background: linear-gradient(90deg, rgba(7, 16, 10, .74) 0%, rgba(7, 16, 10, .12) 58%, rgba(7, 16, 10, .28) 100%), linear-gradient(0deg, rgba(7, 16, 10, .72), transparent 47%); }
+    .hero::after { position: absolute; inset: 0; z-index: -1; content: ""; background: color-mix(in srgb, var(--river) calc(var(--p) * 15%), transparent); pointer-events: none; }
+    .hero-copy { position: absolute; inset: auto var(--pad) clamp(3rem, 8vh, 6.5rem); max-width: 940px; }
+    .hero-place { display: flex; align-items: center; gap: .8rem; margin: 0 0 1rem; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .hero-place::before { width: 2.5rem; height: 1px; content: ""; background: var(--leaf); }
+    h1 { max-width: 10ch; margin: 0; font-family: var(--display); font-size: clamp(5rem, 13vw, 12.5rem); font-weight: 400; letter-spacing: -.035em; line-height: .72; text-wrap: balance; }
+    h1 .word { display: inline-block; transform: translateX(calc(var(--p) * 9vw)); }
+    h1 .taa { color: var(--leaf); transform: translateX(calc(var(--p) * -7vw)); }
+    .hero-detail { display: grid; grid-template-columns: minmax(15rem, 31rem) auto; align-items: end; gap: 2rem; max-width: 760px; margin-top: 2rem; }
+    .hero-detail p { max-width: 48ch; margin: 0; color: rgba(255,255,255,.88); font-size: clamp(.96rem, 1.4vw, 1.13rem); }
+    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .8rem 1.25rem; border: 1px solid currentColor; border-radius: 999px; background: transparent; color: inherit; font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-align: center; text-decoration: none; text-transform: uppercase; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .button:hover { transform: translateY(-2px); background: currentColor; color: var(--ink); }
+    .button-acid { border-color: var(--leaf); background: var(--leaf); color: var(--ink); }
+    .button-acid:hover { background: transparent; color: var(--leaf); }
+    .journey-meter { position: absolute; top: 22%; right: var(--pad); bottom: 12%; width: 170px; display: grid; grid-template-columns: 1px 1fr; gap: 1rem; }
+    .meter-line { position: relative; background: rgba(255,255,255,.35); }
+    .meter-line::after { position: absolute; inset: 0 0 auto; height: calc(var(--p) * 100%); content: ""; background: var(--leaf); }
+    .meter-stops { display: flex; flex-direction: column; justify-content: space-between; }
+    .meter-stop { color: rgba(255,255,255,.55); font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; transition: color .2s; }
+    .meter-stop strong { display: block; color: inherit; font-family: var(--display); font-size: 1.25rem; font-weight: 400; letter-spacing: 0; text-transform: none; }
+    .meter-stop.is-active { color: white; }
+    .scroll-cue { position: absolute; bottom: 1.7rem; left: 50%; display: grid; justify-items: center; gap: .5rem; transform: translateX(-50%); color: rgba(255,255,255,.75); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: calc(1 - var(--p) * 4); }
+    .scroll-cue::after { width: 1px; height: 28px; content: ""; background: currentColor; animation: breathe 1.4s ease-in-out infinite; }
+    @keyframes breathe { 50% { transform: scaleY(.5); transform-origin: top; opacity: .45; } }
+
+    .section { padding: clamp(5rem, 11vw, 10rem) var(--pad); }
+    .section-inner { width: 100%; max-width: 1440px; margin: 0 auto; }
+    h2, h3, p { margin-top: 0; }
+    h2 { max-width: 12ch; margin-bottom: 1.2rem; font-family: var(--display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 400; letter-spacing: -.03em; line-height: .92; text-wrap: balance; }
+    h3 { font-family: var(--display); font-size: clamp(1.7rem, 3vw, 3rem); font-weight: 400; line-height: 1; }
+    .chapter-tag { display: inline-flex; align-items: center; gap: .55rem; margin: 0; font-size: .7rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    .chapter-tag svg { width: 1.1rem; }
+    .lead { max-width: 63ch; font-size: clamp(1.1rem, 1.8vw, 1.35rem); }
+
+    .village-intro { background: var(--mist); }
+    .intro-grid { display: grid; grid-template-columns: .55fr 1.45fr; gap: clamp(2rem, 8vw, 9rem); align-items: start; }
+    .intro-grid .chapter-tag { position: sticky; top: 7rem; }
+    .statement { max-width: 17ch; margin: 0; font-family: var(--display); font-size: clamp(2.7rem, 6vw, 6.7rem); letter-spacing: -.035em; line-height: .96; }
+    .statement em { color: var(--clay); font-style: normal; }
+    .intro-proof { display: grid; grid-template-columns: 1fr .65fr; gap: clamp(1.3rem, 3vw, 3rem); margin-top: clamp(3rem, 7vw, 7rem); border-top: 1px solid var(--line); padding-top: 1.5rem; }
+    .intro-proof p { max-width: 58ch; }
+    .fact-stamp { display: grid; align-content: start; gap: .2rem; padding-top: .25rem; }
+    .fact-stamp strong { font-family: var(--display); font-size: clamp(3rem, 6vw, 5.6rem); font-weight: 400; line-height: .85; }
+    .fact-stamp span { max-width: 18ch; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+
+    .longhouse-spread { min-height: 96svh; display: grid; grid-template-columns: 1.2fr .8fr; padding: 0; background: var(--ink); color: var(--paper); }
+    .longhouse-image { position: relative; min-height: 65svh; overflow: hidden; }
+    .longhouse-image img { width: 100%; height: 100%; object-fit: cover; }
+    .longhouse-image::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, transparent 55%, rgba(16,25,20,.5)); }
+    .longhouse-copy { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(3rem, 7vw, 7rem) var(--pad); }
+    .longhouse-copy h2 { font-size: clamp(3.2rem, 6vw, 6rem); }
+    .longhouse-copy p { max-width: 46ch; color: rgba(245,241,223,.74); }
+    .essentials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(245,241,223,.25); padding-top: 1.3rem; }
+    .essentials strong { display: block; margin-bottom: .25rem; color: var(--leaf); font-family: var(--display); font-size: 1.35rem; font-weight: 400; }
+    .essentials span { color: rgba(245,241,223,.68); font-size: .67rem; line-height: 1.3; }
+
+    .guide { overflow: hidden; background: var(--river); }
+    .guide-head { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
+    .guide-head h2 { margin-bottom: 0; }
+    .guide-head p { max-width: 34ch; margin-bottom: .45rem; }
+    .guide-rail { display: grid; grid-template-columns: 1.15fr .85fr 1fr; gap: 1.1rem; }
+    .guide-item { position: relative; min-height: clamp(28rem, 56vw, 48rem); overflow: hidden; background: var(--ink); color: white; }
+    .guide-item:nth-child(2) { margin-top: 7rem; }
+    .guide-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.16,1,.3,1); }
+    .guide-item:hover img { transform: scale(1.035); }
+    .guide-item::after { position: absolute; inset: 0; content: ""; background: linear-gradient(0deg, rgba(5,15,9,.84), transparent 62%); }
+    .guide-item-copy { position: absolute; z-index: 1; right: 1.5rem; bottom: 1.5rem; left: 1.5rem; }
+    .guide-item-copy span { display: block; margin-bottom: .6rem; color: var(--leaf); font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .guide-item-copy h3 { margin-bottom: .7rem; }
+    .guide-item-copy p { max-width: 32ch; margin: 0; color: rgba(255,255,255,.8); }
+
+    .rates { padding-top: 0; background: var(--paper); }
+    .rates-banner { margin: 0 calc(var(--pad) * -1) clamp(4rem, 7vw, 7rem); padding: clamp(3rem, 6vw, 6rem) var(--pad); background: var(--leaf); }
+    .rates-banner .section-inner { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 2rem; }
+    .rates-banner h2 { max-width: 11ch; margin: 0; }
+    .rates-banner p { max-width: 48ch; margin: 0; }
+    .rate-ledger { border-top: 2px solid var(--ink); }
+    .rate-row { display: grid; grid-template-columns: 1.1fr .65fr 1.25fr; gap: 1.5rem; align-items: baseline; padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
+    .rate-row h3 { margin: 0; font-family: var(--body); font-size: clamp(1rem, 1.7vw, 1.35rem); font-weight: 750; }
+    .price { font-family: var(--display); font-size: clamp(2.2rem, 4vw, 4.6rem); font-variant-numeric: tabular-nums; letter-spacing: -.03em; line-height: .9; white-space: nowrap; }
+    .price small { display: block; margin-top: .45rem; font-family: var(--body); font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .rate-row p { max-width: 50ch; margin: 0; color: var(--ink-soft); }
+    .rate-note { max-width: 70ch; margin: 1.5rem 0 0 auto; font-size: .82rem; }
+
+    .route { background: var(--clay); color: var(--ink); }
+    .route-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
+    .route-copy { position: sticky; top: 7rem; }
+    .route-copy p { max-width: 45ch; }
+    .route-steps { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+    .route-step { display: grid; grid-template-columns: 4.5rem 1fr; gap: 1rem; padding: 2rem 0; border-bottom: 1px solid rgba(16,25,20,.35); }
+    .route-step > span { font-family: var(--display); font-size: 2.8rem; line-height: 1; }
+    .route-step h3 { margin-bottom: .55rem; }
+    .route-step p { max-width: 46ch; margin-bottom: 0; }
+    .route-visual { position: relative; min-height: 27rem; margin-top: 3rem; overflow: hidden; }
+    .route-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .route-visual figcaption { position: absolute; right: 0; bottom: 0; max-width: 24rem; padding: .85rem 1rem; background: var(--ink); color: var(--paper); font-size: .75rem; }
+
+    .community { position: relative; min-height: 95svh; display: grid; align-items: end; padding: var(--pad); overflow: hidden; background: var(--ink); color: white; }
+    .community > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .5; }
+    .community::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(6,16,10,.92) 0%, rgba(6,16,10,.44) 62%, rgba(6,16,10,.18)); }
+    .community-copy { position: relative; z-index: 1; max-width: 850px; padding: clamp(3rem, 7vw, 7rem) 0; }
+    .community-copy h2 { max-width: 12ch; }
+    .community-copy .lead { color: rgba(255,255,255,.83); }
+    .community-principles { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 2rem; }
+    .community-principles span { padding: .55rem .8rem; border: 1px solid rgba(255,255,255,.46); border-radius: 999px; font-size: .72rem; font-weight: 700; }
+
+    .conditions { background: var(--mist); }
+    .conditions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 7rem); }
+    .condition-list { border-top: 1px solid var(--line); }
+    .condition { display: grid; grid-template-columns: 2rem 1fr; gap: .75rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+    .condition svg { width: 1.25rem; margin-top: .15rem; }
+    .condition strong { display: block; margin-bottom: .2rem; }
+    .condition p { max-width: 52ch; margin: 0; color: var(--ink-soft); }
+
+    .closing { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: end; padding: clamp(5rem, 10vw, 9rem) var(--pad); background: var(--ink); color: var(--paper); }
+    .closing h2 { max-width: 14ch; margin: 0; font-size: clamp(3.5rem, 8vw, 8rem); }
+    .closing h2 span { color: var(--leaf); }
+    .closing-side { max-width: 25rem; }
+    .closing-side p { color: rgba(245,241,223,.72); }
+    .closing .button { width: 100%; }
+    .footer { display: grid; grid-template-columns: 1fr auto; gap: 2rem; padding: 1.5rem var(--pad); border-top: 1px solid rgba(245,241,223,.2); background: var(--ink); color: rgba(245,241,223,.66); font-size: .72rem; }
+    .footer p { margin: 0; }
+
+    @media (max-width: 900px) {
+      .site-header { grid-template-columns: 1fr auto; }
+      .desktop-nav, .header-action { display: none; }
+      .menu-button { display: block; border-color: var(--leaf); background: var(--leaf); color: var(--ink); text-shadow: none; }
+      .hero-track { height: 250vh; }
+      .journey-meter { display: none; }
+      .hero-copy { bottom: 4.5rem; }
+      .hero-detail { grid-template-columns: 1fr; gap: 1.2rem; }
+      .hero-detail .button { width: fit-content; }
+      .intro-grid, .longhouse-spread, .rates-banner .section-inner, .route-layout, .conditions-grid, .closing { grid-template-columns: 1fr; }
+      .intro-grid .chapter-tag, .route-copy { position: static; }
+      .longhouse-image { min-height: 62svh; }
+      .guide-rail { grid-template-columns: repeat(3, minmax(72vw, 1fr)); width: max-content; overflow: visible; }
+      .guide-item { min-height: 70svh; }
+      .guide-item:nth-child(2) { margin-top: 3rem; }
+      .rate-row { grid-template-columns: 1fr .7fr; }
+      .rate-row p { grid-column: 1 / -1; }
+      .closing-side { max-width: 36rem; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --pad: 1rem; }
+      .site-header { height: 66px; }
+      .brand small { display: none; }
+      .hero { min-height: 580px; }
+      .hero-shade { background: linear-gradient(0deg, rgba(7,16,10,.9) 0%, rgba(7,16,10,.18) 72%); }
+      .hero-copy { bottom: 4rem; }
+      h1 { max-width: 100%; font-size: clamp(4.3rem, 20vw, 6.2rem); line-height: .74; }
+      .hero-detail { margin-top: 1.4rem; }
+      .hero-detail p { max-width: calc(100vw - 2rem); overflow-wrap: break-word; }
+      .scroll-cue { display: none; }
+      .intro-proof { grid-template-columns: 1fr; }
+      .statement { font-size: clamp(2.65rem, 14vw, 4.3rem); }
+      .longhouse-copy { min-height: 72svh; padding: 3.5rem 1rem; }
+      .essentials { grid-template-columns: 1fr; }
+      .guide-head { display: block; }
+      .guide-head p { margin-top: 1rem; }
+      .guide-rail { grid-template-columns: repeat(3, minmax(84vw, 1fr)); gap: .7rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding-bottom: 1rem; }
+      .guide-item { min-height: 65svh; scroll-snap-align: start; }
+      .guide-item:nth-child(2) { margin-top: 0; }
+      .rate-row { grid-template-columns: 1fr; gap: .75rem; }
+      .rate-row p { grid-column: auto; }
+      .rate-note { margin-left: 0; }
+      .route-step { grid-template-columns: 3rem 1fr; }
+      .route-step > span { font-size: 2.1rem; }
+      .community { min-height: 90svh; }
+      .closing { gap: 2rem; }
+      .footer { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      .hero-track { height: auto; }
+      .hero { position: relative; }
+      .frame-road, .frame-river { display: none; }
+      .frame-home { opacity: 1; transform: none; }
+      h1 .word, h1 .taa { transform: none; }
+      .scroll-cue { display: none; }
+    }
+  </style>
+</head>
+<body><!--
+  THESIS: The six-hour passage from Miri into Long Taa becomes the first experience; it refuses a static resort hero and generic amenity grid.
+  OWN-WORLD: Rainforest ink, river blue, leaf acid and clay red; full-bleed field photography, route marks, sharp editorial ledgers and oversized Caslon display type.
+  STORY: Travel inward, meet a living Sebup village, understand the stay and honest costs, then begin a qualified conversation with Clement.
+  FIRST VIEWPORT: A three-scene sticky road-to-river-to-longhouse journey, split LONG TAA title, vertical route meter, and visible WhatsApp action at the lower left.
+  FORM: User-pinned Mostar Guide direction, first of three requested demos. SEED KEY: USER-PINNED-MOSTAR-GUIDE-20260903.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#main">Skip to the guide</a>
+
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="brand" href="#home" aria-label="Long Taa Borneo Eco Stay, back to top">
+      <span class="brand-mark" aria-hidden="true">LT</span>
+      <span>Long Taa <small>Borneo Eco Stay</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Guide sections">
+      <a href="#village">The village</a>
+      <a href="#explore">Explore</a>
+      <a href="#rates">Rates</a>
+      <a href="#plan">Plan</a>
+    </nav>
+    <a class="header-action" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20ask%20about%20visiting%20Long%20Taa." target="_blank" rel="noreferrer">
+      Ask Clement
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation"><span></span></button>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
+    <a href="#village">The village</a>
+    <a href="#explore">Explore</a>
+    <a href="#rates">Rates</a>
+    <a href="#plan">Plan</a>
+    <a class="mobile-cta" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20ask%20about%20visiting%20Long%20Taa." target="_blank" rel="noreferrer">Start a WhatsApp enquiry</a>
+  </nav>
+
+  <main id="main">
+    <section class="hero-track" id="home" aria-labelledby="hero-title">
+      <div class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img class="hero-frame frame-road" src="../landing-page/public/images/journey-road.webp" alt="">
+          <img class="hero-frame frame-river" src="../landing-page/public/images/river-walk.webp" alt="">
+          <img class="hero-frame frame-home" src="../landing-page/public/images/longhouse.webp" alt="">
+        </div>
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-place">Ulu Tinjar · Baram · Sarawak</p>
+          <h1 id="hero-title"><span class="word">Long</span> <span class="word taa">Taa</span></h1>
+          <div class="hero-detail">
+            <p>Leave Miri behind for a community-led Sebup longhouse stay shaped by the Dapui River, rainforest and living heritage.</p>
+            <a class="button button-acid" href="#village">Begin the journey</a>
+          </div>
+        </div>
+        <div class="journey-meter" aria-hidden="true">
+          <div class="meter-line"></div>
+          <div class="meter-stops">
+            <div class="meter-stop is-active" data-stop="0"><strong>Miri</strong>Leave the city</div>
+            <div class="meter-stop" data-stop="1"><strong>Interior road</strong>Approx. six hours</div>
+            <div class="meter-stop" data-stop="2"><strong>Dapui River</strong>Enter the landscape</div>
+            <div class="meter-stop" data-stop="3"><strong>Long Taa</strong>Arrive as a visitor</div>
+          </div>
+        </div>
+        <div class="scroll-cue" aria-hidden="true">Scroll to travel</div>
+      </div>
+    </section>
+
+    <section class="section village-intro" id="village" aria-labelledby="village-title">
+      <div class="section-inner intro-grid">
+        <p class="chapter-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21V5m0 8c-4 0-7-2.4-7-6 4 0 7 2.4 7 6Zm0-3c4 0 7-2.4 7-6-4 0-7 2.4-7 6Z"/></svg>
+          A living village
+        </p>
+        <div>
+          <h2 class="statement" id="village-title">Not built for tourism. <em>Shared with visitors.</em></h2>
+          <div class="intro-proof">
+            <p class="lead">Long Taa, Dapui is a traditional 20-door longhouse and home of the Indigenous Sebup community. This is everyday community life—not a purpose-built resort.</p>
+            <div class="fact-stamp"><strong>6h</strong><span>approximately, by 4WD from Miri</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="longhouse-spread" aria-labelledby="stay-title">
+      <div class="longhouse-image"><img src="../landing-page/public/images/longhouse.webp" alt="The green Long Taa longhouse beneath a bright sky" loading="lazy"></div>
+      <div class="longhouse-copy">
+        <div>
+          <p class="chapter-tag">Stay close to the story</p>
+          <h2 id="stay-title">Simple longhouse living.</h2>
+          <p>Wake to birds and rainforest sounds. Spend the day by the river or exploring the forest. The accommodation is basic, grounded in the rhythm of a real village.</p>
+        </div>
+        <div class="essentials" aria-label="Confirmed essentials">
+          <div><strong>24 hours</strong><span>solar electricity</span></div>
+          <div><strong>Mountain</strong><span>sourced fresh water</span></div>
+          <div><strong>Connected</strong><span>telecommunications access</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section guide" id="explore" aria-labelledby="explore-title">
+      <div class="section-inner">
+        <div class="guide-head">
+          <h2 id="explore-title">Meet Long Taa by water, forest and time.</h2>
+          <p>Experiences are arranged with the community and depend on weather, river level, road access, availability and safety.</p>
+        </div>
+        <div class="guide-rail" aria-label="Long Taa experiences">
+          <article class="guide-item">
+            <img src="../landing-page/public/images/river-walk.webp" alt="Clear water and a tree-lined bank along the Dapui River" loading="lazy">
+            <div class="guide-item-copy"><span>Dapui River</span><h3>Move with the water</h3><p>Longboat journeys, river exploration and swimming when conditions allow.</p></div>
+          </article>
+          <article class="guide-item">
+            <img src="../landing-page/public/images/forest-canopy.webp" alt="Looking upward along a large rainforest tree into the canopy" loading="lazy">
+            <div class="guide-item-copy"><span>Rainforest</span><h3>Walk beyond the road</h3><p>Explore jungle trails and natural formations with local guidance.</p></div>
+          </article>
+          <article class="guide-item">
+            <img src="../landing-page/public/images/forest-trail.webp" alt="A ripe pineapple growing among green leaves" loading="lazy">
+            <div class="guide-item-copy"><span>Living landscape</span><h3>Notice what grows here</h3><p>Discover the close relationship between community life, river and forest.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rates" id="rates" aria-labelledby="rates-title">
+      <div class="rates-banner">
+        <div class="section-inner">
+          <h2 id="rates-title">Clear starting rates. Local confirmation.</h2>
+          <p>The brochure publishes these itemised rates. Experience pricing depends on your stay, transport, group size and activities; ask for availability and a confirmed quotation.</p>
+        </div>
+      </div>
+      <div class="section-inner rate-ledger" role="list" aria-label="Published rates">
+        <article class="rate-row" role="listitem"><h3>Accommodation only</h3><div class="price">RM50<small>per person / night</small></div><p>Longhouse accommodation with self-cooking facilities. Meals are not included.</p></article>
+        <article class="rate-row" role="listitem"><h3>Stay + local meals</h3><div class="price">RM180<small>per person / night</small></div><p>Accommodation, breakfast, lunch and a local dinner.</p></article>
+        <article class="rate-row" role="listitem"><h3>Return 4WD transfer</h3><div class="price">RM1,500<small>per vehicle</small></div><p>Miri–Long Taa–Miri. Maximum three guests per vehicle.</p></article>
+        <article class="rate-row" role="listitem"><h3>Longboat + support</h3><div class="price">RM600<small>per group</small></div><p>Longboat, local guide and porter. Maximum three guests per longboat.</p></article>
+      </div>
+      <p class="section-inner rate-note">Published brochure figures are shown for planning and should be reconfirmed with Long Taa before travel. No separate package total has been supplied.</p>
+    </section>
+
+    <section class="section route" id="plan" aria-labelledby="plan-title">
+      <div class="section-inner route-layout">
+        <div class="route-copy">
+          <h2 id="plan-title">The road in is part of the experience.</h2>
+          <p>Start in Miri and travel approximately six hours by 4WD into Ulu Tinjar. Exact pickup and arrival instructions are provided during your booking conversation.</p>
+          <figure class="route-visual">
+            <img src="../landing-page/public/images/journey-road.webp" alt="A quiet road bordered by dense green vegetation" loading="lazy">
+            <figcaption>Long Taa, Dapui · Ulu Tinjar · Baram · Sarawak, Malaysia</figcaption>
+          </figure>
+        </div>
+        <ol class="route-steps">
+          <li class="route-step"><span>1</span><div><h3>Share your dates</h3><p>Tell Clement your preferred arrival date, group size and intended duration.</p></div></li>
+          <li class="route-step"><span>2</span><div><h3>Shape your stay</h3><p>Choose accommodation only or local meals, then discuss river, culture or nature interests.</p></div></li>
+          <li class="route-step"><span>3</span><div><h3>Confirm locally</h3><p>Accommodation, transport, guides and activities are checked with the community.</p></div></li>
+          <li class="route-step"><span>4</span><div><h3>Travel prepared</h3><p>Final arrangements depend on road, weather, river, water-level and safety conditions.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="community" aria-labelledby="community-title">
+      <img src="../landing-page/public/images/river-walk.webp" alt="The Dapui River running through dense rainforest" loading="lazy">
+      <div class="community-copy">
+        <h2 id="community-title">Culture is not displayed here. It is lived.</h2>
+        <p class="lead">Visit as a guest of a living Sebup community. Follow your hosts and local guides, respect conservation areas, and ask before photographing people, homes or culturally sensitive places.</p>
+        <div class="community-principles" aria-label="Visitor principles"><span>Protect nature</span><span>Respect culture</span><span>Share heritage</span></div>
+      </div>
+    </section>
+
+    <section class="section conditions" aria-labelledby="conditions-title">
+      <div class="section-inner conditions-grid">
+        <div><h2 id="conditions-title">Remote means planning honestly.</h2><p class="lead">Long Taa offers essential modern conveniences, but this remains a rural rainforest journey. Ask directly about anything important to your comfort, mobility, diet or safety.</p></div>
+        <div class="condition-list">
+          <div class="condition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13h16M7 9c2-3 8-3 10 0M9 17c1.5-2 4.5-2 6 0"/></svg>
+            <div><strong>Conditions shape activities</strong><p>Weather, river level, road access, availability and safety may change, postpone or replace an activity.</p></div>
+          </div>
+          <div class="condition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3h10v18H7zM10 18h4"/></svg>
+            <div><strong>Advance booking is required</strong><p>An enquiry is not a confirmed reservation. Availability is checked for accommodation, transport and local guides.</p></div>
+          </div>
+          <div class="condition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-4.5 7-11V5l-7-2-7 2v5c0 6.5 7 11 7 11Z"/></svg>
+            <div><strong>Ask before you assume</strong><p>Detailed accessibility, dietary, child-suitability and packing guidance should be discussed before travel.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <h2 id="closing-title">Come as a visitor. <span>Leave with a story.</span></h2>
+      <div class="closing-side"><p>Message Clement with your preferred dates, guest count and what you hope to experience. Long Taa will confirm what can be arranged.</p><a class="button button-acid" href="https://wa.me/60198563536?text=Hello%20Clement%2C%20I%27d%20like%20to%20check%20availability%20for%20Long%20Taa.%20My%20preferred%20dates%20are%3A%20____.%20There%20will%20be%20____%20guests." target="_blank" rel="noreferrer">Send a WhatsApp enquiry</a></div>
+    </section>
+  </main>
+
+  <footer class="footer"><p>Long Taa Borneo Eco Stay · Long Taa, Dapui, Ulu Tinjar, Baram, Sarawak</p><p>Demo direction: Mostar Guide</p></footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const track = document.querySelector('.hero-track');
+      const stops = [...document.querySelectorAll('.meter-stop')];
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let ticking = false;
+
+      const updateJourney = () => {
+        if (!track || reduceMotion.matches) {
+          root.style.setProperty('--p', '1');
+          return;
+        }
+        const rect = track.getBoundingClientRect();
+        const distance = track.offsetHeight - window.innerHeight;
+        const progress = Math.max(0, Math.min(1, -rect.top / Math.max(distance, 1)));
+        root.style.setProperty('--p', progress.toFixed(4));
+        const active = Math.min(3, Math.floor(progress * 4));
+        stops.forEach((stop, index) => stop.classList.toggle('is-active', index <= active));
+        ticking = false;
+      };
+
+      const requestJourneyUpdate = () => {
+        if (!ticking) {
+          requestAnimationFrame(updateJourney);
+          ticking = true;
+        }
+      };
+
+      updateJourney();
+      addEventListener('scroll', requestJourneyUpdate, { passive: true });
+      addEventListener('resize', requestJourneyUpdate);
+      reduceMotion.addEventListener?.('change', updateJourney);
+
+      const menuButton = document.querySelector('.menu-button');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const setMenu = (open) => {
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+        mobileMenu.classList.toggle('is-open', open);
+        document.body.classList.toggle('menu-open', open);
+      };
+      menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+      mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+      addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
+          setMenu(false);
+          menuButton.focus();
+        }
+      });
+
+      const navLinks = [...document.querySelectorAll('.desktop-nav a')];
+      const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => {
+              if (link.getAttribute('href') === `#${entry.target.id}`) link.setAttribute('aria-current', 'true');
+              else link.removeAttribute('aria-current');
+            });
+          }
+        });
+      }, { rootMargin: '-35% 0px -55%', threshold: 0 });
+      sections.forEach((section) => observer.observe(section));
+    })();
+  </script>
+</body>
+</html>

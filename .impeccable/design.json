@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-04T00:00:00+08:00",
+  "title": "Design System: Long Taa Tree Journey Homepage",
+  "extensions": {
+    "colorMeta": {
+      "rainforest-night": {
+        "role": "neutral",
+        "displayName": "Rainforest Night",
+        "canonical": "#06150e",
+        "tonalRamp": ["oklch(15% 0.03 155)", "oklch(25% 0.03 155)", "oklch(35% 0.03 155)", "oklch(45% 0.03 155)", "oklch(55% 0.03 155)", "oklch(65% 0.03 155)", "oklch(80% 0.03 155)", "oklch(95% 0.03 155)"]
+      },
+      "longhouse-panel": {
+        "role": "neutral",
+        "displayName": "Longhouse Panel",
+        "canonical": "#071b12",
+        "tonalRamp": ["oklch(15% 0.04 155)", "oklch(25% 0.04 155)", "oklch(35% 0.04 155)", "oklch(45% 0.04 155)", "oklch(55% 0.04 155)", "oklch(65% 0.04 155)", "oklch(80% 0.04 155)", "oklch(95% 0.04 155)"]
+      },
+      "editorial-cream": {
+        "role": "neutral",
+        "displayName": "Editorial Cream",
+        "canonical": "#f3efdf",
+        "tonalRamp": ["oklch(15% 0.02 95)", "oklch(25% 0.02 95)", "oklch(35% 0.02 95)", "oklch(45% 0.02 95)", "oklch(55% 0.02 95)", "oklch(65% 0.02 95)", "oklch(80% 0.02 95)", "oklch(95% 0.02 95)"]
+      },
+      "forest-mist": {
+        "role": "neutral",
+        "displayName": "Forest Mist",
+        "canonical": "#c6cec3",
+        "tonalRamp": ["oklch(15% 0.018 145)", "oklch(25% 0.018 145)", "oklch(35% 0.018 145)", "oklch(45% 0.018 145)", "oklch(55% 0.018 145)", "oklch(65% 0.018 145)", "oklch(80% 0.018 145)", "oklch(95% 0.018 145)"]
+      },
+      "living-leaf": {
+        "role": "primary",
+        "displayName": "Living Leaf",
+        "canonical": "#b7df4b",
+        "tonalRamp": ["oklch(15% 0.16 118)", "oklch(25% 0.16 118)", "oklch(35% 0.16 118)", "oklch(45% 0.16 118)", "oklch(55% 0.16 118)", "oklch(65% 0.16 118)", "oklch(80% 0.16 118)", "oklch(95% 0.16 118)"]
+      },
+      "canopy-green": {
+        "role": "secondary",
+        "displayName": "Canopy Green",
+        "canonical": "#2f7a45",
+        "tonalRamp": ["oklch(15% 0.11 145)", "oklch(25% 0.11 145)", "oklch(35% 0.11 145)", "oklch(45% 0.11 145)", "oklch(55% 0.11 145)", "oklch(65% 0.11 145)", "oklch(80% 0.11 145)", "oklch(95% 0.11 145)"]
+      },
+      "tactile-timber": {
+        "role": "tertiary",
+        "displayName": "Tactile Timber",
+        "canonical": "#4c301d",
+        "tonalRamp": ["oklch(15% 0.07 55)", "oklch(25% 0.07 55)", "oklch(35% 0.07 55)", "oklch(45% 0.07 55)", "oklch(55% 0.07 55)", "oklch(65% 0.07 55)", "oklch(80% 0.07 55)", "oklch(95% 0.07 55)"]
+      },
+      "doorway-warmth": {
+        "role": "tertiary",
+        "displayName": "Doorway Warmth",
+        "canonical": "#ffad55",
+        "tonalRamp": ["oklch(15% 0.16 65)", "oklch(25% 0.16 65)", "oklch(35% 0.16 65)", "oklch(45% 0.16 65)", "oklch(55% 0.16 65)", "oklch(65% 0.16 65)", "oklch(80% 0.16 65)", "oklch(95% 0.16 65)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero promise and closing statement." },
+      "headline": { "displayName": "Headline", "purpose": "Stage-level story headings." },
+      "title": { "displayName": "Title", "purpose": "Branch cards and compact story titles." },
+      "body": { "displayName": "Body", "purpose": "Grounded narrative and practical copy." },
+      "label": { "displayName": "Label", "purpose": "Actions, metadata, progress, and state." }
+    },
+    "shadows": [
+      { "name": "story-ambient", "value": "0 26px 72px rgb(0 0 0 / 34%)", "purpose": "Separates active editorial copy from the changing 3D world." },
+      { "name": "arrival-lift", "value": "0 30px 76px rgb(0 0 0 / 38%)", "purpose": "Marks the final cream contact panel as the journey destination." }
+    ],
+    "motion": [
+      { "name": "story-transition", "value": "opacity and transform 0.55s cubic-bezier(.22, 1, .36, 1)", "purpose": "Moves the active story into place as stage state changes." },
+      { "name": "world-reveal", "value": "opacity 0.8s cubic-bezier(.22, 1, .36, 1)", "purpose": "Reveals the WebGL canvas after it is ready." },
+      { "name": "camera-follow", "value": "lerp factor 0.065", "purpose": "Softens normal camera response while preserving reversible scroll control." },
+      { "name": "reduced-motion", "value": "no smooth scroll or CSS transitions; direct camera progress", "purpose": "Removes interpolation and transitional movement under the user's reduce preference." }
+    ],
+    "breakpoints": [
+      { "name": "mobile-layout", "value": "699px" },
+      { "name": "mobile-world", "value": "779px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Story Action",
+      "kind": "button",
+      "refersTo": "action-primary",
+      "description": "The filled action for WhatsApp booking conversations.",
+      "html": "<a class=\"ds-action-primary\" href=\"#\">BOOK ON WHATSAPP</a>",
+      "css": ".ds-action-primary { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; padding: .78rem 1rem; border: 1px solid #f3efdf; border-radius: 0; background: #f3efdf; color: #06150e; font: 700 .75rem/1.2 Manrope, sans-serif; letter-spacing: .07em; text-decoration: none; transition: background .2s ease, border-color .2s ease, color .2s ease; } .ds-action-primary:hover { border-color: #b7df4b; background: #b7df4b; color: #06150e; } .ds-action-primary:focus-visible { outline: 3px solid #b7df4b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Secondary Story Action",
+      "kind": "button",
+      "refersTo": "action-secondary",
+      "description": "The outlined route action used beside the primary conversation CTA.",
+      "html": "<a class=\"ds-action-secondary\" href=\"#\">EXPLORE LONG TAA</a>",
+      "css": ".ds-action-secondary { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; padding: .78rem 1rem; border: 1px solid #f3efdf; border-radius: 0; background: transparent; color: #f3efdf; font: 700 .75rem/1.2 Manrope, sans-serif; letter-spacing: .07em; text-decoration: none; transition: background .2s ease, border-color .2s ease, color .2s ease; } .ds-action-secondary:hover { border-color: #b7df4b; background: #b7df4b; color: #06150e; } .ds-action-secondary:focus-visible { outline: 3px solid #b7df4b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Story Panel",
+      "kind": "card",
+      "refersTo": "story-panel",
+      "description": "The active editorial surface floating beside the tree.",
+      "html": "<article class=\"ds-story-panel\"><h2>Stay close. Explore further.</h2><p>A Sebup longhouse stay shaped by rainforest, river, culture, adventure and living heritage.</p><span>THE VILLAGE</span></article>",
+      "css": ".ds-story-panel { width: min(30rem, calc(100vw - 2rem)); padding: clamp(1.15rem, 2.4vw, 1.75rem); border-top: 1px solid rgb(243 239 223 / 62%); border-radius: 0; background: rgb(5 23 15 / 90%); color: #f3efdf; box-shadow: 0 26px 72px rgb(0 0 0 / 34%); } .ds-story-panel h2 { max-width: 10ch; margin: 0 0 1.1rem; font: 500 clamp(2.65rem, 4.6vw, 4.6rem)/.93 'Bodoni Moda', Georgia, serif; letter-spacing: -.035em; } .ds-story-panel p { max-width: 67ch; margin: 0; color: #c6cec3; font: 400 1rem/1.65 Manrope, sans-serif; } .ds-story-panel span { display: block; margin-top: 1rem; color: #b7df4b; font: 700 .66rem/1.2 Manrope, sans-serif; letter-spacing: .14em; } .ds-story-panel:focus-within { outline: 3px solid #b7df4b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Branch Card",
+      "kind": "card",
+      "refersTo": "branch-card",
+      "description": "A compact route card paired with a complementary way into the site.",
+      "html": "<article class=\"ds-branch-card\"><h3>Stay</h3><p>Simple longhouse accommodation, local meals and practical costs.</p><a href=\"#\">VIEW STAY OPTIONS</a></article>",
+      "css": ".ds-branch-card { min-height: 11.5rem; padding: 1rem; border-radius: 0; background: #071b12; color: #f3efdf; } .ds-branch-card h3 { margin: 0 0 .55rem; font: 500 1.65rem/1 'Bodoni Moda', Georgia, serif; letter-spacing: -.035em; } .ds-branch-card p { margin: 0; color: #c6cec3; font: 400 .82rem/1.65 Manrope, sans-serif; } .ds-branch-card a { display: inline-block; margin-top: .9rem; color: #b7df4b; font: 700 .75rem/1.2 Manrope, sans-serif; text-underline-offset: .25em; } .ds-branch-card a:hover { color: #f3efdf; } .ds-branch-card a:focus-visible { outline: 3px solid #b7df4b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Journey State",
+      "kind": "nav",
+      "description": "The compact fixed label that names the visitor's current position in the descent.",
+      "html": "<div class=\"ds-journey-state\"><span>CANOPY</span><i></i><strong>THE VILLAGE</strong></div>",
+      "css": ".ds-journey-state { display: flex; align-items: center; gap: .8rem; color: rgb(243 239 223 / 58%); font: 700 .61rem/1.2 Manrope, sans-serif; letter-spacing: .13em; text-transform: uppercase; } .ds-journey-state i { width: 2.6rem; height: 1px; display: block; background: rgb(243 239 223 / 26%); } .ds-journey-state strong { color: #f3efdf; font-weight: 700; }"
+    },
+    {
+      "name": "Closing Contact Panel",
+      "kind": "card",
+      "refersTo": "contact-panel",
+      "description": "The final light-surface destination for verified contact information.",
+      "html": "<aside class=\"ds-contact-panel\"><strong>Long Taa Borneo Eco Stay</strong><p>Nature · Culture · Adventure · Living Heritage</p><a href=\"#\">+60 19-856 3536</a></aside>",
+      "css": ".ds-contact-panel { display: grid; gap: .65rem; padding: clamp(1.4rem, 3vw, 2.3rem); border-radius: 0; background: #f3efdf; color: #07160f; box-shadow: 0 30px 76px rgb(0 0 0 / 38%); } .ds-contact-panel strong { font: 500 2rem/1 'Bodoni Moda', Georgia, serif; } .ds-contact-panel p { margin: 0; color: rgb(7 22 15 / 72%); font: 400 1rem/1.65 Manrope, sans-serif; } .ds-contact-panel a { width: fit-content; color: #315c28; font: 700 1rem/1.5 Manrope, sans-serif; text-underline-offset: .2em; } .ds-contact-panel a:hover { color: #06150e; } .ds-contact-panel a:focus-visible { outline: 3px solid #b7df4b; outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Descent",
+    "overview": "This document is the durable design contract for the shipped landing-page homepage only. The tree is the navigation system: the visitor begins above the canopy, follows branch stories through village, stay, exploration, heritage, and planning, reaches the roots, and crosses a warmly lit longhouse threshold into a booking conversation. The experience is immersive but grounded—rainforest black-green, living leaf light, rough timber, documentary Long Taa photography, and restrained editorial overlays.\n\nThe visual world supports a real, community-led Sebup village experience rather than a luxury-resort fantasy. Typography and controls supply clarity over the atmospheric 3D scene; the scene supplies place, movement, and memory. The shipped finish-review verdict is `ship`, so these rules describe the incumbent homepage rather than a speculative direction.",
+    "keyCharacteristics": [
+      "One reversible, scroll-bound descent from canopy to community.",
+      "Monumental tree and longhouse world behind concise, square-edged editorial panels.",
+      "Bodoni Moda for story-scale expression; Manrope for actions, state, and practical copy.",
+      "Living-leaf green used as a sparse signal for progress, location, links, and focus.",
+      "Authentic documentary photographs embedded at story moments, never treated as generic tourism decoration.",
+      "A persistent path to a human WhatsApp conversation, not an implied instant booking."
+    ],
+    "rules": [
+      { "name": "The Tree-Is-Navigation Rule", "body": "New homepage material must attach to the existing canopy-to-branches-to-roots-to-home journey; do not turn this surface into a conventional stack of tourism sections.", "section": "overview" },
+      { "name": "The Leaf-Signal Rule", "body": "Living Leaf is a locator and state color, not a broad fill. Its scarcity is what makes the journey legible.", "section": "colors" },
+      { "name": "The Warmth-Has-a-Destination Rule", "body": "Amber light belongs at the longhouse threshold; do not distribute it across earlier stages as a generic accent.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Bodoni tells the story; Manrope explains, locates, and enables action.", "section": "typography" },
+      { "name": "The Metadata-After-Meaning Rule", "body": "Uppercase labels may orient or qualify a story, but they must not replace the story heading or lead the page as ornamental jargon.", "section": "typography" },
+      { "name": "The One-Stage Rule", "body": "Exactly one story stage is perceivable and operable at a time; the rest remain present for continuity but are removed from interaction.", "section": "layout" },
+      { "name": "The Tree-Must-Read Rule", "body": "On mobile, content may become denser and more translucent, but the trunk and journey direction must remain visually legible behind it.", "section": "layout" },
+      { "name": "The World-Provides-Depth Rule", "body": "Do not add decorative card stacks, glass blur, or routine drop shadows; reserve surface lift for legibility over the world and emphasis at arrival.", "section": "elevation" },
+      { "name": "The Square-Control Rule", "body": "Do not import the pill-shaped controls used elsewhere on the site into the tree-journey homepage.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do preserve the canopy → branches → roots → home sequence and all eight stage labels when adjusting the homepage journey.",
+      "Do keep the original Long Taa promise, supplied logo, authentic photography, existing routes, official email, and WhatsApp number intact.",
+      "Do describe Long Taa as a real, community-led Sebup village and keep community ownership ahead of tourism spectacle.",
+      "Do qualify availability and activities through a human conversation with the community; keep weather, road, river, water level, and safety conditions visible wherever relevant.",
+      "Do maintain keyboard-safe inactive stages, meaningful image alternatives, reliable text contrast, and minimum 44px touch targets.",
+      "Do retain the fixed fallback photograph and allow the content journey to remain usable if WebGL fails.",
+      "Do keep the Kenney CC0 provenance file beside the 3D models when assets are moved or repackaged."
+    ],
+    "donts": [
+      "Don't recast the homepage as a conventional stacked landing page or replace the tree with a decorative hero prop.",
+      "Don't invent rates, package totals, availability, guarantees, testimonials, visitor metrics, environmental-impact metrics, access claims, cultural protocols, map pins, or booking policies.",
+      "Don't imply that a WhatsApp enquiry is a confirmed booking.",
+      "Don't exoticise the Sebup community or introduce luxury-resort language, gloss, glassmorphism, pill controls, or generic adventure imagery.",
+      "Don't add ornamental interface animation, autoplay tours, or irreversible camera movement; scrolling must work in both directions and reduced-motion behavior must remain intact.",
+      "Don't let mobile overlays, navigation, or the booking room obscure the entire tree, clip horizontally, or trap keyboard focus in an inactive stage."
+    ]
+  }
+}

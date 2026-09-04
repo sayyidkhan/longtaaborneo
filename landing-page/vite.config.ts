@@ -7,5 +7,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  plugins: [tanstackStart(), nitro(), react()],
+  plugins: [tanstackStart({ server: { entry: "server.ts" } }), nitro(), react()],
 });

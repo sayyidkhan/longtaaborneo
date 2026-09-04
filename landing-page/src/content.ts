@@ -3,6 +3,7 @@ export const siteRoutes = [
   { to: "/stay", label: "Stay & experiences" },
   { to: "/explore", label: "Explore" },
   { to: "/heritage", label: "Our story" },
+  { to: "/rumput", label: "Meet Rumput" },
   { to: "/plan", label: "Plan & Book" },
 ] as const;
 

@@ -9,5 +9,12 @@
   "media": {
     "autoProxy": true
   },
-  "authoringSkill": "product-launch-video"
+  "authoringSkill": "product-launch-video",
+  "registryItems": [
+    {
+      "name": "screen-flow-carousel",
+      "type": "hyperframes:component",
+      "target": "compositions/components/screen-flow-carousel.html"
+    }
+  ]
 }

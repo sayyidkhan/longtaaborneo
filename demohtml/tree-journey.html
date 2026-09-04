@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An immersive scroll journey down a rainforest tree and into Long Taa Borneo Eco Stay.">
+  <title>Long Taa — The Tree Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --night: #06120c;
+      --canopy: #0d2b1c;
+      --leaf: #b7e04a;
+      --fern: #5e9e58;
+      --clay: #d27842;
+      --mist: #f0f1df;
+      --mist-soft: rgb(240 241 223 / 68%);
+      --line: rgb(240 241 223 / 20%);
+      --display: "Bodoni Moda", Georgia, serif;
+      --body: "Manrope", sans-serif;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--night); }
+    body { margin: 0; min-width: 320px; background: var(--night); color: var(--mist); font-family: var(--body); }
+    body.is-loading { overflow: hidden; }
+    ::selection { background: var(--leaf); color: var(--night); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--night); }
+    ::-webkit-scrollbar-thumb { background: var(--fern); }
+    button, input, select, a { font: inherit; }
+    a { color: inherit; text-underline-offset: .25em; }
+    button { color: inherit; }
+    :focus-visible { outline: 3px solid var(--leaf); outline-offset: 4px; }
+    .skip-link { position: fixed; z-index: 100; top: 1rem; left: 1rem; padding: .75rem 1rem; background: var(--mist); color: var(--night); transform: translateY(-180%); transition: transform .2s ease; }
+    .skip-link:focus { transform: none; }
+    .loader { position: fixed; z-index: 90; inset: 0; display: grid; place-items: center; background: var(--night); transition: opacity .8s var(--ease), visibility .8s; }
+    .loader.is-done { visibility: hidden; opacity: 0; }
+    .loader-inner { width: min(28rem, calc(100vw - 3rem)); }
+    .loader-mark { width: 3rem; height: 3rem; display: grid; place-items: center; margin-bottom: 2rem; border: 1px solid var(--line); border-radius: 50%; font-family: var(--display); font-size: 1.25rem; }
+    .loader-copy { margin: 0 0 1rem; font-family: var(--display); font-size: clamp(2rem, 6vw, 4rem); line-height: .95; }
+    .loader-track { height: 1px; overflow: hidden; background: var(--line); }
+    .loader-track span { width: 100%; height: 100%; display: block; background: var(--leaf); transform: translateX(-100%); animation: load 1.8s var(--ease) forwards; }
+    @keyframes load { to { transform: none; } }
+
+    .world { position: fixed; z-index: 0; inset: 0; overflow: hidden; background: radial-gradient(circle at 50% 10%, #244d2c, var(--night) 66%); }
+    #tree-canvas { width: 100%; height: 100%; display: block; }
+    .world::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: linear-gradient(90deg, rgb(3 12 8 / 52%), transparent 28%, transparent 72%, rgb(3 12 8 / 50%)), linear-gradient(180deg, transparent 55%, rgb(3 12 8 / 52%)); }
+    .webgl-fallback { position: absolute; inset: 0; display: none; background: linear-gradient(rgb(6 18 12 / 35%), rgb(6 18 12 / 78%)), url("../landing-page/public/images/forest-canopy.webp") center / cover; }
+    .webgl-failed .webgl-fallback { display: block; }
+
+    .site-header { position: fixed; z-index: 30; top: 0; right: 0; left: 0; display: grid; grid-template-columns: auto 1fr auto; align-items: center; min-height: 5.25rem; padding: 0 clamp(1rem, 4vw, 4rem); border-bottom: 1px solid var(--line); background: linear-gradient(180deg, rgb(6 18 12 / 72%), transparent); }
+    .brand { display: flex; align-items: center; gap: .8rem; color: var(--mist); text-decoration: none; }
+    .brand img { width: 2.35rem; height: 3.3rem; object-fit: contain; filter: invert(1) brightness(2); }
+    .brand span { display: grid; font-size: .78rem; font-weight: 700; line-height: 1.1; }
+    .brand small { margin-top: .25rem; color: var(--mist-soft); font-size: .56rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .journey-state { justify-self: center; display: flex; align-items: center; gap: .7rem; color: var(--mist-soft); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .journey-state strong { color: var(--mist); }
+    .journey-state i { width: 2.5rem; height: 1px; display: block; background: var(--line); }
+    .skip-booking { min-height: 44px; padding: .7rem 1rem; border: 1px solid var(--mist); background: transparent; font-size: .67rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; cursor: pointer; transition: background .25s ease, color .25s ease; }
+    .skip-booking:hover { background: var(--mist); color: var(--night); }
+
+    .progress { position: fixed; z-index: 25; top: 5.25rem; right: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; width: 1px; background: var(--line); }
+    .progress-fill { width: 3px; height: 0%; display: block; margin-left: -1px; background: var(--leaf); }
+    .progress-label { position: absolute; right: .9rem; bottom: 0; color: var(--mist-soft); font-size: .58rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); }
+
+    .scroll-space { position: relative; z-index: 2; height: 900vh; pointer-events: none; }
+    .intro { position: fixed; z-index: 12; top: 50%; left: clamp(1rem, 6vw, 6rem); width: min(39rem, calc(100vw - 2rem)); transform: translateY(-42%); transition: opacity .5s ease, filter .5s ease; }
+    .intro.is-past { opacity: 0; filter: blur(8px); pointer-events: none; }
+    .intro h1 { max-width: 8ch; margin: 0; font-family: var(--display); font-size: clamp(4.3rem, 10vw, 8.5rem); font-weight: 500; letter-spacing: -.04em; line-height: .78; text-wrap: balance; }
+    .intro h1 em { display: block; color: var(--leaf); font-weight: 500; }
+    .intro p { max-width: 32rem; margin: 1.7rem 0 0; color: var(--mist-soft); font-size: clamp(.95rem, 1.4vw, 1.15rem); line-height: 1.6; }
+    .scroll-invite { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; color: var(--mist); font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .scroll-invite span { width: 4.5rem; height: 1px; overflow: hidden; background: var(--line); }
+    .scroll-invite span::after { width: 50%; height: 100%; display: block; content: ""; background: var(--leaf); }
+
+    .story-card { position: fixed; z-index: 15; top: 50%; width: min(27rem, calc(100vw - 2rem)); padding: 1.5rem; border-top: 1px solid var(--mist); background: rgb(6 18 12 / 82%); box-shadow: 0 24px 60px rgb(0 0 0 / 28%); opacity: 0; filter: blur(10px); transform: translateY(calc(-50% + 2rem)); transition: opacity .6s var(--ease), transform .6s var(--ease), filter .6s ease; pointer-events: none; }
+    .story-card[data-side="left"] { left: clamp(1rem, 6vw, 6rem); }
+    .story-card[data-side="right"] { right: clamp(2.5rem, 7vw, 7rem); }
+    .story-card.is-active { opacity: 1; filter: none; transform: translateY(-50%); }
+    .story-card .branch-name { margin: 0 0 1.1rem; color: var(--leaf); font-size: .62rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .story-card h2 { max-width: 10ch; margin: 0; font-family: var(--display); font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 500; letter-spacing: -.035em; line-height: .92; }
+    .story-card p { margin: 1.2rem 0 0; color: var(--mist-soft); line-height: 1.65; }
+    .story-card figure { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: end; margin: 1.35rem 0 0; }
+    .story-card img { width: 7rem; height: 5.5rem; object-fit: cover; }
+    .story-card figcaption { color: var(--mist-soft); font-size: .68rem; line-height: 1.45; }
+    .fact-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1.3rem; background: var(--line); }
+    .fact-strip div { min-height: 5.5rem; padding: .85rem; background: var(--night); }
+    .fact-strip strong { display: block; color: var(--leaf); font-family: var(--display); font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+    .fact-strip span { color: var(--mist-soft); font-size: .65rem; line-height: 1.35; }
+
+    .threshold { position: fixed; z-index: 14; right: clamp(2.5rem, 7vw, 7rem); bottom: 7rem; width: min(29rem, calc(100vw - 2rem)); opacity: 0; transform: translateY(1.5rem); transition: opacity .6s var(--ease), transform .6s var(--ease); pointer-events: none; }
+    .threshold.is-active { opacity: 1; transform: none; }
+    .threshold h2 { margin: 0; font-family: var(--display); font-size: clamp(3rem, 6vw, 6rem); font-weight: 500; letter-spacing: -.04em; line-height: .82; }
+    .threshold h2 em { display: block; color: var(--leaf); font-weight: 500; }
+    .threshold p { max-width: 28rem; color: var(--mist-soft); line-height: 1.6; }
+
+    .booking-room { position: fixed; z-index: 20; inset: 0; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(24rem, .9fr); align-items: end; gap: clamp(2rem, 7vw, 8rem); padding: 7rem clamp(1.25rem, 7vw, 7rem) clamp(2rem, 7vh, 5rem); visibility: hidden; opacity: 0; background: linear-gradient(90deg, rgb(6 18 12 / 96%) 0 44%, rgb(6 18 12 / 60%) 74%, rgb(6 18 12 / 88%)); transition: opacity .8s var(--ease), visibility .8s; pointer-events: none; }
+    .booking-room.is-active { visibility: visible; opacity: 1; pointer-events: auto; }
+    .booking-copy { align-self: center; }
+    .booking-copy h2 { max-width: 9ch; margin: 0; font-family: var(--display); font-size: clamp(4rem, 8vw, 7.5rem); font-weight: 500; letter-spacing: -.04em; line-height: .8; }
+    .booking-copy h2 em { color: var(--leaf); font-weight: 500; }
+    .booking-copy p { max-width: 38rem; margin: 1.75rem 0 0; color: var(--mist-soft); font-size: 1rem; line-height: 1.7; }
+    .booking-note { display: flex; gap: 1rem; align-items: flex-start; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--mist-soft); font-size: .72rem; line-height: 1.55; }
+    .booking-note svg { width: 1.5rem; flex: 0 0 auto; stroke: var(--leaf); }
+    .booking-form { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2.25rem); background: var(--mist); color: var(--night); box-shadow: 0 28px 70px rgb(0 0 0 / 35%); }
+    .booking-form h3 { margin: 0 0 .5rem; font-family: var(--display); font-size: 2.2rem; font-weight: 600; line-height: 1; }
+    .booking-form > p { margin: 0 0 .4rem; color: rgb(6 18 12 / 68%); font-size: .76rem; line-height: 1.5; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    .booking-form label { display: grid; gap: .38rem; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .booking-form input, .booking-form select { width: 100%; min-height: 48px; padding: .7rem .8rem; border: 0; border-bottom: 1px solid rgb(6 18 12 / 34%); border-radius: 0; background: transparent; color: var(--night); }
+    .booking-form input:focus, .booking-form select:focus { border-color: var(--canopy); outline: 2px solid var(--canopy); outline-offset: 2px; }
+    .estimate { display: flex; align-items: end; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgb(6 18 12 / 22%); }
+    .estimate span { max-width: 19rem; color: rgb(6 18 12 / 66%); font-size: .65rem; line-height: 1.45; }
+    .estimate strong { font-family: var(--display); font-size: 2.3rem; font-variant-numeric: tabular-nums; }
+    .booking-action { min-height: 52px; display: flex; align-items: center; justify-content: space-between; padding: .9rem 1rem; background: var(--canopy); color: var(--mist); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; transition: background .25s ease, color .25s ease; }
+    .booking-action:hover { background: var(--leaf); color: var(--night); }
+    .reverse-hint { position: absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: 1.4rem; color: var(--mist-soft); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+
+    @media (max-width: 780px) {
+      .site-header { min-height: 4.5rem; grid-template-columns: 1fr auto; padding-inline: 1rem; }
+      .brand img { width: 2rem; height: 2.8rem; }
+      .journey-state { display: none; }
+      .skip-booking { padding-inline: .75rem; font-size: .58rem; }
+      .progress { top: 4.5rem; right: .45rem; bottom: 1rem; }
+      .progress-label { display: none; }
+      .intro { top: auto; bottom: 4.5rem; left: 1rem; transform: none; }
+      .intro h1 { font-size: clamp(4.2rem, 20vw, 6.4rem); }
+      .intro p { max-width: 30rem; margin-top: 1.2rem; font-size: .9rem; }
+      .scroll-invite { margin-top: 1.3rem; }
+      .story-card, .story-card[data-side="left"], .story-card[data-side="right"] { top: auto; right: 1rem; bottom: 1.25rem; left: 1rem; width: auto; padding: 1.15rem; transform: translateY(1.5rem); }
+      .story-card.is-active { transform: none; }
+      .story-card h2 { font-size: clamp(2.2rem, 11vw, 3.4rem); }
+      .story-card p { margin-top: .8rem; font-size: .82rem; line-height: 1.55; }
+      .story-card figure { display: none; }
+      .fact-strip { margin-top: .9rem; }
+      .fact-strip div { min-height: 4.2rem; padding: .6rem; }
+      .fact-strip strong { font-size: 1.35rem; }
+      .threshold { right: 1rem; bottom: 3rem; left: 1rem; width: auto; }
+      .threshold h2 { font-size: clamp(3.4rem, 17vw, 5.5rem); }
+      .booking-room { display: block; overflow-y: auto; padding: 6rem 1rem 2rem; background: rgb(6 18 12 / 93%); }
+      .booking-copy h2 { font-size: clamp(3.7rem, 17vw, 5.5rem); }
+      .booking-copy p { margin-top: 1.2rem; font-size: .88rem; }
+      .booking-note { display: none; }
+      .booking-form { margin-top: 1.5rem; padding: 1.1rem; }
+      .booking-form h3 { font-size: 1.8rem; }
+      .reverse-hint { display: none; }
+    }
+    @media (max-width: 420px) {
+      .field-row { grid-template-columns: 1fr; }
+      .booking-room { padding-top: 5.25rem; }
+      .booking-copy h2 { font-size: 3.8rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body class="is-loading">
+  <!--
+  THESIS: The tree is the navigation system: scrolling descends from canopy to community, refusing a conventional stacked tourism landing page.
+  OWN-WORLD: Deep forest darkness, living green light, sculpted low-poly bark and leaves, branch-mounted editorial stories, and a warm longhouse threshold.
+  STORY: Begin with wonder, meet river/adventure/heritage/stay on the branches, understand honest costs and conditions, then enter the village to enquire.
+  FIRST VIEWPORT: The camera floats above a monumental Three.js canopy while a large Long Taa title anchors the left and the trunk disappears below the fold.
+  FORM: User-pinned tree-descent concept from the supplied sketch; seed key USER-PINNED-TREE-JOURNEY-20260903.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#booking">Skip to booking</a>
+
+  <div class="loader" role="status" aria-live="polite">
+    <div class="loader-inner">
+      <div class="loader-mark" aria-hidden="true">LT</div>
+      <p class="loader-copy">Growing the journey.</p>
+      <div class="loader-track" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+
+  <div class="world" aria-hidden="true">
+    <canvas id="tree-canvas"></canvas>
+    <div class="webgl-fallback"></div>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Long Taa Borneo Eco Stay, return to canopy">
+      <img src="../landing-page/public/images/long-taa-dapui-logo.png" alt="">
+      <span>Long Taa<small>Borneo Eco Stay</small></span>
+    </a>
+    <div class="journey-state" aria-live="polite"><span>Canopy</span><i></i><strong>Begin above</strong></div>
+    <button class="skip-booking" type="button">Enter the village</button>
+  </header>
+
+  <div class="progress" aria-hidden="true">
+    <span class="progress-fill"></span>
+    <span class="progress-label">Canopy → branches → roots → home</span>
+  </div>
+
+  <main id="top">
+    <div class="scroll-space" aria-hidden="true"></div>
+
+    <section class="intro" aria-labelledby="journey-title">
+      <h1 id="journey-title">Follow the <em>living tree.</em></h1>
+      <p>Begin above the rainforest. Scroll slowly down through river, culture, adventure and living heritage—until Long Taa welcomes you through its door.</p>
+      <div class="scroll-invite"><span></span>Scroll to descend</div>
+    </section>
+
+    <article class="story-card" data-stage="0.19" data-side="right">
+      <p class="branch-name">A different idea of escape</p>
+      <h2>Leave the city above the canopy.</h2>
+      <p>Long Taa is a traditional 20-door longhouse and home of the Indigenous Sebup community, approximately six hours by 4WD from Miri.</p>
+      <figure><img src="../landing-page/public/images/journey-road.webp" alt="A remote road bordered by dense rainforest"><figcaption>The journey into Ulu Tinjar is part of the experience.</figcaption></figure>
+    </article>
+
+    <article class="story-card" data-stage="0.34" data-side="left">
+      <p class="branch-name">River branch</p>
+      <h2>Adventure follows the Dapui River.</h2>
+      <p>Longboat journeys, swimming, rainforest scenery and the community-managed Tagang Fish Conservation Area may shape a visit when local conditions allow.</p>
+      <figure><img src="../landing-page/public/images/river-walk.webp" alt="Clear water in the forest-lined Dapui River"><figcaption>River and water-level conditions always guide what happens next.</figcaption></figure>
+    </article>
+
+    <article class="story-card" data-stage="0.48" data-side="right">
+      <p class="branch-name">Heritage branch</p>
+      <h2>Culture is lived here.</h2>
+      <p>This is a living Sebup village, not a staged attraction. Come curious, listen closely, ask before photographing people, and follow community guidance.</p>
+      <figure><img src="../landing-page/public/images/community-meal.webp" alt="A shared meal in the Long Taa community setting"><figcaption>Community ownership and respect lead the experience.</figcaption></figure>
+    </article>
+
+    <article class="story-card" data-stage="0.61" data-side="left">
+      <p class="branch-name">Sanctuary branch</p>
+      <h2>Simple longhouse living.</h2>
+      <p>Stay close to everyday village life with fresh mountain-sourced water, 24-hour solar electricity and telecommunications connectivity.</p>
+      <div class="fact-strip"><div><strong>RM50</strong><span>Accommodation only, per person / night</span></div><div><strong>RM180</strong><span>Stay plus three local meals, per person / night</span></div></div>
+    </article>
+
+    <article class="story-card" data-stage="0.73" data-side="right">
+      <p class="branch-name">Planning branch</p>
+      <h2>Remote means planning together.</h2>
+      <p>Advance booking lets Long Taa confirm accommodation, transport, guides and suitable activities. Weather, road, river, water level and safety conditions can change the plan.</p>
+      <div class="fact-strip"><div><strong>RM1,500</strong><span>Return 4WD vehicle, maximum three guests</span></div><div><strong>RM600</strong><span>Longboat, guide and porter per group</span></div></div>
+    </article>
+
+    <section class="threshold" aria-labelledby="threshold-title">
+      <h2 id="threshold-title">The roots lead <em>home.</em></h2>
+      <p>Approach the longhouse door. Inside, turn the journey you imagined into a clear availability enquiry.</p>
+    </section>
+
+    <section class="booking-room" id="booking" aria-labelledby="booking-title">
+      <div class="booking-copy">
+        <h2 id="booking-title">Enter as a visitor. Leave with a <em>story.</em></h2>
+        <p>Choose a simple starting point. Your message opens in WhatsApp for Clement Langet to confirm dates, availability, logistics and what is appropriate for the conditions.</p>
+        <div class="booking-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M12 3 4.5 6.5v5.2c0 4.3 2.8 7.7 7.5 9.3 4.7-1.6 7.5-5 7.5-9.3V6.5L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>This is an indicative planning helper, not a reservation or final quotation. No package-specific activity price has been invented.</span>
+        </div>
+      </div>
+      <form class="booking-form" onsubmit="return false">
+        <h3>Begin your enquiry.</h3>
+        <p>Long Taa confirms every visit personally.</p>
+        <div class="field-row">
+          <label>Guests<input id="guests" type="number" min="1" max="30" value="2" inputmode="numeric"></label>
+          <label>Nights<input id="nights" type="number" min="1" max="30" value="2" inputmode="numeric"></label>
+        </div>
+        <label>Stay option
+          <select id="stay-option">
+            <option value="180">Accommodation + local meals · RM180</option>
+            <option value="50">Accommodation only · RM50</option>
+          </select>
+        </label>
+        <label>Preferred arrival date<input id="arrival" type="date"></label>
+        <div class="estimate"><span>Indicative stay subtotal. Transport and activities are confirmed separately.</span><strong id="estimate-total">RM720</strong></div>
+        <a class="booking-action" id="whatsapp-booking" href="https://wa.me/60198563536" target="_blank" rel="noreferrer"><span>Open WhatsApp enquiry</span><span aria-hidden="true">Open</span></a>
+      </form>
+      <span class="reverse-hint">Scroll up to return to the canopy</span>
+    </section>
+  </main>
+
+  <script type="module">
+    const body = document.body;
+    const loader = document.querySelector('.loader');
+    const intro = document.querySelector('.intro');
+    const storyCards = [...document.querySelectorAll('.story-card')];
+    const threshold = document.querySelector('.threshold');
+    const bookingRoom = document.querySelector('.booking-room');
+    const progressFill = document.querySelector('.progress-fill');
+    const journeyState = document.querySelector('.journey-state strong');
+    const skipButton = document.querySelector('.skip-booking');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let threeReady = false;
+
+    const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+    const progressFromScroll = () => clamp(window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight));
+    const smoothstep = (min, max, value) => {
+      const x = clamp((value - min) / (max - min));
+      return x * x * (3 - 2 * x);
+    };
+
+    function updateInterface(progress) {
+      progressFill.style.height = `${progress * 100}%`;
+      intro.classList.toggle('is-past', progress > .1);
+      storyCards.forEach(card => {
+        const stage = Number(card.dataset.stage);
+        card.classList.toggle('is-active', Math.abs(progress - stage) < .065);
+      });
+      threshold.classList.toggle('is-active', progress > .78 && progress < .93);
+      bookingRoom.classList.toggle('is-active', progress > .93);
+      bookingRoom.setAttribute('aria-hidden', String(progress <= .93));
+      if (progress < .12) journeyState.textContent = 'Begin above';
+      else if (progress < .29) journeyState.textContent = 'Vision';
+      else if (progress < .42) journeyState.textContent = 'Adventure';
+      else if (progress < .55) journeyState.textContent = 'Heritage';
+      else if (progress < .68) journeyState.textContent = 'Sanctuary';
+      else if (progress < .8) journeyState.textContent = 'Plan together';
+      else if (progress < .93) journeyState.textContent = 'The threshold';
+      else journeyState.textContent = 'Inside Long Taa';
+    }
+
+    function onScroll() {
+      targetProgress = progressFromScroll();
+      updateInterface(targetProgress);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    skipButton.addEventListener('click', () => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+    const guestsInput = document.querySelector('#guests');
+    const nightsInput = document.querySelector('#nights');
+    const stayInput = document.querySelector('#stay-option');
+    const arrivalInput = document.querySelector('#arrival');
+    const estimateTotal = document.querySelector('#estimate-total');
+    const whatsappBooking = document.querySelector('#whatsapp-booking');
+
+    function updateEstimate() {
+      const guests = Math.max(1, Number(guestsInput.value) || 1);
+      const nights = Math.max(1, Number(nightsInput.value) || 1);
+      const rate = Number(stayInput.value);
+      const total = guests * nights * rate;
+      const stayName = rate === 180 ? 'accommodation with local meals' : 'accommodation only';
+      estimateTotal.textContent = `RM${total.toLocaleString('en-MY')}`;
+      const message = `Hello Clement, I would like to check availability for Long Taa Borneo Eco Stay.\n\nPreferred arrival: ${arrivalInput.value || 'To discuss'}\nGuests: ${guests}\nNights: ${nights}\nStay option: ${stayName}\nIndicative stay subtotal: RM${total.toLocaleString('en-MY')}\n\nPlease help me confirm availability, transport and suitable experiences. I understand this is an enquiry, not a confirmed booking.`;
+      whatsappBooking.href = `https://wa.me/60198563536?text=${encodeURIComponent(message)}`;
+    }
+    [guestsInput, nightsInput, stayInput, arrivalInput].forEach(input => input.addEventListener('input', updateEstimate));
+    updateEstimate();
+
+    async function buildWorld() {
+      try {
+        const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js');
+        const canvas = document.querySelector('#tree-canvas');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x06120c);
+        scene.fog = new THREE.Fog(0x06120c, 15, 52);
+
+        const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, .1, 120);
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', alpha: false });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+        renderer.setSize(window.innerWidth, window.innerHeight, false);
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.08;
+        renderer.shadowMap.enabled = window.innerWidth > 780;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        scene.add(new THREE.HemisphereLight(0xb8d6a3, 0x08120c, 1.45));
+        const moon = new THREE.DirectionalLight(0xd8f0ca, 2.2);
+        moon.position.set(-9, 24, 12);
+        moon.castShadow = true;
+        moon.shadow.mapSize.set(1024, 1024);
+        scene.add(moon);
+        const doorLight = new THREE.PointLight(0xffb35a, 7, 18, 2);
+        doorLight.position.set(4, 2.2, -3.3);
+        scene.add(doorLight);
+
+        const world = new THREE.Group();
+        scene.add(world);
+
+        const bark = new THREE.MeshStandardMaterial({ color: 0x3f291a, roughness: .92, metalness: 0 });
+        const barkLight = new THREE.MeshStandardMaterial({ color: 0x68442a, roughness: .86 });
+        const clayGlow = new THREE.MeshStandardMaterial({ color: 0xd27842, emissive: 0x7a2d12, emissiveIntensity: 1.1, roughness: .55 });
+        const rootMaterial = new THREE.MeshStandardMaterial({ color: 0x49301d, roughness: .96 });
+
+        const makeLimb = (start, end, radiusStart, radiusEnd, material = bark) => {
+          const direction = new THREE.Vector3().subVectors(end, start);
+          const length = direction.length();
+          const geometry = new THREE.CylinderGeometry(radiusEnd, radiusStart, length, 10, 3);
+          const mesh = new THREE.Mesh(geometry, material);
+          mesh.position.copy(start).add(end).multiplyScalar(.5);
+          mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          world.add(mesh);
+          return mesh;
+        };
+
+        const trunkPoints = [
+          new THREE.Vector3(0, 0, 0), new THREE.Vector3(-.35, 4.5, .1), new THREE.Vector3(.4, 9, -.15),
+          new THREE.Vector3(-.3, 13.5, .2), new THREE.Vector3(.2, 18, 0), new THREE.Vector3(-.15, 22.5, .1), new THREE.Vector3(0, 26, 0)
+        ];
+        const radii = [2.35, 2.05, 1.72, 1.42, 1.12, .78, .42];
+        for (let i = 0; i < trunkPoints.length - 1; i += 1) makeLimb(trunkPoints[i], trunkPoints[i + 1], radii[i], radii[i + 1], i % 2 ? barkLight : bark);
+
+        const branchData = [
+          { y: 21.5, end: [-7.4, 23.2, .3], stage: .19 },
+          { y: 18.2, end: [7.8, 20.2, -.4], stage: .34 },
+          { y: 14.8, end: [-7.1, 16.4, .8], stage: .48 },
+          { y: 11.2, end: [7.2, 12.8, .4], stage: .61 },
+          { y: 7.4, end: [-6.1, 8.7, .8], stage: .73 }
+        ];
+        const markers = [];
+        branchData.forEach((branch, index) => {
+          const start = new THREE.Vector3(index % 2 ? .15 : -.15, branch.y, 0);
+          const elbow = new THREE.Vector3(branch.end[0] * .58, branch.end[1] - .15, branch.end[2]);
+          const end = new THREE.Vector3(...branch.end);
+          makeLimb(start, elbow, .62 - index * .05, .3, barkLight);
+          makeLimb(elbow, end, .3, .12, bark);
+          const twigDirection = index % 2 ? 1 : -1;
+          makeLimb(elbow, new THREE.Vector3(elbow.x + twigDirection * 1.8, elbow.y + 1.8, elbow.z - .8), .22, .06, bark);
+          const marker = new THREE.Mesh(new THREE.IcosahedronGeometry(.28, 1), clayGlow.clone());
+          marker.position.copy(end);
+          marker.userData.stage = branch.stage;
+          world.add(marker);
+          markers.push(marker);
+        });
+
+        const leafGeometry = new THREE.IcosahedronGeometry(.68, 1);
+        const leafMaterials = [
+          new THREE.MeshStandardMaterial({ color: 0x2d6f38, roughness: .78 }),
+          new THREE.MeshStandardMaterial({ color: 0x4f8d42, roughness: .78 }),
+          new THREE.MeshStandardMaterial({ color: 0x80a846, roughness: .78 })
+        ];
+        const leafClusters = [
+          [0, 25, 0, 7], [-5.8, 23, .2, 4.3], [6, 20.4, -.4, 4.1], [-5.7, 16.8, .7, 3.7], [5.9, 13.2, .5, 3.4], [-4.8, 9.2, .8, 2.8]
+        ];
+        const leafMeshes = leafMaterials.map(material => new THREE.InstancedMesh(leafGeometry, material, 74));
+        leafMeshes.forEach(mesh => { mesh.castShadow = true; world.add(mesh); });
+        const dummy = new THREE.Object3D();
+        const leafOrigins = [];
+        let leafIndex = [0, 0, 0];
+        const random = (() => { let seed = 73421; return () => ((seed = seed * 16807 % 2147483647) - 1) / 2147483646; })();
+        leafClusters.forEach(cluster => {
+          const count = Math.round(cluster[3] * 7.8);
+          for (let i = 0; i < count; i += 1) {
+            const type = Math.floor(random() * 3);
+            const angle = random() * Math.PI * 2;
+            const radius = Math.pow(random(), .58) * cluster[3];
+            const origin = new THREE.Vector3(cluster[0] + Math.cos(angle) * radius, cluster[1] + (random() - .45) * cluster[3] * .9, cluster[2] + Math.sin(angle) * radius * .75);
+            dummy.position.copy(origin);
+            const scale = .48 + random() * .72;
+            dummy.scale.set(scale * 1.15, scale, scale * .82);
+            dummy.rotation.set(random() * .7, random() * Math.PI, random() * .6);
+            dummy.updateMatrix();
+            leafMeshes[type].setMatrixAt(leafIndex[type], dummy.matrix);
+            leafOrigins.push({ mesh: leafMeshes[type], index: leafIndex[type], origin, phase: random() * Math.PI * 2, scale });
+            leafIndex[type] += 1;
+          }
+        });
+        leafMeshes.forEach(mesh => { mesh.count = leafIndex[leafMeshes.indexOf(mesh)]; mesh.instanceMatrix.needsUpdate = true; });
+
+        const rootEnds = [[-7, -.2, 3], [7, -.25, 3.2], [-6.5, -.25, -2.2], [6.7, -.2, -2.6], [0, -.3, 6.5]];
+        rootEnds.forEach((end, index) => {
+          const elbow = new THREE.Vector3(end[0] * .48, .1, end[2] * .45);
+          makeLimb(new THREE.Vector3(0, .3, 0), elbow, .75, .38, rootMaterial);
+          makeLimb(elbow, new THREE.Vector3(...end), .38, .08, rootMaterial);
+        });
+
+        const ground = new THREE.Mesh(new THREE.CircleGeometry(34, 80), new THREE.MeshStandardMaterial({ color: 0x0b2115, roughness: 1 }));
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -.38;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        const house = new THREE.Group();
+        house.position.set(4, 0, -7);
+        world.add(house);
+        const timber = new THREE.MeshStandardMaterial({ color: 0x65442b, roughness: .88 });
+        const timberDark = new THREE.MeshStandardMaterial({ color: 0x2a1a12, roughness: .95 });
+        const roofMaterial = new THREE.MeshStandardMaterial({ color: 0x18231a, roughness: .82, side: THREE.DoubleSide });
+        const warm = new THREE.MeshStandardMaterial({ color: 0xffc574, emissive: 0xff8a2d, emissiveIntensity: 1.7, roughness: .8 });
+        const addBox = (size, position, material, rotation = [0, 0, 0]) => {
+          const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
+          mesh.position.set(...position);
+          mesh.rotation.set(...rotation);
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          house.add(mesh);
+          return mesh;
+        };
+        addBox([8.5, .35, 6.3], [0, .05, 0], timberDark);
+        addBox([8.5, 3.8, .35], [0, 2.05, -3], timber);
+        addBox([2.7, 3.8, .32], [-2.9, 2.05, 3], timber);
+        addBox([2.7, 3.8, .32], [2.9, 2.05, 3], timber);
+        addBox([3.1, .75, .32], [0, 3.57, 3], timber);
+        addBox([.32, 3.8, 6.3], [-4.1, 2.05, 0], timber);
+        addBox([.32, 3.8, 6.3], [4.1, 2.05, 0], timber);
+        addBox([4.9, .28, 3.8], [-2, 4.65, 0], roofMaterial, [0, 0, -.46]);
+        addBox([4.9, .28, 3.8], [2, 4.65, 0], roofMaterial, [0, 0, .46]);
+        addBox([2.45, 3.1, .08], [0, 1.75, 2.82], warm);
+        addBox([6.5, 2.7, .15], [0, 1.8, -2.77], new THREE.MeshStandardMaterial({ color: 0x3f2a1c, emissive: 0x5a2c12, emissiveIntensity: .65 }));
+        [-3.45, -2.3, -1.15, 0, 1.15, 2.3, 3.45].forEach(x => addBox([.13, 3.9, .18], [x, 2.05, 3.19], timberDark));
+
+        const fireflyCount = 130;
+        const fireflyPositions = new Float32Array(fireflyCount * 3);
+        for (let i = 0; i < fireflyCount; i += 1) {
+          fireflyPositions[i * 3] = (random() - .5) * 24;
+          fireflyPositions[i * 3 + 1] = random() * 27;
+          fireflyPositions[i * 3 + 2] = (random() - .5) * 16;
+        }
+        const fireflyGeometry = new THREE.BufferGeometry();
+        fireflyGeometry.setAttribute('position', new THREE.BufferAttribute(fireflyPositions, 3));
+        const fireflies = new THREE.Points(fireflyGeometry, new THREE.PointsMaterial({ color: 0xccec75, size: .055, transparent: true, opacity: .8, depthWrite: false }));
+        scene.add(fireflies);
+
+        const cameraCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0, 29, 18), new THREE.Vector3(5.3, 24, 14), new THREE.Vector3(-5.3, 19, 12),
+          new THREE.Vector3(5.2, 14, 11), new THREE.Vector3(-4.7, 9.2, 10), new THREE.Vector3(3.8, 4.4, 13),
+          new THREE.Vector3(4, 2.35, 7.5), new THREE.Vector3(4, 2.05, -2.7), new THREE.Vector3(4, 2.05, -9.3)
+        ], false, 'catmullrom', .45);
+        const targetCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0, 24, 0), new THREE.Vector3(0, 21, 0), new THREE.Vector3(0, 17, 0),
+          new THREE.Vector3(0, 13, 0), new THREE.Vector3(0, 8, 0), new THREE.Vector3(1, 3, -2),
+          new THREE.Vector3(4, 2, -7), new THREE.Vector3(4, 2, -8.5), new THREE.Vector3(4, 2, -13)
+        ], false, 'catmullrom', .45);
+
+        const clock = new THREE.Clock();
+        function animate() {
+          requestAnimationFrame(animate);
+          currentProgress = reduceMotion ? targetProgress : THREE.MathUtils.lerp(currentProgress, targetProgress, .065);
+          const cameraT = THREE.MathUtils.clamp(currentProgress, 0, 1);
+          camera.position.copy(cameraCurve.getPoint(cameraT));
+          const target = targetCurve.getPoint(cameraT);
+          if (window.innerWidth < 780 && currentProgress < .78) camera.position.x += currentProgress < .5 ? 1.5 : -1.2;
+          camera.lookAt(target);
+
+          const time = clock.getElapsedTime();
+          if (!reduceMotion) {
+            world.rotation.y = Math.sin(time * .08) * .018;
+            fireflies.rotation.y = time * .015;
+            markers.forEach((marker, index) => {
+              const proximity = 1 - Math.min(1, Math.abs(currentProgress - marker.userData.stage) / .11);
+              marker.scale.setScalar(1 + proximity * 1.9 + Math.sin(time * 2 + index) * .08);
+              marker.material.emissiveIntensity = .6 + proximity * 2.8;
+            });
+          }
+          doorLight.intensity = 5 + smoothstep(.72, .94, currentProgress) * 13;
+          scene.fog.near = 14 - smoothstep(.8, 1, currentProgress) * 8;
+          scene.fog.far = 52 - smoothstep(.82, 1, currentProgress) * 26;
+          renderer.render(scene, camera);
+        }
+
+        const onResize = () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.fov = window.innerWidth < 780 ? 59 : 48;
+          camera.updateProjectionMatrix();
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 780 ? 1.25 : 1.6));
+          renderer.setSize(window.innerWidth, window.innerHeight, false);
+        };
+        window.addEventListener('resize', onResize);
+        onResize();
+        threeReady = true;
+        animate();
+      } catch (error) {
+        document.querySelector('.world').classList.add('webgl-failed');
+        console.warn('Three-dimensional scene unavailable; showing the photographic fallback.', error);
+      } finally {
+        window.setTimeout(() => {
+          loader.classList.add('is-done');
+          body.classList.remove('is-loading');
+        }, threeReady ? 550 : 100);
+      }
+    }
+
+    onScroll();
+    buildWorld();
+  </script>
+</body>
+</html>

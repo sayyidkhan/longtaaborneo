@@ -3,7 +3,7 @@
 > **Project:** AI Business Design Hackathon 2026
 > **Document status:** Draft for beneficiary review
 > **Source basis:** `LONG TAA BORNEO ECO STAY.md` and `LONG TAA BORNEO ECO STAY brochure.md`
-> **Accuracy rule:** Statements labelled **Confirmed** come from the supplied business material. Design, layout, and feature choices labelled **Recommendation** are proposals, not claims about the business. Any unresolved fact is labelled **[TO BE CONFIRMED WITH BENEFICIARY]**.
+> **Accuracy rule:** Statements labelled **Confirmed** come from the supplied business material. An **Agreed working assumption** is an interim website/chatbot rule that must remain qualified until Clement confirms it. Design, layout, and feature choices labelled **Recommendation** are proposals, not claims about the business. Any unresolved fact is labelled **[TO BE CONFIRMED WITH BENEFICIARY]**.
 
 ---
 
@@ -17,7 +17,7 @@
 | Business description | A stay within a traditional Sebup longhouse in a living Indigenous community, surrounded by rainforest and the Dapui River. The business shares nature, culture, adventure, and living heritage while supporting community-based conservation and sustainable rural development. |
 | Main products / services | Longhouse accommodation; accommodation with local meals; 4WD transfer from Miri; longboat, local guide, and porter arrangements; River, Culture & Living Heritage Experience; Nature’s Wonders Exploration. |
 | Main website objective | Help suitable travellers discover Long Taa, understand the journey and experience, and begin a booking enquiry with clear expectations. |
-| Primary CTA | **Book on WhatsApp** |
+| Primary CTA | **Plan Your Trip** / **Request Availability on WhatsApp** |
 
 ## 2. Business Challenge
 
@@ -44,9 +44,15 @@ Move qualified visitors to start a booking enquiry on WhatsApp.
 1. Explore Long Taa and determine whether the experience suits them.
 2. Review stay options, package inclusions, and practical conditions.
 3. Check travel guidance and prepare relevant booking details.
-4. Tap **Book on WhatsApp** to check dates, discuss an experience, or make a booking.
+4. Review an indicative estimate, then tap **Request Availability on WhatsApp** to obtain a confirmed itinerary and quotation.
 
 ## 4. Target Audience
+
+The audience should be defined primarily by **motivation and readiness**, not race or nationality. The best-fit visitor wants nature, adventure, culture, heritage, or conservation; accepts a remote journey and simple accommodation; plans ahead; and will visit a living community respectfully.
+
+**Primary audience:** Experience-driven nature, culture, and adventure travellers—especially groups of up to three—who are ready for a remote, simple, community-based stay.
+
+**Secondary audience:** Eco-tourists, photographers, researchers, students, and families. Family suitability remains subject to Clement's age and safety guidance. Remote workers are exploratory rather than core until connectivity and longer-stay suitability are verified.
 
 | Audience | What they need | Information they seek | Desired action |
 | --- | --- | --- | --- |
@@ -55,6 +61,10 @@ Move qualified visitors to start a booking enquiry on WhatsApp.
 | Eco-tourists, photographers, researchers, and students | Access to a nature-and-community setting aligned with their interests | Conservation, wildlife, river, rainforest, longhouse setting, booking requirements | Review details and ask about suitability / availability |
 | Families and small groups | A manageable, well-explained group trip | Capacity, stay options, transport, meals, duration, booking conditions | Plan the trip and submit a WhatsApp enquiry |
 | Remote workers seeking a nature retreat | A remote setting with essential connectivity | Solar electricity, telecommunications connectivity, accommodation context | Explore the stay, then enquire about availability |
+
+**Recommended launch segment:** Start with Miri- and Sarawak-based groups of up to three people. This reduces travel friction and matches one 4WD/longboat capacity unit. The next segment is fly-in eco-adventure travellers from Brunei, Singapore, wider Southeast Asia, and international visitors already planning to travel through Miri or Sarawak.
+
+**Poor-fit audience:** Travellers expecting luxury-resort comfort, easy road access, guaranteed wildlife or activities, instant booking, or a fully fixed itinerary regardless of conditions.
 
 ## 5. Unique Selling Points
 
@@ -101,12 +111,12 @@ This structure separates practical offer details from the destination story, giv
 
 | Section | Purpose | Recommended headline | Supporting content | CTA | Suggested visual |
 | --- | --- | --- | --- | --- | --- |
-| Hero | Immediate positioning and conversion | *Escape the City. Experience the Real Borneo.* | `Nature • Culture • Adventure • Living Heritage` and a concise statement that Long Taa is a Sebup longhouse stay in Ulu Tinjar, Baram, Sarawak. | Book on WhatsApp; Explore Long Taa | Authentic full-bleed river, rainforest, or longhouse image; optional lightweight motion only if performance remains strong |
+| Hero | Immediate positioning and conversion | *Escape the City. Experience the Real Borneo.* | `Nature • Culture • Adventure • Living Heritage` and a concise statement that Long Taa is a Sebup longhouse stay in Ulu Tinjar, Baram, Sarawak. | Plan Your Trip; Explore Long Taa | Authentic full-bleed river, rainforest, or longhouse image; optional lightweight motion only if performance remains strong |
 | Intro | Establish authenticity | *A living village, not a tourist resort.* | Briefly explain the community setting and that Long Taa shares culture, nature, and heritage while supporting conservation and rural development. | Our Story | Authentic longhouse/community image |
 | Experience pillars | Help visitors self-qualify | *Choose the Borneo you want to feel.* | Four concise pillars: Nature, Culture, Adventure, Living Heritage. Link each to relevant sections/pages. | Explore experiences | Four real-image cards or a restrained collage |
 | Stay snapshot | Set accommodation expectations | *Stay close to the land—and the story.* | Simple longhouse accommodation, with solar electricity, fresh mountain-sourced water, and telecommunications connectivity. | View stay options | Interior/exterior longhouse image |
 | Journey snapshot | Reduce location ambiguity | *Six hours from Miri. A world away from the ordinary.* | Approximate 4WD journey from Miri; make clear that the journey is part of the experience. | Plan your journey | Real road / landscape image and simple route graphic |
-| Closing CTA | Convert warmed-up visitors | *Come as a visitor. Leave with a story.* | Invite visitors to check dates or discuss their preferred experience. | Book on WhatsApp | Calm river or rainforest image |
+| Closing CTA | Convert warmed-up visitors | *Come as a visitor. Leave with a story.* | Invite visitors to check dates or discuss their preferred experience. | Request Availability on WhatsApp | Calm river or rainforest image |
 
 ## 9. Page 2 — Stay & Experiences
 
@@ -117,10 +127,12 @@ This structure separates practical offer details from the destination story, giv
 1. Hero: **Stay in a Sebup longhouse. Experience everyday Long Taa.**
 2. Accommodation overview: simple, basic longhouse accommodation and what guests can expect.
 3. Stay choices: accommodation-only and accommodation + local meals.
-4. Experience cards: Package 1 and Package 2.
-5. What is included / not included.
-6. Booking conditions and capacity notice.
-7. Booking CTA.
+4. Experience choice: Package 1 **or** Package 2, not both in one enquiry.
+5. Transport choice: Long Taa return 4WD by default, or request approval for the visitor's own terrain-suitable 4WD.
+6. River/activity support choice.
+7. What is included / not included.
+8. Indicative estimate, assumptions, conditions, and capacity notice.
+9. WhatsApp availability-and-quotation CTA.
 
 **Recommended content**
 
@@ -131,8 +143,12 @@ This structure separates practical offer details from the destination story, giv
 - **4WD transfer — RM1,500 per vehicle:** Miri–Long Taa–Miri; maximum three guests per 4WD vehicle.
 - **Longboat + local guide + porter — RM600 per group:** maximum three guests per longboat.
 - No minimum guest number is required. Advance booking is required. Activities may change, be postponed, or be replaced due to weather, river, water-level, road, or safety conditions.
+- Present **3 Days 2 Nights** as a recommended starting point, while allowing visitors to request a different duration.
+- Do not combine Package 1 and Package 2 in the trip selector. A visitor must choose one.
+- Default to Long Taa's return 4WD. Own transport means requesting approval for a terrain-suitable 4WD; it must not be presented as ordinary self-drive access.
+- Show only an itemised indicative estimate. Package/activity costs, availability, itinerary, and final price are confirmed on WhatsApp.
 
-**CTAs:** `Plan Your Journey` after the practical conditions; `Book on WhatsApp` after each package area and at the page end.
+**CTAs:** `Plan Your Journey` after the practical conditions; `Request Availability on WhatsApp` after each package area and at the page end.
 
 **Suggested visuals:** Authentic longhouse, local meals, river, fish conservation, rainforest, and rock-formation photographs. Clearly identify images as representative only where they do not show the exact activity.
 
@@ -183,7 +199,7 @@ This structure separates practical offer details from the destination story, giv
 
 **Recommendation:** Present these principles as a short, visible `Visit with respect` panel. Do not publish detailed cultural protocols, restricted locations, or photography rules until they are approved by the beneficiary.
 
-**CTA:** `Plan a Respectful Visit` leading to Plan & Book; persistent `Book on WhatsApp`.
+**CTA:** `Plan a Respectful Visit` leading to Plan & Book; persistent `Request Availability` action.
 
 **Suggested visuals:** Authentic longhouse/community setting and environmental images approved by the business. Avoid presenting people as attractions or using unapproved portraits.
 
@@ -195,28 +211,28 @@ This structure separates practical offer details from the destination story, giv
 
 | Element | Requirement |
 | --- | --- |
-| Journey guidance | Destination: Long Taa, Dapui, Ulu Tinjar, Baram, Sarawak, Malaysia. Starting point: Miri, Sarawak. Approximate six-hour 4WD journey. |
+| Journey guidance | Destination: Long Taa, Dapui, Ulu Tinjar, Baram, Sarawak, Malaysia. Starting point: Miri, Sarawak. Approximate six-hour 4WD journey. Use Long Taa's transfer by default; own transport requires a terrain-suitable 4WD and prior approval. |
 | Booking conditions | Advance booking; accommodation, transport, guides, and porters are subject to availability; capacity is maximum three guests per 4WD vehicle and longboat; conditions can affect activities. |
 | Helpful planning information | Include only confirmed items: no minimum guest number; flights to/from Miri and Miri accommodation are not included; travel/personal insurance, personal outdoor equipment, medication, and personal expenses are not included. |
 | WhatsApp | **+60 19-856 3536**; contact person Clement Langet. Use a direct, prefilled enquiry link. |
 | Email | **longtaaborneo@gmail.com** |
 | Social media | TikTok: **@visitlongtaaborneo**; Facebook: **@visitlongtaaborneo** |
-| Enquiry form | Include fields for name, preferred date, number of guests, preferred stay/experience, and message. Submit should open WhatsApp with a prefilled message; do not imply a reservation is confirmed. |
+| Enquiry form | Ask for name, preferred date, guests, nights, stay option, exactly one package, transport arrangement, river/activity support, and special requirements. Show an itemised indicative estimate and assumptions, then open WhatsApp with the same details. Do not imply a reservation is confirmed. |
 | Map / exact meeting point | **[TO BE CONFIRMED WITH BENEFICIARY]**. Do not embed a map or publish an exact pickup point until approved. |
 | Opening hours | **[TO BE CONFIRMED WITH BENEFICIARY]** |
 
 **Recommended headline:** *Your journey starts with a conversation.*
-**Primary CTA:** `Book on WhatsApp`
+**Primary CTA:** `Request Availability on WhatsApp`
 **Supporting CTA:** `Email Us`
 
 ## 13. Navigation
 
 | Area | Requirement |
 | --- | --- |
-| Desktop navigation | Logo/home link; Home; Stay & Experiences; Explore Long Taa; Our Story; Plan & Book; visible `Book on WhatsApp` button. |
+| Desktop navigation | Logo/home link; Home; Stay & Experiences; Explore Long Taa; Our Story; Plan & Book; visible `Plan Your Trip` button. |
 | Mobile navigation | Compact menu with the same five destinations and a prominent WhatsApp CTA visible inside the menu. A persistent mobile CTA is recommended, provided it does not obscure content. |
 | Header behaviour | Sticky or lightly persistent header after the hero. Use a solid, high-contrast background after scroll so links remain readable over imagery. |
-| Primary navigation CTA | `Book on WhatsApp` opens the correct direct WhatsApp link in a new browsing context where appropriate. |
+| Primary navigation CTA | `Plan Your Trip` opens the planner; the final `Request Availability on WhatsApp` action opens the correct WhatsApp link. |
 
 ## 14. Footer
 
@@ -225,7 +241,7 @@ Include:
 - Long Taa Borneo Eco Stay name and short description: `Nature • Culture • Adventure • Living Heritage`.
 - Links to all five pages.
 - WhatsApp number, email address, and supplied social accounts.
-- Repeated `Book on WhatsApp` CTA.
+- Repeated `Plan Your Trip` or `Request Availability on WhatsApp` CTA.
 - Copyright: `© [CURRENT YEAR] Long Taa Borneo Eco Stay. All rights reserved.` **[TO BE CONFIRMED WITH BENEFICIARY]** if a different legal owner/name is required.
 - A concise responsible-visit note linking to the Our Story page.
 
@@ -254,11 +270,11 @@ The Home page can also route visitors directly to either exploration or booking.
 
 | CTA type | Copy | Placement |
 | --- | --- | --- |
-| Primary | **Book on WhatsApp** | Header, Home hero, relevant package sections, page-end sections, Plan & Book, footer, and mobile experience. |
+| Primary | **Plan Your Trip** / **Request Availability on WhatsApp** | Header, Home hero, relevant package sections, page-end sections, Plan & Book, footer, and mobile experience. |
 | Secondary | **Plan Your Journey** | Home journey section, Stay & Experiences, Explore Long Taa, and links to Plan & Book. |
 | Supporting | **Explore Long Taa** / **Our Story** / **View Stay Options** | Home experience pillars and contextual section links. |
 
-All booking CTAs must clearly state that they begin an enquiry or availability check, not an instant confirmed booking.
+All booking CTAs must clearly state that they begin an enquiry or availability check, not an instant purchase or confirmed booking. Avoid **Buy**, **Book now**, and **Confirm booking**.
 
 ## 17. Website Features
 
@@ -269,14 +285,14 @@ Required or recommended practical features:
 - Simple enquiry form that generates the same WhatsApp message.
 - Stay, package, inclusion, exclusion, capacity, and condition information in scannable cards or accordions.
 - Authentic image gallery with keyboard, mouse, and touch support.
-- Optional lightweight price-planning helper using only the published rates. It must label results as an estimate and exclude any unconfirmed costs. **Recommendation; only include if fully tested.**
+- Price-planning helper using only the published rates. It must ask for guests, nights, stay option, one package, 4WD arrangement, and river/activity support. It must label results as an **Indicative planning estimate**, itemise the calculation, identify excluded/unconfirmed costs, and send the same selections to WhatsApp.
 - Mobile menu, supplied social links, image alt text, and reduced-motion support.
 
 Do not add online payment, real-time availability, user accounts, reviews, a map, or search/filtering unless the beneficiary supplies the information and requests the feature.
 
 ## 18. Mobile Experience
 
-- Prioritise a clear `Book on WhatsApp` action without covering essential controls or form fields.
+- Prioritise a clear `Plan Your Trip` action without covering essential controls or form fields.
 - Keep navigation thumb-friendly; menu links and buttons must be easy to tap.
 - Use one-column content flows, readable body text, and high contrast over image surfaces.
 - Serve correctly sized, compressed real images; avoid heavy autoplay video and large 3D effects on mobile.
@@ -336,16 +352,26 @@ Use only for the supporting, non-documentary visuals listed above. These are **r
 - Contact person, WhatsApp number, email, TikTok, and Facebook usernames.
 - Logo and business imagery are available in the project materials.
 
+### Agreed working assumptions
+
+- Package 1 and Package 2 are alternative experience selections; visitors choose one per enquiry.
+- 3 Days 2 Nights is the recommended starting point, but visitors may request a different duration.
+- Long Taa's 4WD is the default; visitors may request approval for their own terrain-suitable 4WD.
+- The planner may include river/activity support provisionally, but must disclose that the RM600 fee's exact scope requires confirmation.
+- The planner returns an indicative estimate and WhatsApp enquiry, not a purchase or confirmed reservation.
+
 ### Missing / need to confirm
 
 - Exact brand colour values and approved logo variants.
 - Exact map location, pickup / meeting point, and whether an embedded map is appropriate.
 - Opening hours / preferred contact hours and response-time expectation.
-- Exact duration and itinerary for each package; whether the 3 Days 2 Nights duration applies to both packages or only the brochure promotion.
+- Exact duration and itinerary for each package; use 3 Days 2 Nights as the recommended, flexible starting point until confirmed.
 - Package pricing, if any, beyond the itemised stay, transport, and longboat rates.
 - Current availability process, deposits, payment methods, cancellation / rescheduling terms, and booking lead time.
 - Dietary needs, sleeping arrangements, bathroom / facility details, child suitability, accessibility, and recommended packing list.
 - Exact inclusions for each natural-wonders activity and which require the longboat / guide / porter arrangement.
+- Whether the RM600 longboat, local guide, and porter fee covers one activity/trip or the full stay.
+- Final self-drive eligibility and approval requirements for visitors with their own terrain-suitable 4WD.
 - Approved visitor etiquette, photography permission, cultural protocols, and restricted areas.
 - Consent and usage rights for every supplied image and any identifiable person depicted.
 - Existing website status for `longtaaborneo.com` and final social-media URLs.
@@ -413,7 +439,7 @@ Use only for the supporting, non-documentary visuals listed above. These are **r
 
 ### CTA / conversion
 
-- [ ] `Book on WhatsApp` appears at natural decision points.
+- [ ] `Plan Your Trip` and `Request Availability on WhatsApp` appear at natural decision points.
 - [ ] Visitors can reach booking without reading every page.
 - [ ] The final booking path communicates availability must be checked.
 

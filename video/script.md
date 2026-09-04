@@ -1,22 +1,40 @@
-# Long Taa Process Video Script
+# Long Taa Fourth-Wall Tourism Video Script
 
-**Target runtime:** 58 seconds.
-**Narration voice:** generated British English (`bf_emma`).
-**Caption treatment:** burned-in, grouped by sentence; high contrast and lower-middle placement.
+**Target runtime:** 49.5 seconds.  
+**Narration voice:** CapCut `Jessie`.  
+**Concept:** make a bold destination claim, let Sayyid challenge it on camera, answer with authentic proof, then let Sayyid personally deliver the invitation.
 
-| Time | Narration | Burned-in caption |
+| Time | Audio / narration | Visual / burned-in line |
 | --- | --- | --- |
-| 0:00–0:05 | A real village deserves a clearer way to visit. | A real village deserves a clearer way to visit. |
-| 0:05–0:11 | Long Taa is a living Sebup community, around six hours by 4WD from Miri. | A living Sebup community. Around six hours from Miri. |
-| 0:11–0:18 | We began with the supplied brochure, photographs and booking facts, not assumptions. | Supplied facts. Not assumptions. |
-| 0:18–0:27 | Then we shaped a mobile-first five-page journey: discover, understand, respect, plan, and enquire. | Discover. Understand. Respect. Plan. Enquire. |
-| 0:27–0:35 | Rates stay clear. Package activity prices are not invented. Conditions stay visible. | Clear rates. No invented package prices. Conditions stay visible. |
-| 0:35–0:43 | A short form turns a visitor’s plan into a structured WhatsApp enquiry for Long Taa. | Plan it simply. Enquire on WhatsApp. |
-| 0:43–0:50 | The pitch and site tell one story: community-led value, clear planning, respectful travel. | One story: community-led, clear, respectful. |
-| 0:50–0:56 | Built for the phone first, with readable information and a route to every next step. | Built for the phone first. |
-| 0:56–0:58 | Escape the city. Experience the real Borneo. | Escape the city. Experience the real Borneo. |
+| 0:00–0:02.6 | No narration; restrained logo sparkle/chime only. | `BORNEO · LIVING HERITAGE · EST. 1896` |
+| 0:02.6–0:09.3 | **Jessie:** I want to introduce you to the best longhouse eco-stay in Southeast Asia: Long Taa. | `THE BEST LONGHOUSE ECO-STAY IN SOUTHEAST ASIA?` |
+| 0:09.3–0:13.2 | **Sayyid (IMG_7054):** Sure or not? **Reaction:** Dwayne Johnson eyebrow-raise meme with its original sting. | Two-person reaction layout; Sayyid bottom-right, meme bottom-left. |
+| 0:13.2–0:15.2 | **Jessie:** Fair question. Here's the proof. | `FAIR QUESTION. HERE'S THE PROOF.` |
+| 0:15.2–0:19.2 | **Jessie:** Six hours from Miri, and real Borneo begins. | `SIX HOURS FROM MIRI` |
+| 0:19.2–0:25.2 | **Jessie:** Stay in a living Sebup longhouse. Share local meals. Ride the river. Walk forest trails. | `LIVE IT · HEAR IT · FEEL IT` |
+| 0:25.2–0:31.5 | **Jessie:** Discover community-led conservation—not staged resort luxury. This is real Borneo. | `NOT A RESORT. A REAL VILLAGE.` |
+| 0:27.0–0:31.5 | No new narration; the prior proof line continues naturally. | `WHO IT IS FOR` with four audience cards. |
+| 0:31.5–0:34.5 | **Jessie:** Pricing is clear: stay only, fifty ringgit. | `STAYS FROM RM50` only. |
+| 0:34.5–0:37.0 | **Jessie:** Use the mobile guide to explore, compare, and plan. | `DISCOVER · COMPARE · PLAN` |
+| 0:37.0–0:44.3 | **Jessie:** Then WhatsApp Clement for availability, transport, and a confirmed quotation. | `DIRECT WHATSAPP ENQUIRY` |
+| 0:44.5–0:46.3 | **Jessie:** What are you waiting for? | `WHAT ARE YOU WAITING FOR?` |
+| 0:56.8–0:59.2 | **Sayyid (IMG_7055):** Come, come. | Sayyid returns bottom-right; `COME, COME.` |
+| 0:59.2–0:59.5 | Logo/URL hold. | `longtaaborneo.vercel.app` |
 
 ## Source Copy References
 
-- Destination, community, six-hour journey, pricing, capacity, and activity conditions: `docs/LONG TAA BORNEO ECO STAY brochure.md` and `docs/LONG TAA BORNEO ECO STAY.md`.
-- Product requirements: `docs/website-requirements-document.md` and `MASTER_BUILD_PROMPT.md`.
+- Place, community, journey, experience and operating facts: `docs/LONG TAA BORNEO ECO STAY.md`.
+- Packages, rates, capacity and booking conditions: `docs/LONG TAA BORNEO ECO STAY brochure.md`.
+- Visitor journey and business value: `PRODUCT.md` and `presentation/SPEAKER_SCRIPT.md`.
+- Mobile product screens: source images embedded in `presentation/exports/long-taa-borneo-pitch.pptx`.
+- Presenter inserts: `/Users/sayyid/Downloads/IMG_7054.MOV` and `/Users/sayyid/Downloads/IMG_7055.MOV`.
+- Reaction reference supplied by the user: `https://www.kapwing.com/explore/dwayne-the-rock-johnsons-eyebrow-raise-video-meme-template`.
+
+## Edit Notes
+
+- Preserve a clean 2.6-second logo reveal before the narrator starts.
+- Pause Jessie completely during the “sure or not?” / eyebrow-raise reaction beat.
+- Keep both presenter inserts in the bottom-right and frame them like intentional editorial picture-in-picture windows, not floating stickers.
+- The reaction meme appears only once and remains secondary to Sayyid.
+- Use the real audio from both presenter clips.
+- The final “come, come” is the CTA payoff; do not place more narration after it.

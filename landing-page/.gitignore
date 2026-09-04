@@ -10,6 +10,9 @@
 # Vercel local metadata
 /.vercel
 
+# Vercel local metadata
+/.vercel
+
 # tests and reports
 /coverage
 /playwright-report
@@ -30,3 +33,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+PRODUCT.md
+/testprompt

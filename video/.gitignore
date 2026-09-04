@@ -5,3 +5,7 @@ preview/
 source/narration.wav
 source/ambient-bed.wav
 hyperframes/assets/*.wav
+hyperframes/.hyperframes/
+hyperframes/.media/
+hyperframes/.thumbnails/
+hyperframes/snapshots/
