@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { asset, makeWhatsAppUrl } from "../content";
+import { PackageJourneyExplorer } from "../package-journey-explorer";
 
 export const Route = createFileRoute("/stay")({
   component: StayPage,
@@ -47,6 +48,7 @@ function StayPage() {
           <article><p className="card-kicker">Package 2</p><h2>Nature's wonders exploration.</h2><p>Acin Salt Spring, Batu Ukat, Batu Nginan, Batu Tatip and Batu Belacek. Ask what is suitable for your dates and conditions.</p><a className="text-link" href={makeWhatsAppUrl("Hello Long Taa, I would like to ask about the Nature's Wonders Exploration.")} target="_blank" rel="noreferrer">Ask about Package 2 <span aria-hidden="true">→</span></a></article>
         </div>
       </section>
+      <PackageJourneyExplorer />
       <section className="content-section estimator-section" aria-labelledby="estimate-title">
         <div><p className="section-label">Planning helper</p><h2 id="estimate-title">Build an indicative estimate.</h2><p>Use published rates to plan your enquiry. This is not a quote or a reservation; availability and applicable activities must be confirmed with Long Taa.</p></div>
         <form className="estimator" onSubmit={(event) => event.preventDefault()}>

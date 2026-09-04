@@ -1,0 +1,24 @@
+{
+  "duration": 59.5,
+  "maxStaticSec": 2.5,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#brand-reveal .brand-emblem", "bySec": 1.1 },
+    { "kind": "before", "a": "#brand-reveal .brand-emblem", "b": "#s1 .travel-time" },
+    { "kind": "appearsBy", "selector": "#s1 .travel-time", "bySec": 3.6 },
+    { "kind": "before", "a": "#s1 .travel-time", "b": "#s2 .display" },
+    { "kind": "before", "a": "#price-stay-only", "b": "#product-home-phone" },
+    { "kind": "appearsBy", "selector": "#price-4wd", "bySec": 33.2 },
+    { "kind": "before", "a": "#price-stay-only", "b": "#price-river" },
+    { "kind": "appearsBy", "selector": "#product-home-phone", "bySec": 41.8 },
+    { "kind": "before", "a": "#product-home-phone", "b": "#s8 .enquiry-cta" },
+    { "kind": "appearsBy", "selector": "#s8 .enquiry-cta", "bySec": 51.0 },
+    { "kind": "appearsBy", "selector": "#s9 .closing-rule", "bySec": 58.5 },
+    { "kind": "appearsBy", "selector": "#hook-claim .claim-title", "bySec": 4.0 },
+    { "kind": "appearsBy", "selector": "#sure-shell", "bySec": 9.9 },
+    { "kind": "appearsBy", "selector": "#rock-shell", "bySec": 10.3 },
+    { "kind": "appearsBy", "selector": "#come-shell", "bySec": 57.5 },
+    { "kind": "staysInFrame", "selector": ".truth-panel" },
+    { "kind": "staysInFrame", "selector": ".whatsapp-card" },
+    { "kind": "keepsMoving", "withinSelector": "#main-video", "maxStaticSec": 2.5 }
+  ]
+}

@@ -6,6 +6,7 @@ import {
   getFollowUpQuestions,
   isChatPayloadWithinLimits,
   longTaaGuideInstructions,
+  shouldStartGuidedPlanner,
 } from "./chat-config";
 
 describe("Long Taa chat configuration", () => {
@@ -22,6 +23,9 @@ describe("Long Taa chat configuration", () => {
     expect(longTaaGuideInstructions).toContain("Never invent Package 1 or Package 2 prices");
     expect(longTaaGuideInstructions).toContain("WhatsApp");
     expect(longTaaGuideInstructions).toContain("proactive trip-planning guide");
+    expect(longTaaGuideInstructions).toContain("exactly one per enquiry");
+    expect(longTaaGuideInstructions).toContain("return 4WD as the default");
+    expect(longTaaGuideInstructions).toContain("river/activity support");
   });
 
   it("offers contextual next steps instead of ending the conversation", () => {
@@ -37,5 +41,11 @@ describe("Long Taa chat configuration", () => {
     expect(
       getFollowUpQuestions("Help me plan", "First, how many guests are travelling?"),
     ).toEqual(["1 guest", "2 guests", "3 guests"]);
+  });
+
+  it("routes complete planning and cost requests into the guided intake", () => {
+    expect(shouldStartGuidedPlanner("Build my complete booking enquiry")).toBe(true);
+    expect(shouldStartGuidedPlanner("Estimate my trip cost")).toBe(true);
+    expect(shouldStartGuidedPlanner("What can I experience there?")).toBe(false);
   });
 });

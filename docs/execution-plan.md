@@ -31,12 +31,14 @@ Long Taa is not a luxury resort. It is a living Sebup village offering an authen
 
 Primary audience:
 
-- Nature and adventure travellers
-- Cultural and heritage travellers
-- Eco-tourists and photographers
-- Researchers and students
-- Remote workers seeking a nature retreat
-- Families and small groups comfortable with simple accommodation
+- Experience-driven nature, culture, and adventure travellers
+- Especially groups of up to three who can plan in advance
+- Visitors comfortable with a remote six-hour 4WD journey and simple longhouse accommodation
+- Respectful travellers seeking a living community experience rather than a luxury resort
+
+Secondary audiences include eco-tourists, photographers, researchers, students, families, and remote workers. Family suitability and longer-stay working needs must be checked with Clement.
+
+Recommended launch market: start with Miri- and Sarawak-based groups of up to three, then expand to fly-in eco-adventure travellers from Brunei, Singapore, wider Southeast Asia, and international visitors already planning a Miri or Sarawak trip.
 
 ## Recommended Five-Page Website
 
@@ -46,16 +48,19 @@ Primary audience:
 - Clear positioning and trust-building introduction
 - Short journey from Miri to Long Taa
 - Highlights of nature, culture, adventure, and living heritage
-- Strong `Plan Your Journey` and `Book on WhatsApp` calls to action
+- Strong `Plan Your Trip` and `Request Availability on WhatsApp` calls to action
 
 ### 2. Stay & Packages
 
 - Accommodation-only option: RM50 per person per night
 - Accommodation plus local meals: RM180 per person per night
-- Package 1: River, Culture & Living Heritage Experience
-- Package 2: Nature's Wonders Exploration
+- Ask for preferred date, guests, and nights; suggest 3 Days 2 Nights while allowing other durations
+- Require one experience choice: Package 1 or Package 2, not both
+- Default to Long Taa's return 4WD; own transport requires a terrain-suitable 4WD and prior approval
+- Ask whether river/activity support is required
 - Included and excluded items
-- Simple price estimator for guests, nights, 4WD transfer, and longboat option
+- Itemised indicative estimator for stay, 4WD transfer, and river/activity support
+- Clearly exclude unconfirmed package/activity costs and send all assumptions to WhatsApp
 
 ### 3. Explore Long Taa
 
@@ -78,11 +83,13 @@ Primary audience:
 
 - Starting point: Miri, Sarawak
 - Approximate six-hour 4WD journey
+- Long Taa return 4WD as the default transport arrangement
+- Own terrain-suitable 4WD as an approval request—not ordinary self-drive access
 - Transport and longboat rates
 - Weather, road, river, water-level, and safety conditions
 - FAQ and packing guidance
 - Contact details
-- Booking enquiry form that generates a prefilled WhatsApp message
+- Trip-planning form that shows an indicative estimate and generates a prefilled WhatsApp availability-and-quotation request
 
 ## Website Experience Direction
 
@@ -104,9 +111,10 @@ Recommended resource usage:
 - Responsive navigation across all five pages
 - Mobile-first layout and readable typography
 - Optimized local images with useful alternative text
-- Working package and price estimator
-- Persistent booking CTA
-- Prefilled WhatsApp enquiry containing package, guest count, nights, and preferred date
+- Working trip and price estimator with exactly one package selection
+- Persistent `Plan Your Trip` CTA
+- Prefilled WhatsApp enquiry containing name, date, guests, nights, stay option, one package, transport arrangement, river/activity support, special requirements, estimate, and assumptions
+- No purchase or confirmed-booking claim before Clement reviews the enquiry
 - Gallery interactions that work with mouse, keyboard, and touch
 - Reduced-motion support
 - No broken links, console errors, missing assets, or inaccessible text
@@ -128,7 +136,7 @@ Demonstrate the real live site, price estimator, gallery, navigation, and WhatsA
 
 ### Business Value & CTA Effectiveness
 
-Make every important path lead toward `Plan Your Journey` or `Book on WhatsApp`. Reduce uncertainty before asking visitors to contact the operator.
+Make every important path lead toward `Plan Your Trip` or `Request Availability on WhatsApp`. Reduce uncertainty before asking visitors to contact the operator, while making clear that the final itinerary, availability, and quotation require Clement's confirmation.
 
 ### Presentation & Solution Communication
 
@@ -162,10 +170,17 @@ Recommended format: vertical 9:16, large captions, fast cuts, authentic imagery,
 5. Create the three-minute pitch around the working demo.
 6. Upload all deliverables, verify public access, fill in the three URLs, and submit before 1:55 PM.
 
-## Current Gaps
+## Remaining Business Confirmations
 
-- Website: not present in the tracked repository yet.
-- Live website URL: TBD.
-- Presentation or pitch URL: TBD.
-- One-minute process-video file or URL: TBD; submission method must be confirmed in the portal.
-- Submission date associated with the 1:55 PM deadline: not present in supplied material.
+- Whether the published rates remain current.
+- Exact itinerary and available duration for each package.
+- Whether the RM600 longboat, local guide, and porter fee covers one activity/trip or the full stay.
+- Final eligibility and approval process for visitors using their own terrain-suitable 4WD.
+- Booking lead time, deposit, payment, cancellation, and rescheduling terms.
+- Pickup instructions, accommodation details, dietary support, age/fitness guidance, and accessibility.
+- Approved image permissions and final cultural/photography guidance.
+
+## Submission Status
+
+- Live website, presentation, and process-video URLs are recorded in `submission-list.md`.
+- The submission date associated with the 1:55 PM deadline is not present in the supplied material.

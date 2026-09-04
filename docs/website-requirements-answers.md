@@ -3,7 +3,37 @@
 > **Companion document:** `website-requirements-document.md`
 > **Prepared from:** Supplied Long Taa overview, brochure, images, logo, and project research
 > **Purpose:** Answer the ten questions in the requirements document without inventing business facts
-> **Status key:** **Confirmed** = stated in supplied materials; **Recommended** = proposed website decision; **Needs confirmation** = beneficiary input required before publication
+> **Status key:** **Confirmed** = stated in supplied materials; **Agreed working assumption** = safe interim rule agreed for the website and chatbot, but not yet confirmed by Clement; **Recommended** = proposed positioning or UX decision; **Needs confirmation** = beneficiary input required before publication
+
+## Implementation Snapshot
+
+This section is the lift-and-shift source for website copy, the trip planner, and chatbot grounding.
+
+### Intended customer
+
+The supplied materials do not define the audience by race, nationality, or age. They consistently point to an **experience-led audience**. The primary audience is small groups of nature, culture, and adventure travellers who are ready for a remote trip:
+
+- nature, adventure, culture, heritage, and conservation travellers;
+- people comfortable with a remote six-hour 4WD journey and simple longhouse accommodation;
+- respectful visitors who understand that Long Taa is a living Sebup community, not a luxury resort;
+- solo travellers, couples, and especially small groups that can plan in advance.
+
+Photographers, researchers, students, and families are secondary audiences. Family suitability requires age, safety, and activity guidance from Clement. Remote workers are an exploratory—not core—segment until connectivity and stay suitability are verified.
+
+**Recommended initial market:** Miri- and Sarawak-based groups of up to three people. They have lower travel friction, understand the regional context, and fit one vehicle/longboat unit. After validating the offer locally, expand to fly-in eco-adventure travellers from Brunei, Singapore, wider Southeast Asia, and international visitors already planning a Sarawak trip.
+
+Marketing should segment by motivation and travel readiness—not by labels such as Asian, Caucasian, or Indian.
+
+### Customer decision flow
+
+Every visitor should be guided through the same four decisions:
+
+1. **Choose the stay:** number of guests, preferred date, and number of nights. Present 3 Days 2 Nights as the recommended starting point, while allowing other durations to be requested.
+2. **Choose accommodation:** accommodation only, or accommodation with local meals. Recommend the meals option because of the remote location.
+3. **Choose one experience:** Package 1 **or** Package 2. The packages are alternatives for one enquiry; do not offer “both” in the selector.
+4. **Arrange logistics:** use Long Taa's return 4WD transfer by default, or request approval to use a visitor's own terrain-suitable 4WD; then state whether river/activity support is required.
+
+The result is a **planning estimate and booking enquiry**, not a purchase or confirmed reservation. Long Taa confirms suitability, availability, itinerary, and the final quotation on WhatsApp.
 
 ## 1. Are all supplied rates current, and how should the website explain the cost of Package 1 and Package 2?
 
@@ -23,6 +53,15 @@ The supplied materials state these rates:
 
 No separate total price is supplied for Package 1 or Package 2. The website should describe the activities in each package but must not invent a package price or imply that the itemised rates form a complete package total.
 
+**Agreed working assumption for the planner:**
+
+- Stay subtotal = guests × nights × selected nightly rate.
+- Long Taa 4WD subtotal = `RM1,500 × ceiling(guests ÷ 3)` when its transfer is selected.
+- River/activity support subtotal = `RM600 × ceiling(guests ÷ 3)` when support is selected.
+- Show each component separately and label the result **Indicative planning estimate**.
+- State that package/activity costs and the exact scope of the RM600 support fee require confirmation.
+- Never label the estimate as the price of Package 1 or Package 2.
+
 **Recommended website wording:**
 
 > Experience pricing is arranged according to your selected stay, transport, group size, and activities. Contact Long Taa on WhatsApp for availability and a confirmed quotation.
@@ -33,15 +72,9 @@ No separate total price is supplied for Package 1 or Package 2. The website shou
 
 The brochure is headed **“3 Days 2 Nights – Nature’s Wonders Adventure”** and later presents both Package 1 and Package 2. However, it does not explicitly state whether every package and booking option must use that duration.
 
-**Needs confirmation:** Confirm whether three days and two nights applies to:
+**Agreed working assumption:** Present **3 Days 2 Nights** as the recommended trip length for either Package 1 or Package 2, not as a mandatory fixed duration. Ask how many nights the visitor wants and allow other durations to be requested.
 
-- Package 1 only;
-- Package 2 only;
-- both packages;
-- a recommended itinerary rather than a fixed duration; or
-- all stays booked through Long Taa.
-
-Until confirmed, the website may mention that the supplied brochure features a three-day, two-night experience, but it should not label every booking option with that duration.
+**Needs confirmation:** Clement should confirm the available duration and itinerary for each package. Until then, do not promise that every named activity can be completed within 3 Days 2 Nights.
 
 ## 3. What booking lead time, deposit, payment methods, cancellation terms, and contact hours should be published?
 
@@ -71,9 +104,11 @@ Until these are confirmed, the website should direct visitors to WhatsApp to che
 - Starting point: Miri, Sarawak.
 - Journey: approximately six hours by 4WD.
 
+**Agreed working assumption:** Long Taa's 4WD transfer is the default because the route is remote and requires a suitable vehicle. A visitor may request to use their own vehicle only if it is a terrain-suitable 4WD and Long Taa approves the arrangement.
+
 **Needs confirmation:** No approved coordinates, map pin, Miri pickup point, detailed route, or public arrival instructions were supplied.
 
-Until approved, use a simple non-literal journey graphic and the confirmed general location. Do not publish an exact map pin or meeting point. Ask visitors to obtain final travel instructions during their WhatsApp booking conversation.
+Until approved, use a simple non-literal journey graphic and the confirmed general location. Do not publish an exact map pin or meeting point. Ask visitors to obtain final travel instructions and self-drive approval during their WhatsApp booking conversation.
 
 ## 5. What facilities, sleeping arrangements, dietary support, packing advice, accessibility details, and child suitability can be stated?
 
@@ -194,10 +229,11 @@ Keep the form short enough for mobile users while collecting the information nee
 1. Name.
 2. Preferred arrival date.
 3. Number of guests.
-4. Number of nights or preferred trip duration.
+4. Number of nights or preferred trip duration, with 3 Days 2 Nights suggested by default.
 5. Stay option: accommodation only or accommodation with local meals.
-6. Experience interest: Package 1, Package 2, both, or undecided.
-7. Transport needed from Miri: yes, no, or discuss.
+6. Experience choice: Package 1 or Package 2. Only one may be selected per enquiry.
+7. Transport arrangement: Long Taa return 4WD, or request approval for the visitor's own terrain-suitable 4WD.
+8. River/activity support: required, not required, or discuss.
 
 **Optional fields:**
 
@@ -205,7 +241,16 @@ Keep the form short enough for mobile users while collecting the information nee
 - children in the group and their ages;
 - questions or special requests.
 
-The form should generate a prefilled WhatsApp message to **+60 19-856 3536**. It should say **“Send booking enquiry”**, not **“Confirm booking”**.
+The form or chatbot should show an itemised indicative estimate, list its assumptions, and generate a prefilled WhatsApp message to **+60 19-856 3536**. It should say **“Request availability and quotation”**, not **“Buy,” “Confirm booking,”** or **“Book now.”**
+
+The WhatsApp message should include:
+
+- name, preferred date, guest count, and nights;
+- selected stay option and exactly one package;
+- selected 4WD arrangement and whether self-drive approval is requested;
+- river/activity support choice;
+- dietary, accessibility, child, or other special requirements;
+- indicative estimate and the assumptions used.
 
 **Needs confirmation:** Ask Clement Langet whether any fields should be added or removed based on how bookings are currently handled.
 
@@ -216,7 +261,10 @@ The beneficiary can complete this shorter checklist instead of rewriting the who
 - [ ] Current rates confirmed or corrected.
 - [ ] Package 1 price confirmed, or confirmed as quotation-only.
 - [ ] Package 2 price confirmed, or confirmed as quotation-only.
-- [ ] Three-day, two-night applicability clarified.
+- [x] Package selection is one of Package 1 or Package 2, not both.
+- [ ] Three-day, two-night applicability and package itineraries confirmed; use it as a recommended duration in the meantime.
+- [ ] Confirm that visitors may use their own terrain-suitable 4WD with prior approval.
+- [ ] Confirm whether the RM600 longboat, guide, and porter fee covers one activity/trip or the full stay.
 - [ ] Booking lead time supplied.
 - [ ] Deposit and payment process supplied.
 - [ ] Cancellation and rescheduling terms supplied.
@@ -231,4 +279,4 @@ The beneficiary can complete this shorter checklist instead of rewriting the who
 
 ## Publication Rule
 
-Only **Confirmed** information should be presented as fact. **Recommended** decisions may be implemented as design or workflow choices. Anything marked **Needs confirmation** must remain unpublished, clearly qualified, or replaced by a prompt to contact Long Taa directly until the beneficiary responds.
+Only **Confirmed** information should be presented as fact. **Agreed working assumptions** may control interface defaults, but must remain qualified in customer-facing wording until Clement confirms them. **Recommended** decisions may be implemented as positioning, design, or workflow choices. Anything marked **Needs confirmation** must remain unpublished, clearly qualified, or replaced by a prompt to contact Long Taa directly until the beneficiary responds.

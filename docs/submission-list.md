@@ -32,5 +32,5 @@
 - [x] Process video stays within 1 minute.
 - [x] Website works on desktop and mobile.
 - [x] All five pages load without broken links or missing images.
-- [x] Main booking CTA opens the intended WhatsApp conversation.
+- [x] `Plan Your Trip` leads to the intended WhatsApp availability-and-quotation conversation without implying an instant confirmed booking.
 - [ ] Submission completed before 1:55 PM.

@@ -1,6 +1,7 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 
+import { getSimulatedSeasonalWindows } from "../availability";
 import { asset, makeWhatsAppUrl, whatsappUrl } from "../content";
 import { useLanguage } from "../language";
 
@@ -10,13 +11,54 @@ const TreeJourneyScene = lazy(() =>
 
 const INVITATION_PROGRESS = 0.985;
 const INVITATION_DURATION_MS = 500;
+const LOADER_MINIMUM_MS = 4_500;
+const LOADER_COMPLETION_HOLD_MS = 1_500;
+const LOADER_SAFETY_TIMEOUT_MS = 12_000;
+const HOME_IMAGE_ASSETS = [
+  "forest-canopy.webp",
+  "long-taa-dapui-logo-transparent.png",
+  "longhouse-threshold-poster.jpg",
+  "journey-road.webp",
+  "journal/eco-03.webp",
+  "journal/eco-07.webp",
+  "journal/eco-13.webp",
+  "journal/eco-14.webp",
+] as const;
+const HOME_PRELOAD_TASK_COUNT = HOME_IMAGE_ASSETS.length + 2;
+const HOME_TOTAL_ASSET_COUNT = HOME_PRELOAD_TASK_COUNT + 1;
+const TYPEWRITER_CHARACTER_MS = 72;
+
+function preloadImage(source: string) {
+  return new Promise<void>((resolve) => {
+    const image = new Image();
+    const finish = () => resolve();
+    image.addEventListener("load", finish, { once: true });
+    image.addEventListener("error", finish, { once: true });
+    image.src = asset(source);
+    if (image.complete) resolve();
+  });
+}
+
+function waitForVideo(video: HTMLVideoElement) {
+  if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) return Promise.resolve();
+  return new Promise<void>((resolve) => {
+    const finish = () => {
+      video.removeEventListener("canplay", finish);
+      video.removeEventListener("error", finish);
+      resolve();
+    };
+    video.addEventListener("canplay", finish, { once: true });
+    video.addEventListener("error", finish, { once: true });
+    video.load();
+  });
+}
 
 export const Route = createFileRoute("/")({ component: HomePage });
 
 const treeCopy = {
   en: {
     stages: ["Begin above", "The village", "Stay and explore", "Heritage and planning", "Four ways to meet Long Taa", "Connected yet remote", "The threshold", "The invitation", "Begin a conversation"],
-    loading: "Growing the journey.", canopy: "Canopy", progress: "Canopy · branches · roots · home", enter: "Enter the village",
+    loadingAccessible: "Loading the Long Taa journey.", loadingKicker: "Long Taa · Borneo Eco Stay", loadingLabel: "Journey loading", loadingMessage: "Preparing your Long Taa journey", loadingComplete: "Your journey is ready", canopy: "Canopy", progress: "Canopy · branches · roots · home", enter: "Enter the village",
     heroTitle: "Escape the city. Meet the real Borneo.", heroLead: "A Sebup longhouse stay shaped by rainforest, river and living heritage.", book: "Book on WhatsApp", explore: "Explore Long Taa", descend: "Scroll to descend",
     villageTitle: "Six hours from Miri. A world away from the ordinary.", villageText: "Long Taa is a traditional 20-door longhouse and home of the Indigenous Sebup community, in the rainforest interior of Baram, Sarawak.", villageTag: "A village, not a resort",
     stayExploreTitle: "Stay close. Explore further.", stay: "Stay", stayText: "Simple longhouse accommodation, local meals and practical costs.", stayLink: "View stay options", exploreText: "The Dapui River, rainforest and natural wonders beyond the usual route.",
@@ -28,7 +70,7 @@ const treeCopy = {
   },
   ms: {
     stages: ["Bermula di atas", "Kampung", "Tinggal dan teroka", "Warisan dan perancangan", "Empat cara mengenali Long Taa", "Terhubung namun terpencil", "Ambang", "Jemputan", "Mulakan perbualan"],
-    loading: "Membina perjalanan.", canopy: "Kanopi", progress: "Kanopi · dahan · akar · rumah", enter: "Masuk ke kampung",
+    loadingAccessible: "Memuatkan perjalanan Long Taa.", loadingKicker: "Long Taa · Penginapan Eko Borneo", loadingLabel: "Perjalanan dimuatkan", loadingMessage: "Menyediakan perjalanan ke Long Taa", loadingComplete: "Perjalanan anda sudah sedia", canopy: "Kanopi", progress: "Kanopi · dahan · akar · rumah", enter: "Masuk ke kampung",
     heroTitle: "Lari dari kota. Temui Borneo yang sebenar.", heroLead: "Penginapan rumah panjang Sebup yang dibentuk oleh hutan hujan, sungai dan warisan hidup.", book: "Tempah di WhatsApp", explore: "Teroka Long Taa", descend: "Skrol untuk turun",
     villageTitle: "Enam jam dari Miri. Dunia jauh daripada yang biasa.", villageText: "Long Taa ialah rumah panjang tradisional 20 pintu dan kediaman komuniti Orang Asal Sebup di pedalaman hutan hujan Baram, Sarawak.", villageTag: "Sebuah kampung, bukan resort",
     stayExploreTitle: "Tinggal dekat. Teroka lebih jauh.", stay: "Tinggal", stayText: "Penginapan rumah panjang yang ringkas, hidangan tempatan dan kos yang jelas.", stayLink: "Lihat pilihan penginapan", exploreText: "Sungai Dapui, hutan hujan dan keajaiban alam di luar laluan biasa.",
@@ -40,8 +82,6 @@ const treeCopy = {
   },
 } as const;
 
-type TourStatus = "likely" | "limited" | "enquiry";
-
 function dateKey(date: Date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -49,39 +89,26 @@ function dateKey(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-function seasonalWindows() {
-  const today = new Date();
-  return [1, 2, 3].flatMap((offset) => {
-    const first = new Date(today.getFullYear(), today.getMonth() + offset, 1);
-    const firstSaturday = new Date(first);
-    firstSaturday.setDate(1 + ((6 - first.getDay() + 7) % 7));
-    return [0, 7, 14].map((days, index) => {
-      const date = new Date(firstSaturday);
-      date.setDate(firstSaturday.getDate() + days);
-      return { key: dateKey(date), status: (["likely", "limited", "enquiry"] as TourStatus[])[index] };
-    });
-  });
-}
-
 function SeasonCalendar({ language }: { language: "en" | "ms" }) {
-  const windows = useMemo(seasonalWindows, []);
+  const windows = useMemo(() => getSimulatedSeasonalWindows(), []);
   const [selected, setSelected] = useState(windows[0].key);
   const today = new Date();
   const months = [1, 2, 3].map((offset) => new Date(today.getFullYear(), today.getMonth() + offset, 1));
   const labels = language === "ms"
-    ? { title: "Tetingkap perjalanan musim", note: "Tarikh ini ialah andaian perancangan, bukan ketersediaan yang disahkan.", likely: "Kemungkinan sesuai", limited: "Terhad", enquiry: "Tanya komuniti", select: "Pilih tarikh", reserve: "Tanya tentang tarikh ini" }
-    : { title: "Seasonal journey windows", note: "These dates are planning assumptions, not confirmed availability.", likely: "Likely suitable", limited: "Limited", enquiry: "Ask community", select: "Select a date", reserve: "Ask about this date" };
+    ? { title: "Simulasi tarikh perjalanan", note: "Ini simulasi perancangan, bukan ketersediaan langsung. Clement akan mengesahkan setiap tarikh.", available: "Tersedia (simulasi)", unavailable: "Tidak tersedia (simulasi)", confirm: "Semak dengan komuniti", select: "Tarikh dipilih", reserve: "Tanya tentang tarikh ini" }
+    : { title: "Simulated journey dates", note: "This is a planning simulation, not live availability. Clement will confirm every date.", available: "Available (simulated)", unavailable: "Unavailable (simulated)", confirm: "Check with community", select: "Selected date", reserve: "Ask about this date" };
   const weekdays = language === "ms" ? ["I", "S", "R", "K", "J", "S", "A"] : ["M", "T", "W", "T", "F", "S", "S"];
   const selectedDate = new Date(`${selected}T12:00:00`);
+  const selectedStatus = windows.find((item) => item.key === selected)?.status ?? "confirm";
   const formattedDate = new Intl.DateTimeFormat(language === "ms" ? "ms-MY" : "en-MY", { day: "numeric", month: "long", year: "numeric" }).format(selectedDate);
   const enquiry = language === "ms"
-    ? `Hello Long Taa, saya ingin bertanya tentang perjalanan sekitar ${formattedDate}. Boleh sahkan ketersediaan dan pengalaman yang sesuai?`
-    : `Hello Long Taa, I would like to ask about a journey around ${formattedDate}. Could you confirm availability and suitable experiences?`;
+    ? `Hello Long Taa, saya ingin bertanya tentang perjalanan sekitar ${formattedDate}. Simulasi laman web menandakan tarikh ini sebagai "${labels[selectedStatus]}". Boleh sahkan ketersediaan sebenar dan pengalaman yang sesuai?`
+    : `Hello Long Taa, I would like to ask about a journey around ${formattedDate}. The website simulation marks this date as "${labels[selectedStatus]}". Could you confirm actual availability and suitable experiences?`;
 
   return (
     <section className="season-calendar" aria-label={labels.title}>
       <div className="season-calendar-heading"><span>{labels.title}</span><p>{labels.note}</p></div>
-      <div className="season-legend" aria-label="Calendar legend"><i className="is-likely" />{labels.likely}<i className="is-limited" />{labels.limited}<i className="is-enquiry" />{labels.enquiry}</div>
+      <div className="season-legend" aria-label="Calendar legend"><i className="is-available" />{labels.available}<i className="is-unavailable" />{labels.unavailable}<i className="is-confirm" />{labels.confirm}</div>
       <div className="season-months">
         {months.map((month) => {
           const offset = (month.getDay() + 6) % 7;
@@ -93,7 +120,7 @@ function SeasonCalendar({ language }: { language: "en" | "ms" }) {
           })}</div></article>;
         })}
       </div>
-      <div className="season-selection"><div><span>{labels.select}</span><strong>{formattedDate}</strong></div><a href={makeWhatsAppUrl(enquiry)} target="_blank" rel="noreferrer">{labels.reserve} <span aria-hidden="true">→</span></a></div>
+      <div className="season-selection"><div><span>{labels.select}</span><strong>{formattedDate}</strong><em className={`is-${selectedStatus}`}>{labels[selectedStatus]}</em></div><a href={makeWhatsAppUrl(enquiry)} target="_blank" rel="noreferrer">{labels.reserve} <span aria-hidden="true">→</span></a></div>
     </section>
   );
 }
@@ -103,10 +130,81 @@ function HomePage() {
   const copy = treeCopy[language];
   const [progress, setProgress] = useState(0);
   const [sceneReady, setSceneReady] = useState(false);
+  const [criticalAssetsReady, setCriticalAssetsReady] = useState(false);
+  const [loadedAssetCount, setLoadedAssetCount] = useState(0);
+  const [loaderElapsedMs, setLoaderElapsedMs] = useState(0);
+  const [minimumLoaderElapsed, setMinimumLoaderElapsed] = useState(false);
+  const [loaderSafetyElapsed, setLoaderSafetyElapsed] = useState(false);
+  const [completionHoldElapsed, setCompletionHoldElapsed] = useState(false);
   const [thresholdReady, setThresholdReady] = useState(false);
   const [thresholdVideoDuration, setThresholdVideoDuration] = useState(0);
   const [invitationPhase, setInvitationPhase] = useState<"idle" | "visible" | "complete">("idle");
   const thresholdVideoRef = useRef<HTMLVideoElement>(null);
+  const loadedAssetKeysRef = useRef(new Set<string>());
+  const assetsGateReady = minimumLoaderElapsed && (
+    (sceneReady && criticalAssetsReady) || loaderSafetyElapsed
+  );
+  const experienceReady = assetsGateReady && completionHoldElapsed;
+
+  useEffect(() => {
+    const minimumTimer = window.setTimeout(
+      () => setMinimumLoaderElapsed(true),
+      LOADER_MINIMUM_MS,
+    );
+    const safetyTimer = window.setTimeout(
+      () => setLoaderSafetyElapsed(true),
+      LOADER_SAFETY_TIMEOUT_MS,
+    );
+    return () => {
+      window.clearTimeout(minimumTimer);
+      window.clearTimeout(safetyTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!assetsGateReady) return;
+    const completionTimer = window.setTimeout(
+      () => setCompletionHoldElapsed(true),
+      LOADER_COMPLETION_HOLD_MS,
+    );
+    return () => window.clearTimeout(completionTimer);
+  }, [assetsGateReady]);
+
+  useEffect(() => {
+    if (experienceReady) return;
+    const startedAt = performance.now() - loaderElapsedMs;
+    const updateElapsed = () => setLoaderElapsedMs(performance.now() - startedAt);
+    updateElapsed();
+    const interval = window.setInterval(updateElapsed, 60);
+    return () => window.clearInterval(interval);
+  }, [experienceReady]);
+
+  useEffect(() => {
+    const video = thresholdVideoRef.current;
+    let cancelled = false;
+    const fontReadiness = document.fonts?.ready ?? Promise.resolve();
+    const videoReadiness = video ? waitForVideo(video) : Promise.resolve();
+    const tasks = [
+      ...HOME_IMAGE_ASSETS.map((source) => ({ key: `image:${source}`, promise: preloadImage(source) })),
+      { key: "fonts", promise: fontReadiness },
+      { key: "video", promise: videoReadiness },
+    ];
+
+    tasks.forEach(({ key, promise }) => {
+      void promise.then(() => {
+        if (cancelled || loadedAssetKeysRef.current.has(key)) return;
+        loadedAssetKeysRef.current.add(key);
+        setLoadedAssetCount(Math.min(HOME_PRELOAD_TASK_COUNT, loadedAssetKeysRef.current.size));
+      });
+    });
+
+    Promise.allSettled(tasks.map(({ promise }) => promise)).then(() => {
+      if (!cancelled) setCriticalAssetsReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -183,9 +281,21 @@ function HomePage() {
   const stageClass = (index: number) => `tree-story${activeStage === index ? " is-active" : ""}`;
   const thresholdVideoOpacity = thresholdReady ? Math.min(1, Math.max(0, (progress - 0.855) / 0.04)) : 0;
   const thresholdCopyOpacity = Math.min(1, Math.max(0, 1 - (progress - 0.94) / 0.035));
+  const loadedRatio = (loadedAssetCount + (sceneReady ? 1 : 0)) / HOME_TOTAL_ASSET_COUNT;
+  const simulatedRatio = Math.min(0.96, (loaderElapsedMs / LOADER_MINIMUM_MS) * 0.96);
+  const loaderProgress = assetsGateReady
+    ? 100
+    : Math.round(Math.min(simulatedRatio, loadedRatio * 0.96) * 100);
+  const typedCharacterCount = Math.min(
+    copy.loadingMessage.length,
+    Math.floor(loaderElapsedMs / TYPEWRITER_CHARACTER_MS),
+  );
+  const typingProgress = assetsGateReady
+    ? 100
+    : (typedCharacterCount / copy.loadingMessage.length) * 100;
 
   return (
-    <main className={`tree-home${sceneReady ? " is-ready" : ""}`}>
+    <main className={`tree-home${experienceReady ? " is-ready" : ""}`} aria-busy={!experienceReady}>
       <div className="tree-world" aria-hidden="true">
         <img className="tree-world-fallback" src={asset("forest-canopy.webp")} alt="" />
         <Suspense fallback={null}>
@@ -209,8 +319,37 @@ function HomePage() {
       </div>
 
       <div className="tree-loader" role="status" aria-live="polite">
-        <img className="tree-loader-logo" src={asset("long-taa-dapui-logo-transparent.png")} alt="" />
-        <strong>{copy.loading}</strong>
+        <span className="sr-only">{copy.loadingAccessible}</span>
+        <span className="tree-loader-kicker" aria-hidden="true">{copy.loadingKicker}</span>
+        <div
+          className={`tree-loader-logo-shell${assetsGateReady ? " is-complete" : ""}`}
+          style={{ "--loader-progress": `${loaderProgress}%` } as CSSProperties}
+          aria-hidden="true"
+        >
+          <img className="tree-loader-logo-base" src={asset("long-taa-dapui-logo-transparent.png")} alt="" />
+          <span className="tree-loader-logo-fill" />
+          <span className="tree-loader-sparks">
+            <i /><i /><i /><i /><i /><i /><i />
+          </span>
+        </div>
+        <strong
+          className={`tree-loader-type${assetsGateReady ? " is-complete" : ""}`}
+          style={{ "--typing-progress": `${typingProgress}%` } as CSSProperties}
+          aria-hidden="true"
+        >
+          <span>{assetsGateReady ? copy.loadingComplete : copy.loadingMessage}</span><i />
+        </strong>
+        <div
+          className="tree-loader-meter"
+          role="progressbar"
+          aria-label={copy.loadingAccessible}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={loaderProgress}
+        >
+          <span className="tree-loader-meter-track"><i style={{ transform: `scaleX(${loaderProgress / 100})` }} /></span>
+          <span className="tree-loader-meter-copy"><small>{copy.loadingLabel}</small><strong>{String(loaderProgress).padStart(2, "0")}%</strong></span>
+        </div>
       </div>
       <div className="tree-journey-state" aria-hidden="true"><span>{copy.canopy}</span><i /><strong>{copy.stages[activeStage]}</strong></div>
       <div className="tree-progress" aria-hidden="true"><span style={{ transform: `scaleY(${progress})` }} /><small>{copy.progress}</small></div>
@@ -313,7 +452,16 @@ function HomePage() {
             </div>
           </div>
           <SeasonCalendar language={language} />
-          <span className="tree-reverse-hint">{copy.reverse}</span>
+          <button
+            className="tree-reverse-hint"
+            type="button"
+            onClick={() => window.scrollTo({
+              top: 0,
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+            })}
+          >
+            <span aria-hidden="true">↑</span> {copy.reverse}
+          </button>
         </section>
       </div>
 

@@ -12,12 +12,14 @@ import {
   CHAT_INPUT_LIMIT,
   getFollowUpQuestions,
   getQuickQuestions,
+  shouldStartGuidedPlanner,
 } from "./chat-config";
-import { whatsappUrl } from "./content";
+import { GuidedTripPlanner } from "./guided-trip-planner";
 import { useLanguage } from "./language";
 
 interface ChatPanelProps {
   onClose: () => void;
+  plannerRequest?: number;
 }
 
 function getTextContent(message: { parts: Array<{ type: string; text?: string }> }) {
@@ -27,9 +29,10 @@ function getTextContent(message: { parts: Array<{ type: string; text?: string }>
     .join("");
 }
 
-export function ChatPanel({ onClose }: ChatPanelProps) {
+export function ChatPanel({ onClose, plannerRequest = 0 }: ChatPanelProps) {
   const { language, copy } = useLanguage();
   const [input, setInput] = useState("");
+  const [isPlannerOpen, setIsPlannerOpen] = useState(false);
   const [responseIssue, setResponseIssue] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -79,6 +82,10 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   }, []);
 
   useEffect(() => {
+    if (plannerRequest > 0) setIsPlannerOpen(true);
+  }, [plannerRequest]);
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ block: "nearest" });
   }, [messages, status]);
 
@@ -93,6 +100,11 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   const ask = (question: string) => {
     const trimmed = question.trim().slice(0, CHAT_INPUT_LIMIT);
     if (!trimmed || isBusy) return;
+    if (shouldStartGuidedPlanner(trimmed)) {
+      setIsPlannerOpen(true);
+      setInput("");
+      return;
+    }
     clearError();
     setResponseIssue(null);
     void sendMessage({ text: trimmed });
@@ -109,6 +121,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
     clearError();
     setResponseIssue(null);
     setMessages([]);
+    setIsPlannerOpen(false);
     setInput("");
     inputRef.current?.focus();
   };
@@ -137,6 +150,10 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
         </button>
       </header>
 
+      {isPlannerOpen ? (
+        <GuidedTripPlanner language={language} onExit={() => setIsPlannerOpen(false)} />
+      ) : (
+        <>
       <div className="chat-messages" aria-live="polite" aria-busy={isBusy}>
         <article className="chat-message is-assistant">
           <span>{copy.companion}</span>
@@ -226,9 +243,13 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
         <p>{copy.footer}</p>
         <div>
           <button type="button" onClick={reset}>{copy.clear}</button>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp Long Taa</a>
+          <button type="button" onClick={() => setIsPlannerOpen(true)}>
+            {language === "ms" ? "Sediakan pertanyaan lengkap" : "Build complete enquiry"}
+          </button>
         </div>
       </footer>
+        </>
+      )}
     </section>
   );
 }
