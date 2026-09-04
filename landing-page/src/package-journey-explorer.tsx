@@ -38,17 +38,19 @@ export function PackageJourneyExplorer() {
   };
 
   useEffect(() => {
-    const track = routeTrackRef.current;
-    const activeStep = track?.querySelector<HTMLElement>(
-      '[aria-current="step"]',
-    );
-    if (!track || !activeStep) return;
-    track.scrollTo({
-      left: activeStep.offsetLeft - (track.clientWidth - activeStep.clientWidth) / 2,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
+    const frame = window.requestAnimationFrame(() => {
+      const track = routeTrackRef.current;
+      const activeStep = track?.querySelector<HTMLElement>('[aria-current="step"]');
+      if (!track || !activeStep) return;
+      const left = activeStep.offsetLeft + activeStep.offsetWidth / 2 - track.clientWidth / 2;
+      track.scrollTo({
+        left: Math.max(0, left),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
     });
+    return () => window.cancelAnimationFrame(frame);
   }, [packageId, stepIndex]);
 
   const enquiry = `Hello Clement, I am considering ${journey.number} — ${journey.name}. I understand the journey shown on the website is illustrative and the exact order, duration and activities depend on conditions and availability. Please help me build a suitable itinerary and quotation.`;
@@ -113,7 +115,7 @@ export function PackageJourneyExplorer() {
           aria-label={`${journey.number} expedition checkpoints`}
           style={{
             "--route-progress": `${trackProgress}%`,
-            "--route-length": `${(journey.steps.length - 1) * 8.5}rem`,
+            "--route-length": `${(journey.steps.length - 1) * 6.75}rem`,
             "--route-stop-count": journey.steps.length,
           } as CSSProperties}
         >

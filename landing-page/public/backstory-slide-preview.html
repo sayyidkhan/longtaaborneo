@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Long Taa Backstory Slide</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { background: #061811; color: #f3efdf; font-family: Arial, Helvetica, sans-serif; }
+    .slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: radial-gradient(circle at 74% 30%, rgba(183,223,75,.10), transparent 30%), linear-gradient(135deg,#09251a,#04140e 76%); }
+    .grid { position: absolute; inset: 0; opacity: .11; background-image: linear-gradient(rgba(183,223,75,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(183,223,75,.18) 1px,transparent 1px); background-size: 84px 84px; mask-image: linear-gradient(90deg,#000,transparent 76%); }
+    .frame { position: absolute; inset: 0; display: grid; grid-template-columns: 1.08fr .92fr; padding: 68px 78px 164px; gap: 64px; }
+    .story { position: relative; z-index: 2; display: flex; flex-direction: column; }
+    .kicker { margin: 0 0 16px; color: #f3efdf; font-size: 25px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .kicker span { color: #b7df4b; }
+    h1 { max-width: 980px; margin: 0; color: #9c982e; font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; font-size: 84px; font-weight: 800; letter-spacing: .012em; line-height: .91; text-transform: uppercase; }
+    .intro { max-width: 820px; margin: 25px 0 0; color: rgba(243,239,223,.76); font-size: 24px; line-height: 1.46; }
+    .route { position: relative; min-height: 210px; display: grid; grid-template-columns: 1fr 1.28fr 1fr; align-items: center; gap: 22px; margin-top: auto; padding: 30px 34px; overflow: hidden; border: 1px solid rgba(183,223,75,.25); background: linear-gradient(90deg,rgba(6,24,17,.78),rgba(6,24,17,.50)), url("/images/journey-road.webp") center 58% / cover; box-shadow: 16px 16px 0 rgba(0,0,0,.17); }
+    .route::before { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg,rgba(6,24,17,.18),rgba(6,24,17,.68)); }
+    .route-point { position: relative; z-index: 2; display: grid; gap: 7px; }
+    .route-point small { color: #b7df4b; font-size: 14px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    .route-point strong { font-family: Georgia, serif; font-size: 34px; font-weight: 500; line-height: 1; }
+    .route-point:last-child { text-align: right; }
+    .route-line { position: relative; z-index: 2; display: grid; place-items: center; gap: 13px; }
+    .route-line i { position: relative; width: 100%; height: 2px; display: block; background: linear-gradient(90deg,#b7df4b,#9c982e); }
+    .route-line i::before, .route-line i::after { position: absolute; top: 50%; width: 14px; height: 14px; content: ""; border: 3px solid #b7df4b; border-radius: 50%; background: #09251a; transform: translateY(-50%); }
+    .route-line i::before { left: 0; }
+    .route-line i::after { right: 0; border-color: #9c982e; }
+    .route-line span { color: #f3efdf; font-size: 18px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .problem { position: relative; z-index: 2; display: grid; grid-template-rows: 270px 1fr; border: 1px solid rgba(243,239,223,.19); background: rgba(4,18,12,.64); box-shadow: 18px 18px 0 rgba(0,0,0,.17); }
+    .photo { position: relative; overflow: hidden; background: url("/images/longhouse.webp") center 45% / cover; }
+    .photo::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg,rgba(4,18,12,.08),rgba(4,18,12,.82)); }
+    .photo-label { position: absolute; z-index: 2; right: 24px; bottom: 20px; left: 24px; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+    .photo-label strong { max-width: 13ch; font-family: Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1; }
+    .photo-label span { color: #b7df4b; font-size: 13px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .frictions { display: grid; }
+    .friction { display: grid; grid-template-columns: 76px 1fr; gap: 18px; align-items: center; padding: 20px 28px; border-top: 1px solid rgba(243,239,223,.14); }
+    .friction:first-child { border-top: 0; }
+    .friction > span { color: #a85035; font-family: Georgia, serif; font-size: 35px; line-height: 1; }
+    .friction strong { display: block; margin-bottom: 6px; color: #f3efdf; font-size: 21px; letter-spacing: .025em; text-transform: uppercase; }
+    .friction p { margin: 0; color: rgba(243,239,223,.64); font-size: 17px; line-height: 1.4; }
+    .use-case { position: absolute; z-index: 5; right: 0; bottom: 0; left: 0; min-height: 126px; display: grid; grid-template-columns: 330px 1fr auto; align-items: center; gap: 38px; padding: 25px 78px; background: #8f8e24; color: #061811; }
+    .use-case .label { font-size: 16px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    .use-case p { max-width: 1040px; margin: 0; font-family: Georgia, serif; font-size: 27px; line-height: 1.2; }
+    .use-case .tag { padding: 13px 18px; border: 2px solid #061811; font-size: 14px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <main class="slide">
+    <div class="grid"></div>
+    <div class="frame">
+      <section class="story">
+        <p class="kicker">THE BACKSTORY <span>· WHY THIS MATTERS</span></p>
+        <h1>A Remote Experience With a Fragmented Customer Journey</h1>
+        <p class="intro">Deep in Ulu Tinjar, Long Taa offers a simple longhouse stay inside a living Sebup community. The experience is distinctive, but visitors need much more clarity before they can commit to the journey.</p>
+        <div class="route">
+          <div class="route-point"><small>Starting point</small><strong>Miri</strong></div>
+          <div class="route-line"><i></i><span>About 6 hours by 4WD</span></div>
+          <div class="route-point"><small>Destination</small><strong>Long Taa</strong></div>
+        </div>
+      </section>
+      <section class="problem">
+        <div class="photo">
+          <div class="photo-label"><strong>A living village, far from ordinary tourism.</strong><span>Long Taa, Dapui</span></div>
+        </div>
+        <div class="frictions">
+          <article class="friction"><span>01</span><div><strong>Discovery is scattered</strong><p>Key details sit across brochures and social channels.</p></div></article>
+          <article class="friction"><span>02</span><div><strong>Planning needs context</strong><p>Visitors must understand access, basic accommodation and changing conditions.</p></div></article>
+          <article class="friction"><span>03</span><div><strong>Enquiries restart from zero</strong><p>Clement must clarify the basics before he can assess a viable trip.</p></div></article>
+        </div>
+      </section>
+    </div>
+    <footer class="use-case">
+      <span class="label">THE BUSINESS USE CASE</span>
+      <p>Build one trustworthy journey that prepares suitable visitors before the booking conversation begins.</p>
+      <span class="tag">A guided path to enquiry</span>
+    </footer>
+  </main>
+</body>
+</html>

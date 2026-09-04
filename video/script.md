@@ -1,6 +1,6 @@
 # Long Taa Fourth-Wall Tourism Video Script
 
-**Target runtime:** 59.5 seconds.  
+**Target runtime:** 49.5 seconds.  
 **Narration voice:** CapCut `Jessie`.  
 **Concept:** make a bold destination claim, let Sayyid challenge it on camera, answer with authentic proof, then let Sayyid personally deliver the invitation.
 
@@ -13,10 +13,11 @@
 | 0:15.2–0:19.2 | **Jessie:** Six hours from Miri, and real Borneo begins. | `SIX HOURS FROM MIRI` |
 | 0:19.2–0:25.2 | **Jessie:** Stay in a living Sebup longhouse. Share local meals. Ride the river. Walk forest trails. | `LIVE IT · HEAR IT · FEEL IT` |
 | 0:25.2–0:31.5 | **Jessie:** Discover community-led conservation—not staged resort luxury. This is real Borneo. | `NOT A RESORT. A REAL VILLAGE.` |
-| 0:31.5–0:40.5 | **Jessie:** Pricing is clear: stay only, fifty ringgit; with meals, one-eighty; four-wheel drive, fifteen hundred; longboat support, six hundred. | Four confirmed itemised rate cards with units, inclusions and capacity. |
-| 0:40.5–0:45.0 | **Jessie:** Use the mobile guide to explore, compare, and plan. | `DISCOVER · COMPARE · PLAN` |
-| 0:45.0–0:49.3 | **Jessie:** Then WhatsApp Clement for availability, transport, and a confirmed quotation. | `DIRECT WHATSAPP ENQUIRY` |
-| 0:49.3–0:51.3 | **Jessie:** What are you waiting for? | `WHAT ARE YOU WAITING FOR?` |
+| 0:27.0–0:31.5 | No new narration; the prior proof line continues naturally. | `WHO IT IS FOR` with four audience cards. |
+| 0:31.5–0:34.5 | **Jessie:** Pricing is clear: stay only, fifty ringgit. | `STAYS FROM RM50` only. |
+| 0:34.5–0:37.0 | **Jessie:** Use the mobile guide to explore, compare, and plan. | `DISCOVER · COMPARE · PLAN` |
+| 0:37.0–0:44.3 | **Jessie:** Then WhatsApp Clement for availability, transport, and a confirmed quotation. | `DIRECT WHATSAPP ENQUIRY` |
+| 0:44.5–0:46.3 | **Jessie:** What are you waiting for? | `WHAT ARE YOU WAITING FOR?` |
 | 0:56.8–0:59.2 | **Sayyid (IMG_7055):** Come, come. | Sayyid returns bottom-right; `COME, COME.` |
 | 0:59.2–0:59.5 | Logo/URL hold. | `longtaaborneo.vercel.app` |
 

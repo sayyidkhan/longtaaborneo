@@ -123,23 +123,16 @@
       .question { display: flex; align-items: center; gap: 22px; min-height: 100px; padding: 18px 24px; border: 2px solid rgba(233,225,208,.62); background: rgba(16,45,37,.84); font-family: Georgia, "DejaVu Serif", serif; font-size: 31px; line-height: 1.12; }
       .question b { flex: 0 0 46px; color: var(--clay); font-family: "Liberation Mono", monospace; font-size: 23px; }
 
-      /* 06 — confirmed pricing breakdown */
-      .process-layout { position: absolute; z-index: 4; inset: 174px 52px 150px; display: grid; grid-template-rows: 1fr auto; gap: 24px; }
-      .source-row { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 14px; }
-      .source-token { position: relative; min-height: 0; padding: 30px 26px 27px; display: flex; flex-direction: column; background: var(--paper); color: var(--ink); box-shadow: 0 16px 32px rgba(0,0,0,.18); }
-      .source-token::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 7px; background: var(--clay); }
-      .source-token.transport { background: var(--clay); }
-      .source-token.transport::after { background: var(--paper); }
-      .source-token .price-kicker { display: block; margin-bottom: 24px; color: var(--river); font-size: 17px; line-height: 1; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-      .source-token.transport .price-kicker { color: var(--ink); }
-      .source-token .num { display: block; color: var(--ink); font-family: Georgia, "DejaVu Serif", serif; font-size: 78px; font-weight: 700; line-height: .8; letter-spacing: -.07em; }
-      .source-token strong { display: block; margin-top: 22px; font-size: 21px; line-height: 1.2; letter-spacing: .055em; text-transform: uppercase; }
-      .source-token .price-detail { display: block; margin-top: auto; padding-top: 24px; border-top: 2px solid rgba(21,25,23,.24); font-family: Georgia, "DejaVu Serif", serif; font-size: 24px; line-height: 1.18; font-weight: 700; }
-      .ai-engine { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; }
-      .ai-engine .line { height: 4px; background: var(--clay); transform-origin: center; }
-      .ai-engine strong { max-width: 650px; padding: 18px 22px; border: 3px solid var(--clay); color: var(--paper); text-align: center; }
-      .ai-engine strong b { display: block; font-size: 24px; line-height: 1; letter-spacing: .09em; text-transform: uppercase; }
-      .ai-engine strong small { display: block; margin-top: 11px; color: var(--paper); font-size: 16px; line-height: 1.3; letter-spacing: .055em; text-transform: none; }
+      /* 06 — who Long Taa is for */
+      .audience-layout { position: absolute; z-index: 4; inset: 160px 52px 145px; }
+      .audience-layout h2 { max-width: 820px; margin: 26px 0 38px; font-family: Georgia, "DejaVu Serif", serif; font-size: 78px; line-height: .9; letter-spacing: -.055em; }
+      .audience-kicker { color: var(--clay); font-size: 21px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+      .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+      .audience-card { min-height: 244px; padding: 28px 25px; border: 3px solid rgba(233,225,208,.82); background: rgba(16,45,37,.88); }
+      .audience-card:nth-child(2), .audience-card:nth-child(3) { background: var(--paper); color: var(--ink); }
+      .audience-card b { display: block; color: var(--clay); font-size: 18px; letter-spacing: .12em; text-transform: uppercase; }
+      .audience-card strong { display: block; margin-top: 19px; font-family: Georgia, "DejaVu Serif", serif; font-size: 37px; line-height: .98; letter-spacing: -.035em; }
+      .audience-note { margin-top: 28px; padding: 19px 22px; border-left: 5px solid var(--clay); background: rgba(16,45,37,.9); color: var(--paper); font-family: Georgia, "DejaVu Serif", serif; font-size: 25px; line-height: 1.2; }
 
       /* 07 — real mobile product */
       .phone-stage { position: absolute; inset: 500px 0 132px; z-index: 3; overflow: hidden; perspective: 1600px; }
@@ -151,14 +144,13 @@
       .focus-copy span { position: absolute; inset: 0; color: var(--clay); font-size: 20px; line-height: 42px; font-weight: 800; letter-spacing: .12em; text-align: center; text-transform: uppercase; }
       .product-caption { position: absolute; z-index: 6; left: 58px; right: 58px; bottom: 116px; display: flex; justify-content: space-between; gap: 12px; }
       .product-caption span { padding: 12px 15px; border: 2px solid rgba(233,225,208,.44); background: var(--forest); color: var(--paper); font-size: 17px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+      .simple-rate { position: absolute; z-index: 7; top: 260px; right: 58px; width: 390px; padding: 25px 28px 22px; background: var(--clay); color: var(--ink); box-shadow: 0 20px 40px rgba(0,0,0,.22); }
+      .simple-rate span { display: block; font-size: 18px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+      .simple-rate strong { display: block; margin-top: 13px; font-family: Georgia, "DejaVu Serif", serif; font-size: 92px; line-height: .8; letter-spacing: -.07em; }
+      .simple-rate small { display: block; margin-top: 17px; font-size: 16px; line-height: 1.25; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
 
       /* 08 — conversion */
-      .rate-strip { position: absolute; z-index: 4; left: 50px; right: 50px; top: 188px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-      .rate { min-height: 190px; padding: 25px 24px; background: var(--paper); color: var(--ink); }
-      .rate.accent { background: var(--clay); }
-      .rate strong { display: block; font-family: Georgia, "DejaVu Serif", serif; font-size: 65px; line-height: .9; letter-spacing: -.06em; }
-      .rate span { display: block; margin-top: 16px; font-size: 17px; line-height: 1.25; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-      .whatsapp-card { position: absolute; z-index: 4; left: 50px; right: 50px; top: 642px; padding: 34px 34px 30px; border: 3px solid var(--paper); background: rgba(16,45,37,.94); }
+      .whatsapp-card { position: absolute; z-index: 4; left: 50px; right: 50px; top: 274px; padding: 34px 34px 30px; border: 3px solid var(--paper); background: rgba(16,45,37,.94); }
       .whatsapp-card .tag { color: var(--clay); font-size: 18px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
       .whatsapp-card h2 { margin: 16px 0 0; font-family: Georgia, "DejaVu Serif", serif; font-size: 58px; line-height: .94; letter-spacing: -.055em; }
       .whatsapp-card .message { display: grid; gap: 8px; margin-top: 22px; color: var(--ink); font-size: 18px; line-height: 1.2; }
@@ -167,7 +159,7 @@
       .message-row span { font-weight: 800; }
       .enquiry-cta { margin-top: 16px; padding: 18px 20px; background: var(--clay); color: var(--ink); font-size: 18px; font-weight: 900; letter-spacing: .08em; text-align: center; text-transform: uppercase; transform-origin: center center; }
       .whatsapp-card .contact { margin-top: 16px; color: var(--mist); font-size: 17px; letter-spacing: .06em; text-align: center; }
-      .conditions { position: absolute; z-index: 4; left: 50px; right: 50px; bottom: 154px; color: rgba(233,225,208,.82); font-size: 17px; line-height: 1.45; text-align: center; letter-spacing: .04em; }
+      .conditions { position: absolute; z-index: 4; left: 50px; right: 50px; bottom: 112px; color: rgba(233,225,208,.82); font-size: 17px; line-height: 1.45; text-align: center; letter-spacing: .04em; }
 
       /* 09 — close */
       #s9 .photo { object-position: 57% center; }
@@ -215,7 +207,7 @@
     </style>
   </head>
   <body>
-    <main data-hf-id="hf-gvh3" id="main-video" data-composition-id="longtaa-business-first" data-width="1080" data-height="1920" data-start="0" data-duration="59.5">
+    <main data-hf-id="hf-gvh3" id="main-video" data-composition-id="longtaa-business-first" data-width="1080" data-height="1920" data-start="0" data-duration="49.5">
       <section data-hf-id="hf-brand-00" id="brand-reveal" class="scene clip" data-start="0" data-duration="2.6" data-track-index="1">
         <div data-hf-id="hf-brand-stage" class="brand-stage">
           <div data-hf-id="hf-brand-halo" class="brand-halo"></div>
@@ -253,7 +245,7 @@
       <audio data-hf-id="hf-sure-audio" id="sure-audio" src="assets/sayyid-sure-or-not.mp4" data-start="9.3" data-duration="1.733" data-track-index="11" data-volume="1" preload="auto"></audio>
       <audio data-hf-id="hf-rock-audio" id="rock-audio" src="assets/rock-eyebrow-reaction.mp4" data-start="9.3" data-duration="3.9" data-track-index="12" data-volume="0.72" preload="auto"></audio>
       <audio data-hf-id="hf-jessie-opening-audio" id="jessie-opening-audio" src="assets/narration-jessie-opening.m4a" data-start="2.6" data-duration="5.65" data-track-index="10" data-audio-group="voiceover" data-volume="1" preload="auto"></audio>
-      <audio data-hf-id="hf-jessie-main-audio" id="jessie-main-audio" src="assets/narration-jessie-main-pricing.m4a" data-start="13.2" data-duration="42.1" data-track-index="10" data-audio-group="voiceover" data-volume="1" preload="auto"></audio>
+      <audio data-hf-id="hf-jessie-main-audio" id="jessie-main-audio" src="assets/narration-jessie-main-short-pricing.m4a" data-start="13.2" data-duration="34.884" data-track-index="10" data-audio-group="voiceover" data-volume="1" preload="auto"></audio>
 
       <section data-hf-id="hf-proof-copy" id="proof-copy" class="proof-copy clip" data-start="13.2" data-duration="2.7" data-track-index="3">
         <strong data-hf-id="hf-proof-title">Fair question. Here's the proof.<span data-hf-id="hf-proof-subtitle">Authentic place · Real community · Clear journey</span></strong>
@@ -313,32 +305,24 @@
       <section data-hf-id="hf-8zfo" id="s5" class="scene clip" data-start="27" data-duration="4.5" data-track-index="1">
         <img data-hf-id="hf-xojd" class="photo" data-layout-allow-overflow="" src="assets/journey-4wd.jpg" alt="Supplied photograph of the four-wheel-drive journey to Long Taa">
         <div data-hf-id="hf-ir1l" class="scrim deep"></div>
-        <div data-hf-id="hf-7aaz" class="distance-badge"><strong data-hf-id="hf-ba8c">6H</strong><span data-hf-id="hf-jxko">remote travel needs clarity</span></div>
-        <div data-hf-id="hf-4s73" class="questions"><div data-hf-id="hf-xmh0" class="question"><b data-hf-id="hf-27a2">01</b><span data-hf-id="hf-2dqn">What does the journey involve?</span></div><div data-hf-id="hf-cu9o" class="question"><b data-hf-id="hf-2ll3">02</b><span data-hf-id="hf-2qkx">What does a stay include?</span></div><div data-hf-id="hf-bncl" class="question"><b data-hf-id="hf-2zw4">03</b><span data-hf-id="hf-dzfs">What do the activities depend on?</span></div><div data-hf-id="hf-c1nm" class="question"><b data-hf-id="hf-3e75">04</b><span data-hf-id="hf-yxk5">How do I check availability?</span></div></div>
-        <div data-hf-id="hf-3gu2" class="caption-line"><span data-hf-id="hf-sssf">Trust begins before the road</span><span data-hf-id="hf-4lza" class="dash"></span><span data-hf-id="hf-jppa">05 / 09</span></div>
+        <div data-hf-id="hf-s5-label" class="edge-label">Who it is for</div><div data-hf-id="hf-s5-counter" class="counter">05 / 09</div>
+        <div data-hf-id="hf-s5-audience" class="audience-layout"><div data-hf-id="hf-s5-kicker" class="audience-kicker">Come for something real</div><h2 data-hf-id="hf-s5-title">Borneo for people who want to feel it, not just visit it.</h2><div data-hf-id="hf-s5-grid" class="audience-grid"><div data-hf-id="hf-audience-curious" class="audience-card"><b>01</b><strong>Curious travellers</strong></div><div data-hf-id="hf-audience-groups" class="audience-card"><b>02</b><strong>Small group escapes</strong></div><div data-hf-id="hf-audience-culture" class="audience-card"><b>03</b><strong>Culture seekers</strong></div><div data-hf-id="hf-audience-responsible" class="audience-card"><b>04</b><strong>Responsible explorers</strong></div></div></div>
+        <div data-hf-id="hf-s5-caption" class="caption-line"><span data-hf-id="hf-s5-caption-left">Real connection</span><span data-hf-id="hf-s5-caption-dash" class="dash"></span><span data-hf-id="hf-s5-caption-right">Community-led</span></div>
         <div data-hf-id="hf-5kom" class="grain"></div>
       </section>
 
-      <section data-hf-id="hf-24j7" id="s6" class="scene clip" data-start="31.5" data-duration="9" data-track-index="1">
+      <section data-hf-id="hf-24j7" id="s6" class="scene clip" data-start="31.5" data-duration="2.98" data-track-index="1">
         <img data-hf-id="hf-d0ev" class="photo" data-layout-allow-overflow="" src="assets/forest.jpg" alt="Supplied photograph of the Long Taa rainforest">
         <div data-hf-id="hf-j5cm" class="scrim deep"></div>
-        <div data-hf-id="hf-tt6v" class="edge-label">Confirmed pricing</div><div data-hf-id="hf-4e16" class="counter">06 / 09</div>
-        <div data-hf-id="hf-uc2q" class="process-layout">
-          <div data-hf-id="hf-yqbw" class="source-row">
-            <div data-hf-id="hf-price-stay-only" id="price-stay-only" class="source-token"><span data-hf-id="hf-price-stay-kicker" class="price-kicker">Stay only</span><span data-hf-id="hf-price-stay-value" class="num">RM50</span><strong data-hf-id="hf-price-stay-unit">Per person / night</strong><span data-hf-id="hf-price-stay-detail" class="price-detail">Accommodation only</span></div>
-            <div data-hf-id="hf-price-meals" id="price-meals" class="source-token"><span data-hf-id="hf-price-meals-kicker" class="price-kicker">Stay + meals</span><span data-hf-id="hf-price-meals-value" class="num">RM180</span><strong data-hf-id="hf-price-meals-unit">Per person / night</strong><span data-hf-id="hf-price-meals-detail" class="price-detail">Breakfast · lunch · local dinner</span></div>
-            <div data-hf-id="hf-price-4wd" id="price-4wd" class="source-token transport"><span data-hf-id="hf-price-4wd-kicker" class="price-kicker">Return 4WD</span><span data-hf-id="hf-price-4wd-value" class="num">RM1,500</span><strong data-hf-id="hf-price-4wd-unit">Per vehicle</strong><span data-hf-id="hf-price-4wd-detail" class="price-detail">Maximum 3 guests</span></div>
-            <div data-hf-id="hf-price-river" id="price-river" class="source-token transport"><span data-hf-id="hf-price-river-kicker" class="price-kicker">River support</span><span data-hf-id="hf-price-river-value" class="num">RM600</span><strong data-hf-id="hf-price-river-unit">Per group</strong><span data-hf-id="hf-price-river-detail" class="price-detail">Longboat · guide · porter · max 3</span></div>
-          </div>
-          <div data-hf-id="hf-9ped" class="ai-engine"><span data-hf-id="hf-6c9z" class="line"></span><strong data-hf-id="hf-uygt"><b data-hf-id="hf-pricing-confirmed">Confirmed itemised rates</b><small data-hf-id="hf-pricing-confirmation">Final availability and quotation confirmed directly by Clement</small></strong><span data-hf-id="hf-tvt3" class="line"></span></div>
-        </div>
-        <div data-hf-id="hf-32j1" class="caption-line"><span data-hf-id="hf-bwzb">Clear pricing · no guesswork</span><span data-hf-id="hf-47o9" class="dash"></span><span data-hf-id="hf-rcdu">Itemised breakdown</span></div>
+        <div data-hf-id="hf-tt6v" class="edge-label">Simple pricing</div><div data-hf-id="hf-4e16" class="counter">06 / 09</div>
+        <div data-hf-id="hf-s6-content" class="content center"><p data-hf-id="hf-s6-kicker" class="eyebrow">Start with your stay</p><h2 data-hf-id="hf-s6-title" class="display xl">Stays from RM50.</h2><p data-hf-id="hf-s6-support" class="support">Per person, per night. The rest is planned around your group.</p></div>
+        <div data-hf-id="hf-32j1" class="caption-line"><span data-hf-id="hf-bwzb">Clear start</span><span data-hf-id="hf-47o9" class="dash"></span><span data-hf-id="hf-rcdu">Your group plan</span></div>
         <div data-hf-id="hf-56dl" class="grain"></div>
       </section>
 
-      <section data-hf-id="hf-ta6i" id="s7" class="scene clip" data-start="40.5" data-duration="7" data-track-index="1">
-        <div data-hf-id="hf-24wy" class="edge-label">The product</div><div data-hf-id="hf-nvqv" class="counter">07 / 09</div>
-        <div data-hf-id="hf-mcm7" class="content"><p data-hf-id="hf-5wjb" class="eyebrow">A digital home for Long Taa</p><h2 data-hf-id="hf-xj8l" class="display small">From curiosity to a clear conversation.</h2></div>
+      <section data-hf-id="hf-ta6i" id="s7" class="scene clip" data-start="34.48" data-duration="5.5" data-track-index="1">
+        <div data-hf-id="hf-24wy" class="edge-label">Your mobile guide</div><div data-hf-id="hf-nvqv" class="counter">07 / 09</div>
+        <div data-hf-id="hf-mcm7" class="content"><p data-hf-id="hf-5wjb" class="eyebrow">Explore with confidence</p><h2 data-hf-id="hf-xj8l" class="display small">Explore. Compare. Plan.</h2></div>
         <div data-hf-id="hf-focus-copy" class="focus-copy"><span data-hf-id="hf-focus-discover" id="focus-discover">01 · Discover the village</span><span data-hf-id="hf-focus-compare" id="focus-compare">02 · Compare your stay</span><span data-hf-id="hf-focus-enquire" id="focus-enquire">03 · Plan and enquire</span></div>
         <div data-hf-id="hf-7wwl" class="phone-stage"><div data-hf-id="hf-v6p0" class="phone-rail" data-layout-allow-overflow=""><div data-hf-id="hf-xb0l" id="product-home-phone" class="site-phone" data-layout-allow-overflow=""><img data-hf-id="hf-6jyf" src="assets/site-home-mobile.png" alt="Long Taa website home page on mobile"></div><div data-hf-id="hf-9p2b" id="product-stay-phone" class="site-phone" data-layout-allow-overflow=""><img data-hf-id="hf-7d0j" src="assets/site-stay-mobile.png" alt="Long Taa website stay page on mobile"></div><div data-hf-id="hf-ki77" id="product-book-phone" class="site-phone" data-layout-allow-overflow=""><img data-hf-id="hf-j0pp" src="assets/site-book-mobile.png" alt="Long Taa website plan and book page on mobile"></div></div></div>
         <div data-hf-id="hf-33aw" class="product-caption"><span data-hf-id="hf-kiq2" id="chip-discover">Discover</span><span data-hf-id="hf-6pkg" id="chip-compare">Compare</span><span data-hf-id="hf-0bzm" id="chip-plan">Plan</span><span data-hf-id="hf-2pru" id="chip-enquire">Enquire</span></div>
@@ -346,17 +330,16 @@
         <div data-hf-id="hf-6dao" class="grain"></div>
       </section>
 
-      <section data-hf-id="hf-5l7h" id="s8" class="scene clip" data-start="47.5" data-duration="8.7" data-track-index="1">
+      <section data-hf-id="hf-5l7h" id="s8" class="scene clip" data-start="39.98" data-duration="6.42" data-track-index="1">
         <img data-hf-id="hf-02vs" class="photo" data-layout-allow-overflow="" src="assets/river-vertical.jpg" alt="Supplied photograph of the river landscape at Long Taa">
         <div data-hf-id="hf-hyfj" class="scrim deep"></div>
-        <div data-hf-id="hf-vtbf" class="rate-strip"><div data-hf-id="hf-5bnq" class="rate"><strong data-hf-id="hf-t1m2">RM50</strong><span data-hf-id="hf-zctu">stay only · per person / night</span></div><div data-hf-id="hf-m3wq" class="rate"><strong data-hf-id="hf-at3m">RM180</strong><span data-hf-id="hf-qjh6">stay + local meals</span></div><div data-hf-id="hf-vyf4" class="rate accent"><strong data-hf-id="hf-8j9p">RM1,500</strong><span data-hf-id="hf-0hbj">return 4WD · max 3 guests</span></div><div data-hf-id="hf-ah2w" class="rate accent"><strong data-hf-id="hf-4a6b">RM600</strong><span data-hf-id="hf-mauf">longboat + guide + porter</span></div></div>
-        <div data-hf-id="hf-dqbl" class="whatsapp-card"><div data-hf-id="hf-d06h" class="tag">Direct enquiry · availability checked by Clement</div><h2 data-hf-id="hf-arlj">Build your visit request.</h2><div data-hf-id="hf-t67e" class="message"><div data-hf-id="hf-message-stay" class="message-row"><b data-hf-id="hf-sjz4">Stay</b><span data-hf-id="hf-rwcb">3D2N · 3 guests</span></div><div data-hf-id="hf-message-transport" class="message-row"><b data-hf-id="hf-8mxe">Transport</b><span data-hf-id="hf-cc3m">Long Taa 4WD · default</span></div><div data-hf-id="hf-message-package" class="message-row"><b data-hf-id="hf-syrf">Package</b><span data-hf-id="hf-uqi2">Package 1 · choose one</span></div><div data-hf-id="hf-message-river" class="message-row"><b data-hf-id="hf-fm1a">River support</b><span data-hf-id="hf-zea9">Please advise</span></div></div><div data-hf-id="hf-enquiry-cta" class="enquiry-cta">Request availability &amp; quotation</div><div data-hf-id="hf-3ymt" class="contact">WhatsApp · +60 19-856 3536</div></div>
+        <div data-hf-id="hf-dqbl" class="whatsapp-card"><div data-hf-id="hf-d06h" class="tag">Direct enquiry · availability checked by Clement</div><h2 data-hf-id="hf-arlj">Tell us your plan. We will shape the rest.</h2><div data-hf-id="hf-t67e" class="message"><div data-hf-id="hf-message-stay" class="message-row"><b data-hf-id="hf-sjz4">Dates</b><span data-hf-id="hf-rwcb">Your preferred travel dates</span></div><div data-hf-id="hf-message-transport" class="message-row"><b data-hf-id="hf-8mxe">Guests</b><span data-hf-id="hf-cc3m">Your group size</span></div><div data-hf-id="hf-message-package" class="message-row"><b data-hf-id="hf-syrf">Stay</b><span data-hf-id="hf-uqi2">Stay only or local meals</span></div><div data-hf-id="hf-message-river" class="message-row"><b data-hf-id="hf-fm1a">Journey</b><span data-hf-id="hf-zea9">4WD and river support if needed</span></div></div><div data-hf-id="hf-enquiry-cta" class="enquiry-cta">Request availability &amp; group quote</div><div data-hf-id="hf-3ymt" class="contact">WhatsApp · +60 19-856 3536</div></div>
         <div data-hf-id="hf-agit" class="conditions">Activities remain subject to weather, road, river, water level, availability and safety conditions.</div>
         <div data-hf-id="hf-3v53" class="caption-line"><span data-hf-id="hf-8xxz">Plan with confidence</span><span data-hf-id="hf-50ab" class="dash"></span><span data-hf-id="hf-vmuf">08 / 09</span></div>
         <div data-hf-id="hf-5yzn" class="grain"></div>
       </section>
 
-      <section data-hf-id="hf-109o" id="s9" class="scene clip" data-start="56.2" data-duration="3.3" data-track-index="1">
+      <section data-hf-id="hf-109o" id="s9" class="scene clip" data-start="46.4" data-duration="3.1" data-track-index="1">
         <img data-hf-id="hf-dqa2" class="photo" data-layout-allow-overflow="" src="assets/closing-longboat.jpg" alt="Supplied photograph of a longboat journey on the Dapui River">
         <div data-hf-id="hf-7pjf" class="scrim bottom"></div>
         <div data-hf-id="hf-r924" class="logo-card" role="img" aria-label="Long Taa Dapui Living Heritage Village logo"><div data-hf-id="hf-ayro" class="logo-mark"></div></div>
@@ -364,29 +347,29 @@
         <div data-hf-id="hf-0t0a" class="grain"></div>
       </section>
 
-      <section data-hf-id="hf-come-copy" id="come-copy" class="come-copy clip" data-start="56.8" data-duration="2.4" data-track-index="3">
+      <section data-hf-id="hf-come-copy" id="come-copy" class="come-copy clip" data-start="47" data-duration="2.3" data-track-index="3">
         <strong data-hf-id="hf-come-title">Come, come.<span data-hf-id="hf-come-subtitle">Long Taa is waiting</span></strong>
       </section>
       <div data-hf-id="hf-come-shell" id="come-shell" class="pip-shell pip-come-shell" data-layout-allow-occlusion="">
-        <video data-hf-id="hf-come-video" id="come-video" class="clip pip-video" src="assets/sayyid-come-come.mp4" data-start="56.8" data-duration="2.333" data-track-index="4" data-layout-allow-occlusion="" muted playsinline></video>
+        <video data-hf-id="hf-come-video" id="come-video" class="clip pip-video" src="assets/sayyid-come-come.mp4" data-start="47" data-duration="2.333" data-track-index="4" data-layout-allow-occlusion="" muted playsinline></video>
       </div>
       <div data-hf-id="hf-come-tag" id="come-tag" class="pip-tag pip-come-tag">Your invitation →</div>
-      <audio data-hf-id="hf-come-audio" id="come-audio" src="assets/sayyid-come-come.mp4" data-start="56.8" data-duration="2.333" data-track-index="11" data-volume="1" preload="auto"></audio>
+      <audio data-hf-id="hf-come-audio" id="come-audio" src="assets/sayyid-come-come.mp4" data-start="47" data-duration="2.333" data-track-index="11" data-volume="1" preload="auto"></audio>
 
       <div data-hf-id="hf-boxo" id="w1" class="wipe clip" data-start="4.82" data-duration="0.38" data-track-index="2"></div>
       <div data-hf-id="hf-8ja7" id="w2" class="wipe clip" data-start="12.12" data-duration="0.38" data-track-index="2"></div>
       <div data-hf-id="hf-nrre" id="w3" class="wipe clip" data-start="20.62" data-duration="0.38" data-track-index="2"></div>
       <div data-hf-id="hf-8i5f" id="w4" class="wipe clip" data-start="26.62" data-duration="0.38" data-track-index="2"></div>
       <div data-hf-id="hf-qgrt" id="w5" class="wipe clip" data-start="31.12" data-duration="0.38" data-track-index="2"></div>
-      <div data-hf-id="hf-4s5w" id="w6" class="wipe clip" data-start="40.12" data-duration="0.38" data-track-index="2"></div>
-      <div data-hf-id="hf-u8yf" id="w7" class="wipe clip" data-start="47.12" data-duration="0.38" data-track-index="2"></div>
-      <div data-hf-id="hf-0ojn" id="w8" class="wipe clip" data-start="55.82" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-4s5w" id="w6" class="wipe clip" data-start="34.10" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-u8yf" id="w7" class="wipe clip" data-start="39.60" data-duration="0.38" data-track-index="2"></div>
+      <div data-hf-id="hf-0ojn" id="w8" class="wipe clip" data-start="46.02" data-duration="0.38" data-track-index="2"></div>
 
       <script>
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
-        const sceneStarts = [2.6, 5.2, 12.5, 21, 27, 31.5, 40.5, 47.5, 56.2];
-        const sceneDurations = [2.6, 7.3, 8.5, 6, 4.5, 9, 7, 8.7, 3.3];
+        const sceneStarts = [2.6, 5.2, 12.5, 21, 27, 31.5, 34.48, 39.98, 46.4];
+        const sceneDurations = [2.6, 7.3, 8.5, 6, 4.5, 2.98, 5.5, 6.42, 3.1];
         const sceneIds = ["#s1", "#s2", "#s3", "#s4", "#s5", "#s6", "#s7", "#s8", "#s9"];
         const fromIfPresent = (selector, fromVars, toVars, at) => {
           if (document.querySelector(selector)) tl.fromTo(selector, fromVars, toVars, at);
@@ -407,9 +390,8 @@
           fromIfPresent(`${id} .caption-line`, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .42, ease: "power2.out" }, at + .72);
         });
 
-        gsap.set("#s6 .source-token", { opacity: 0 });
+        gsap.set("#s5 .audience-card", { opacity: 0 });
         gsap.set("#s7 .product-caption span", { opacity: 0 });
-        gsap.set("#s8 .rate", { opacity: 0 });
 
         tl.fromTo("#brand-reveal .brand-halo", { scale: .58, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.25, ease: "power3.out" }, 0);
         tl.fromTo("#brand-reveal .brand-orbit", { scale: .72, opacity: 0, rotation: -14 }, { scale: 1, opacity: 1, rotation: 0, duration: .9, stagger: .09, ease: "expo.out" }, .08);
@@ -460,94 +442,71 @@
         tl.fromTo("#s4 .truth-panel", { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: .68, ease: "power4.out" }, 21.16);
         tl.fromTo("#s4 .truth-fact", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: .45, stagger: .11, ease: "back.out(1.15)" }, 22.28);
 
-        tl.fromTo("#s5 .distance-badge", { scale: .74, opacity: 0 }, { scale: 1, opacity: 1, duration: .52, ease: "back.out(1.5)" }, 27.16);
-        tl.fromTo("#s5 .question", { x: 94, opacity: 0 }, { x: 0, opacity: 1, duration: .48, stagger: .18, ease: "power4.out" }, 27.55);
-
-        const sourceTokens = gsap.utils.toArray("#s6 .source-token");
-        sourceTokens.forEach((token, index) => {
-          const at = 31.68 + index * .42;
+        const audienceCards = gsap.utils.toArray("#s5 .audience-card");
+        audienceCards.forEach((token, index) => {
+          const at = 27.15 + index * .24;
           tl.set(token, { opacity: 1, y: index % 2 === 0 ? 72 : 46, scale: .94 }, at);
           tl.to(token, { y: 0, scale: 1, duration: .34, ease: "power4.out" }, at);
         });
-        tl.set("#s6 .ai-engine strong", { opacity: 1, scale: .78 }, 33.52);
-        tl.to("#s6 .ai-engine strong", { scale: 1, duration: .46, ease: "back.out(1.45)" }, 33.52);
-        tl.fromTo("#s6 .ai-engine .line", { scaleX: 0 }, { scaleX: 1, duration: .5, ease: "power3.inOut" }, 33.48);
-        tl.to("#s6 .source-token", { boxShadow: "0 24px 50px rgba(0,0,0,.32)", duration: .8, stagger: .7, ease: "sine.inOut" }, 34.1);
+        tl.fromTo("#s5 .audience-kicker, #s5 h2", { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: .45, stagger: .12, ease: "power3.out" }, 27.08);
 
         const productPhones = ["#product-home-phone", "#product-stay-phone", "#product-book-phone"];
         const productLabels = ["#focus-discover", "#focus-compare", "#focus-enquire"];
         const productChips = ["#chip-discover", "#chip-compare", "#chip-plan", "#chip-enquire"];
-        tl.set(productPhones[0], { scale: 1, opacity: 1, rotationY: 0 }, 41.0);
-        tl.set(productPhones[1], { scale: .82, opacity: .52, rotationY: -12 }, 41.0);
-        tl.set(productPhones[2], { scale: .72, opacity: .28, rotationY: -16 }, 41.0);
-        tl.fromTo("#s7 .phone-rail", { x: -195, y: 110, opacity: 0 }, { x: -195, y: 0, opacity: 1, duration: .6, ease: "power4.out" }, 41.02);
-        tl.set(productLabels, { opacity: 0, y: 18 }, 40.5);
-        tl.to(productLabels[0], { opacity: 1, y: 0, duration: .3, ease: "power3.out" }, 41.18);
+        tl.set(productPhones[0], { scale: 1, opacity: 1, rotationY: 0 }, 34.9);
+        tl.set(productPhones[1], { scale: .82, opacity: .52, rotationY: -12 }, 34.9);
+        tl.set(productPhones[2], { scale: .72, opacity: .28, rotationY: -16 }, 34.9);
+        tl.fromTo("#s7 .phone-rail", { x: -195, y: 110, opacity: 0 }, { x: -195, y: 0, opacity: 1, duration: .6, ease: "power4.out" }, 34.92);
+        tl.set(productLabels, { opacity: 0, y: 18 }, 34.48);
+        tl.to(productLabels[0], { opacity: 1, y: 0, duration: .3, ease: "power3.out" }, 35.18);
         productChips.forEach((chip, index) => {
-          const at = 41.32 + index * .1;
+          const at = 35.32 + index * .1;
           tl.set(chip, { opacity: 1, y: 42 }, at);
           tl.to(chip, { y: 0, duration: .15, ease: "power4.out" }, at);
         });
-        tl.to(productChips[0], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .25, ease: "power2.out" }, 41.52);
+        tl.to(productChips[0], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .25, ease: "power2.out" }, 35.52);
+        tl.to("#s7 .phone-rail", { x: -570, duration: .25, ease: "power4.out" }, 36.35);
+        tl.to("#s7 .phone-rail", { x: -627, duration: .42, ease: "power2.out" }, 36.60);
+        tl.to(productPhones[0], { scale: .82, opacity: .52, rotationY: 12, duration: .66, ease: "power2.out" }, 36.35);
+        tl.to(productPhones[1], { scale: 1, opacity: 1, rotationY: 0, duration: .66, ease: "power2.out" }, 36.35);
+        tl.to(productLabels[0], { opacity: 0, y: -18, duration: .16, ease: "power2.in" }, 36.35);
+        tl.fromTo(productLabels[1], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .24, ease: "power3.out" }, 36.55);
+        tl.to(productChips[0], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .16 }, 36.38);
+        tl.to(productChips[1], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .18 }, 36.52);
+        tl.to("#s7 .phone-rail", { x: -1002, duration: .25, ease: "power4.out" }, 38.0);
+        tl.to("#s7 .phone-rail", { x: -1059, duration: .42, ease: "power2.out" }, 38.25);
+        tl.to(productPhones[1], { scale: .82, opacity: .52, rotationY: 12, duration: .66, ease: "power2.out" }, 38.0);
+        tl.to(productPhones[2], { scale: 1, opacity: 1, rotationY: 0, duration: .66, ease: "power2.out" }, 38.0);
+        tl.to(productLabels[1], { opacity: 0, y: -18, duration: .16, ease: "power2.in" }, 38.0);
+        tl.fromTo(productLabels[2], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .24, ease: "power3.out" }, 38.2);
+        tl.to(productChips[1], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .16 }, 38.03);
+        tl.to(productChips[2], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .18 }, 38.17);
+        tl.fromTo("#s8 .whatsapp-card", { y: 104, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "power4.out" }, 40.32);
+        tl.fromTo("#s8 .message-row", { x: 72, opacity: 0 }, { x: 0, opacity: 1, duration: .28, stagger: .34, ease: "power4.out" }, 40.76);
+        tl.fromTo("#s8 .enquiry-cta", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .42, ease: "power3.out" }, 42.22);
+        tl.fromTo("#s8 .contact", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .3, ease: "power3.out" }, 42.62);
+        tl.fromTo("#s8 .conditions", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .32, ease: "power2.out" }, 42.83);
+        tl.to("#s8 .enquiry-cta", { scale: .965, duration: .12, ease: "power1.in" }, 43.2);
+        tl.to("#s8 .enquiry-cta", { scale: 1, duration: .32, ease: "back.out(2)" }, 43.32);
 
-        tl.to("#s7 .phone-rail", { x: -570, duration: .3, ease: "power4.out" }, 43.05);
-        tl.to("#s7 .phone-rail", { x: -627, duration: .56, ease: "power2.out" }, 43.35);
-        tl.to(productPhones[0], { scale: .82, opacity: .52, rotationY: 12, duration: .86, ease: "power2.out" }, 43.05);
-        tl.to(productPhones[1], { scale: 1, opacity: 1, rotationY: 0, duration: .86, ease: "power2.out" }, 43.05);
-        tl.to(productPhones[2], { scale: .82, opacity: .52, rotationY: -12, duration: .86, ease: "power2.out" }, 43.05);
-        tl.to(productLabels[0], { opacity: 0, y: -18, duration: .2, ease: "power2.in" }, 43.05);
-        tl.fromTo(productLabels[1], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .3, ease: "power3.out" }, 43.25);
-        tl.to(productChips[0], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .2 }, 43.08);
-        tl.to(productChips[1], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .22 }, 43.22);
+        tl.set("#s9 h2, #s9 .values", { autoAlpha: 0 }, 46.4);
+        tl.fromTo("#s9 .logo-card", { y: -72, opacity: 0, rotation: -3 }, { y: 0, opacity: 1, rotation: 0, duration: .5, ease: "back.out(1.3)" }, 46.48);
+        tl.fromTo("#s9 .url", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: "power3.out" }, 46.72);
+        tl.fromTo("#s9 .closing-rule", { scaleX: 0 }, { scaleX: 1, duration: .62, ease: "power3.out" }, 46.92);
 
-        tl.to("#s7 .phone-rail", { x: -1002, duration: .3, ease: "power4.out" }, 45.1);
-        tl.to("#s7 .phone-rail", { x: -1059, duration: .56, ease: "power2.out" }, 45.4);
-        tl.to(productPhones[0], { scale: .72, opacity: .28, rotationY: 16, duration: .86, ease: "power2.out" }, 45.1);
-        tl.to(productPhones[1], { scale: .82, opacity: .52, rotationY: 12, duration: .86, ease: "power2.out" }, 45.1);
-        tl.to(productPhones[2], { scale: 1, opacity: 1, rotationY: 0, duration: .86, ease: "power2.out" }, 45.1);
-        tl.to(productLabels[1], { opacity: 0, y: -18, duration: .2, ease: "power2.in" }, 45.1);
-        tl.fromTo(productLabels[2], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .3, ease: "power3.out" }, 45.3);
-        tl.to(productChips[1], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .2 }, 45.13);
-        tl.to(productChips[2], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .22 }, 45.26);
-        tl.to(productChips[2], { backgroundColor: "#102d25", color: "#e9e1d0", borderColor: "rgba(233,225,208,.44)", duration: .2 }, 46.3);
-        tl.to(productChips[3], { backgroundColor: "#c77a37", color: "#151917", borderColor: "#c77a37", duration: .22 }, 46.42);
-
-        const rates = gsap.utils.toArray("#s8 .rate");
-        rates.forEach((rate, index) => {
-          const at = 47.54 + index * .24;
-          tl.set(rate, { opacity: 1, y: index % 2 === 0 ? 58 : 42, scale: .94 }, at);
-          tl.to(rate, { y: 0, scale: 1, duration: .22, ease: "power4.out" }, at);
-        });
-        tl.fromTo("#s8 .whatsapp-card", { y: 104, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "power4.out" }, 48.4);
-        tl.fromTo("#s8 .message-row", { x: 72, opacity: 0 }, { x: 0, opacity: 1, duration: .28, stagger: .34, ease: "power4.out" }, 48.84);
-        tl.fromTo("#s8 .enquiry-cta", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .42, ease: "power3.out" }, 50.3);
-        tl.fromTo("#s8 .contact", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .3, ease: "power3.out" }, 50.7);
-        tl.fromTo("#s8 .conditions", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .32, ease: "power2.out" }, 50.95);
-        tl.to("#s8 .enquiry-cta", { scale: .965, duration: .12, ease: "power1.in" }, 51.32);
-        tl.to("#s8 .enquiry-cta", { scale: 1, duration: .32, ease: "back.out(2)" }, 51.44);
-
-        tl.fromTo("#s9 .logo-card", { y: -72, opacity: 0, rotation: -3 }, { y: 0, opacity: 1, rotation: 0, duration: .5, ease: "back.out(1.3)" }, 56.28);
-        tl.fromTo("#s9 .values span", { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: .28, stagger: .09, ease: "power4.out" }, 56.38);
-        tl.fromTo("#s9 h2", { y: 82, opacity: 0 }, { y: 0, opacity: 1, duration: .58, ease: "power4.out" }, 56.76);
-        tl.fromTo("#s9 .url", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: "power3.out" }, 57.38);
-        tl.fromTo("#s9 .closing-rule", { scaleX: 0 }, { scaleX: 1, duration: .62, ease: "power3.out" }, 57.62);
-        tl.to("#s9 .url", { scale: 1.035, duration: .14, ease: "power1.in" }, 58.18);
-        tl.to("#s9 .url", { scale: 1, duration: .32, ease: "back.out(1.8)" }, 58.32);
-
-        tl.fromTo("#come-copy strong", { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: .44, ease: "power4.out" }, 56.82);
-        tl.to("#s9 h2, #s9 .values", { autoAlpha: 0, duration: .18, ease: "power2.out" }, 56.72);
-        tl.fromTo("#come-shell", { x: 90, y: 80, scale: .72, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .52, ease: "back.out(1.35)" }, 56.84);
-        tl.fromTo("#come-tag", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .34, ease: "power3.out" }, 57.16);
-        tl.to("#come-shell", { scale: 1.025, duration: .16, ease: "power1.in" }, 58.78);
-        tl.to("#come-shell", { scale: 1, duration: .28, ease: "back.out(1.8)" }, 58.94);
+        tl.fromTo("#come-copy strong", { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: .44, ease: "power4.out" }, 47.02);
+        tl.fromTo("#come-shell", { x: 90, y: 80, scale: .72, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .52, ease: "back.out(1.35)" }, 47.04);
+        tl.fromTo("#come-tag", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .34, ease: "power3.out" }, 47.36);
+        tl.to("#come-shell", { scale: 1.025, duration: .16, ease: "power1.in" }, 48.78);
+        tl.to("#come-shell", { scale: 1, duration: .28, ease: "back.out(1.8)" }, 48.94);
 
         const wipeStarts = [4.82, 12.12, 20.62, 26.62, 31.12];
         wipeStarts.forEach((at, index) => {
           tl.fromTo(`#w${index + 1}`, { y: 1920 }, { y: -1920, duration: .38, ease: "power4.inOut" }, at);
         });
-        tl.fromTo("#w6", { x: 1080 }, { x: -1080, duration: .38, ease: "power4.inOut" }, 40.12);
-        tl.fromTo("#w7", { y: -1920 }, { y: 1920, duration: .38, ease: "power4.inOut" }, 47.12);
-        tl.fromTo("#w8", { x: -1080 }, { x: 1080, duration: .38, ease: "power4.inOut" }, 55.82);
+        tl.fromTo("#w6", { x: 1080 }, { x: -1080, duration: .38, ease: "power4.inOut" }, 34.10);
+        tl.fromTo("#w7", { y: -1920 }, { y: 1920, duration: .38, ease: "power4.inOut" }, 39.60);
+        tl.fromTo("#w8", { x: -1080 }, { x: 1080, duration: .38, ease: "power4.inOut" }, 46.02);
         window.__timelines["longtaa-business-first"] = tl;
       </script>
     </main>

@@ -30,49 +30,49 @@ h1, h2, h3, p { margin-top: 0; } h1, h2, h3 { font-family: "Iowan Old Style", Ba
 .package-switch button[aria-pressed="true"] { background: var(--cream); color: var(--forest-deep); box-shadow: 0 .35rem 1.2rem rgb(0 0 0 / 30%); }
 .package-switch span { font-size: .54rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .package-switch strong { max-width: 18rem; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(.86rem, 3.5vw, 1.2rem); font-weight: 500; line-height: 1.05; }
-.route-dashboard { display: grid; gap: .75rem; margin-bottom: .75rem; padding: .85rem; border: 1px solid rgb(241 234 220 / 18%); background: #071b13; box-shadow: .45rem .45rem 0 rgb(0 0 0 / 18%); }
+.route-dashboard { display: grid; gap: .65rem; margin-bottom: .55rem; padding: .75rem; border: 1px solid rgb(241 234 220 / 18%); background: #071b13; box-shadow: .35rem .35rem 0 rgb(0 0 0 / 18%); }
 .route-dashboard-title { display: grid; gap: .3rem; }
-.route-dashboard-title span { color: var(--moss); font-size: .57rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-.route-dashboard-title strong { font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(1.35rem, 6vw, 2.15rem); font-weight: 500; line-height: 1; }
+.route-dashboard-title span { color: var(--moss); font-size: .5rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.route-dashboard-title strong { font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(1.22rem, 5vw, 1.7rem); font-weight: 500; line-height: 1.05; }
 .route-dashboard dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border: solid rgb(241 234 220 / 14%); border-width: 1px 0 0 1px; }
-.route-dashboard dl div { min-width: 0; padding: .55rem .45rem; border: solid rgb(241 234 220 / 14%); border-width: 0 1px 1px 0; }
-.route-dashboard dt { margin-bottom: .25rem; color: rgb(241 234 220 / 48%); font-size: .51rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.route-dashboard dd { margin: 0; color: var(--cream); font-size: .65rem; font-weight: 800; line-height: 1.25; }
+.route-dashboard dl div { min-width: 0; padding: .48rem .4rem; border: solid rgb(241 234 220 / 14%); border-width: 0 1px 1px 0; }
+.route-dashboard dt { margin-bottom: .18rem; color: rgb(241 234 220 / 48%); font-size: .45rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.route-dashboard dd { margin: 0; color: var(--cream); font-size: .59rem; font-weight: 800; line-height: 1.2; }
 .route-explorer { display: grid; gap: .8rem; }
-.route-track { --route-progress: 0%; --route-length: 68rem; position: relative; margin: 0 -1rem; padding: .8rem 1rem 1rem; overflow-x: auto; overflow-y: hidden; background: #102c21; scroll-padding-inline: calc(50vw - 4.25rem); scroll-snap-type: x mandatory; scrollbar-color: var(--earth) rgb(241 234 220 / 12%); scrollbar-width: thin; }
+.route-track { --route-progress: 0%; --route-length: 54rem; position: relative; margin: 0 -1rem; padding: .7rem 1rem .8rem; overflow-x: auto; overflow-y: hidden; background: #102c21; scroll-padding-inline: calc(50vw - 3.375rem); scroll-snap-type: x mandatory; scrollbar-color: var(--earth) rgb(241 234 220 / 12%); scrollbar-width: thin; }
 .route-track::after { position: sticky; right: 0; width: 2.5rem; height: 5rem; display: block; float: right; margin-top: -5.5rem; content: ""; background: linear-gradient(90deg, transparent, #102c21); pointer-events: none; }
-.route-track-line { position: absolute; top: 2.27rem; left: 5.25rem; width: var(--route-length); height: 2px; background: rgb(241 234 220 / 18%); pointer-events: none; }
+.route-track-line { position: absolute; top: 2rem; left: 4.375rem; width: var(--route-length); height: 2px; background: rgb(241 234 220 / 18%); pointer-events: none; }
 .route-track-line i { width: var(--route-progress); height: 100%; display: block; background: linear-gradient(90deg, var(--moss), var(--earth)); box-shadow: 0 0 .9rem rgb(181 199 152 / 50%); transition: width .45s cubic-bezier(.22, 1, .36, 1); }
 .route-track ol { position: relative; width: max-content; display: flex; margin: 0; padding: 0; list-style: none; }
-.route-track li { width: 8.5rem; flex: 0 0 8.5rem; scroll-snap-align: center; }
-.route-track button { width: 100%; display: grid; justify-items: center; gap: .55rem; padding: 0 .35rem; border: 0; background: transparent; color: rgb(241 234 220 / 56%); text-align: center; }
-.route-marker { position: relative; z-index: 1; width: 3rem; height: 3rem; display: grid; place-items: center; border: 2px solid rgb(241 234 220 / 30%); border-radius: 50%; background: #102c21; color: var(--cream); font: 700 .64rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; transition: border-color .25s ease, background .25s ease, color .25s ease, transform .25s ease; }
+.route-track li { width: 6.75rem; flex: 0 0 6.75rem; scroll-snap-align: center; }
+.route-track button { width: 100%; display: grid; justify-items: center; gap: .42rem; padding: 0 .25rem; border: 0; background: transparent; color: rgb(241 234 220 / 56%); text-align: center; }
+.route-marker { position: relative; z-index: 1; width: 2.6rem; height: 2.6rem; display: grid; place-items: center; border: 2px solid rgb(241 234 220 / 30%); border-radius: 50%; background: #102c21; color: var(--cream); font: 700 .57rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; transition: border-color .25s ease, background .25s ease, color .25s ease, transform .25s ease; }
 .route-stop-copy { display: grid; gap: .13rem; }
-.route-stop-copy small { font-size: .5rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.route-stop-copy strong { max-width: 8rem; overflow: hidden; color: inherit; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: 1rem; font-weight: 500; line-height: 1.08; text-overflow: ellipsis; white-space: nowrap; }
+.route-stop-copy small { font-size: .44rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.route-stop-copy strong { max-width: 6.25rem; overflow: hidden; color: inherit; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: .82rem; font-weight: 500; line-height: 1.08; text-overflow: ellipsis; white-space: nowrap; }
 .route-track li.is-complete .route-marker { border-color: var(--moss); background: var(--moss); color: var(--forest-deep); }
 .route-track li.is-active button { color: var(--cream); }
 .route-track li.is-active .route-marker { border-color: var(--cream); background: var(--earth); box-shadow: 0 0 0 .4rem rgb(168 80 53 / 25%), 0 0 1.8rem rgb(168 80 53 / 66%); transform: scale(1.12); }
-.route-track li.is-active .route-stop-copy::before { content: "YOU ARE HERE"; color: var(--moss); font-size: .47rem; font-weight: 900; letter-spacing: .12em; }
+.route-track li.is-active .route-stop-copy::before { content: "YOU ARE HERE"; color: var(--moss); font-size: .4rem; font-weight: 900; letter-spacing: .1em; }
 .route-track button:focus-visible .route-marker { outline: 3px solid var(--cream); outline-offset: 4px; }
 .expedition-stage { --stage-progress: 0%; position: relative; display: grid; padding-bottom: .75rem; background: transparent; color: var(--ink); animation: expedition-reveal .55s cubic-bezier(.22, 1, .36, 1) both; }
 .expedition-stage::before, .expedition-stage::after { position: absolute; z-index: 0; content: ""; pointer-events: none; }
 .expedition-stage::before { top: 1.4rem; right: -.65rem; width: 36%; height: 44%; border: 1px solid rgb(181 199 152 / 34%); background: repeating-radial-gradient(ellipse at 20% 80%, transparent 0 1rem, rgb(181 199 152 / 12%) 1.05rem 1.1rem); transform: rotate(3deg); }
 .expedition-stage::after { right: .7rem; bottom: 0; width: calc(100% - 1.35rem); height: 53%; background: var(--earth); }
-.expedition-visual { position: relative; z-index: 1; min-height: max(31rem, 64svh); margin: 0; overflow: hidden; border: 1px solid rgb(241 234 220 / 24%); background: var(--forest); box-shadow: 0 1.3rem 3.6rem rgb(0 0 0 / 38%); touch-action: pan-y; }
+.expedition-visual { position: relative; z-index: 1; min-height: max(25rem, 54svh); margin: 0; overflow: hidden; border: 1px solid rgb(241 234 220 / 24%); background: var(--forest); box-shadow: 0 1rem 2.8rem rgb(0 0 0 / 34%); touch-action: pan-y; }
 .expedition-visual::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, rgb(6 22 15 / 8%) 18%, transparent 42%, rgb(6 22 15 / 92%) 100%); }
 .expedition-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: expedition-image-arrive 7s cubic-bezier(.22, 1, .36, 1) both; }
 .expedition-stage:hover .expedition-visual img { transform: scale(1.025); }
-.expedition-photo-status { position: absolute; z-index: 2; top: 1rem; right: 1rem; left: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.expedition-photo-status span { display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .65rem; background: var(--earth); color: var(--cream); font-size: .56rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.expedition-photo-status { position: absolute; z-index: 2; top: .75rem; right: .75rem; left: .75rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.expedition-photo-status span { display: inline-flex; align-items: center; gap: .35rem; padding: .38rem .5rem; background: var(--earth); color: var(--cream); font-size: .48rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
 .expedition-photo-status span::before { width: .45rem; height: .45rem; content: ""; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 .25rem rgb(241 234 220 / 18%); }
-.expedition-photo-status strong { width: 3.35rem; height: 3.35rem; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, #0a2119 0 57%, transparent 59%), conic-gradient(var(--moss) var(--stage-progress), rgb(241 234 220 / 20%) 0); color: var(--cream); font: 500 .88rem/1 "Iowan Old Style", Baskerville, Georgia, serif; box-shadow: 0 0 0 1px rgb(241 234 220 / 30%); }
-.expedition-swipe-hint { position: absolute; z-index: 2; top: 5rem; left: 1rem; display: flex; align-items: center; gap: .45rem; margin: 0; color: rgb(241 234 220 / 72%); font-size: .54rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.expedition-photo-status strong { width: 2.9rem; height: 2.9rem; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, #0a2119 0 57%, transparent 59%), conic-gradient(var(--moss) var(--stage-progress), rgb(241 234 220 / 20%) 0); color: var(--cream); font: 500 .76rem/1 "Iowan Old Style", Baskerville, Georgia, serif; box-shadow: 0 0 0 1px rgb(241 234 220 / 30%); }
+.expedition-swipe-hint { position: absolute; z-index: 2; top: 4.25rem; left: .75rem; display: flex; align-items: center; gap: .4rem; margin: 0; color: rgb(241 234 220 / 72%); font-size: .46rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .expedition-swipe-hint span { color: var(--moss); font-size: 1rem; }
-.expedition-visual figcaption { position: absolute; z-index: 1; right: 1rem; bottom: 6rem; left: 1rem; display: grid; gap: .35rem; color: var(--cream); }
+.expedition-visual figcaption { position: absolute; z-index: 1; right: .85rem; bottom: 4.7rem; left: .85rem; display: grid; gap: .28rem; color: var(--cream); }
 .expedition-visual figcaption span { color: var(--moss); font-size: .58rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
-.expedition-visual figcaption strong { max-width: 12ch; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(2.2rem, 9vw, 4.7rem); font-weight: 500; letter-spacing: -.04em; line-height: .84; }
-.expedition-copy { position: relative; z-index: 2; width: calc(100% - 1.2rem); min-height: 25rem; display: flex; flex-direction: column; margin: -4.75rem 0 0 auto; padding: 1.25rem; border: 1px solid var(--ink); background: var(--cream); box-shadow: -.6rem .6rem 0 var(--earth), 0 1.2rem 2.5rem rgb(0 0 0 / 28%); }
+.expedition-visual figcaption strong { max-width: 12ch; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(1.9rem, 8vw, 3.2rem); font-weight: 500; letter-spacing: -.04em; line-height: .88; }
+.expedition-copy { position: relative; z-index: 2; width: calc(100% - .75rem); min-height: 23rem; display: flex; flex-direction: column; margin: -3.75rem 0 0 auto; padding: 1rem; border: 1px solid var(--ink); background: var(--cream); box-shadow: -.45rem .45rem 0 var(--earth), 0 1rem 2rem rgb(0 0 0 / 26%); }
 .expedition-step-count { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1.15rem; padding-bottom: .7rem; border-bottom: 1px solid var(--line); color: rgb(23 32 27 / 50%); font-size: .57rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 .expedition-package { margin-bottom: .35rem; color: var(--earth); font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .expedition-promise { margin-bottom: 1.25rem; color: rgb(23 32 27 / 58%); font-size: .73rem; }
@@ -110,8 +110,11 @@ h1, h2, h3, p { margin-top: 0; } h1, h2, h3 { font-family: "Iowan Old Style", Ba
   .route-track ol { width: auto; height: 100%; display: grid; grid-template-rows: repeat(var(--route-stop-count), minmax(4.55rem, 1fr)); }
   .route-track li { width: auto; min-height: 0; }
   .route-track button { height: 100%; grid-template-columns: 3rem minmax(0, 1fr); justify-items: start; gap: .8rem; padding: 0; text-align: left; }
+  .route-marker { width: 3rem; height: 3rem; font-size: .64rem; }
+  .route-stop-copy small { font-size: .5rem; letter-spacing: .1em; }
+  .route-stop-copy strong { font-size: 1rem; }
   .route-stop-copy strong { max-width: 8.5rem; }
-  .route-track li.is-active .route-stop-copy::before { content: "YOU ARE HERE"; }
+  .route-track li.is-active .route-stop-copy::before { content: "YOU ARE HERE"; font-size: .47rem; letter-spacing: .12em; }
   .expedition-stage { grid-template-columns: minmax(0, 1.08fr) minmax(19rem, .92fr); padding: 0; border: 1px solid rgb(241 234 220 / 24%); background: var(--cream); box-shadow: .7rem .7rem 0 rgb(0 0 0 / 24%); }
   .expedition-stage::before { top: -.8rem; right: -1rem; width: 34%; height: 48%; }
   .expedition-stage::after { right: -.7rem; bottom: -.7rem; width: 45%; height: 52%; }
@@ -628,7 +631,7 @@ body.tree-experience .chat-launcher { background: rgb(7 27 18 / 94%); }
   .chat-assistant.is-open .chat-header h2 { font-size: clamp(1.45rem, 6vw, 1.85rem); }
   .chat-assistant.is-open .chat-messages { padding: .85rem 1rem; }
 }
-@media (max-width: 390px) {
+@media (max-width: 699px) {
   .chat-launcher { min-width: 4.8rem; grid-template-columns: 4.25rem; padding-right: .15rem; }
   .chat-launcher-copy { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
 }
