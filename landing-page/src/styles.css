@@ -99,6 +99,10 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
 .tree-story h1, .tree-story h2, .tree-story h3 { font-family: "Bodoni Moda", Georgia, serif; font-weight: 500; letter-spacing: -.035em; }
 .tree-story h1 { max-width: 9ch; margin-bottom: 1rem; font-size: clamp(2.85rem, 4.8vw, 4.2rem); line-height: .92; }
 .tree-story h2 { max-width: 11ch; margin-bottom: 1rem; font-size: clamp(2.2rem, 3.8vw, 3.5rem); line-height: .95; }
+.tree-story #journey-title { max-width: 16ch; }
+.tree-story #journey-title span { display: block; white-space: nowrap; font-size: .78em; }
+.tree-story #ways-title { max-width: 15ch; }
+.tree-story #ways-title span { display: block; white-space: nowrap; font-size: .78em; }
 .tree-story h3 { margin-bottom: .55rem; font-size: 1.65rem; line-height: 1; }
 .tree-story p { max-width: 67ch; margin-bottom: 0; color: var(--tree-mist); line-height: 1.65; }
 .tree-location, .tree-branch-name { margin-top: .85rem !important; margin-bottom: 0 !important; color: var(--tree-leaf) !important; font-size: .61rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
@@ -160,6 +164,17 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
 .tree-contact-panel small { margin-top: 1rem; color: rgb(7 22 15 / 58%); }
 .tree-reverse-hint { position: absolute; right: 1.3rem; bottom: 1rem; color: rgb(243 239 223 / 68%); font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 
+.season-calendar { width: min(39rem, 100%); display: grid; gap: .9rem; padding: clamp(1rem, 2vw, 1.5rem); background: #f3efdf; color: #07160f; box-shadow: 0 30px 76px rgb(0 0 0 / 38%); }
+.season-calendar-heading { display: grid; gap: .35rem; }
+.season-calendar-heading span { color: #315c28; font-size: .66rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.season-calendar-heading p { margin: 0; color: rgb(7 22 15 / 68%); font-size: .78rem; line-height: 1.45; }
+.season-legend { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .55rem; color: rgb(7 22 15 / 72%); font-size: .63rem; font-weight: 700; }
+.season-legend i { width: .55rem; height: .55rem; display: inline-block; border-radius: 50%; }.season-legend .is-likely { background: #82a83a; }.season-legend .is-limited { background: #c79645; }.season-legend .is-enquiry { background: #506456; }
+.season-months { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+.season-month { padding: .55rem; border: 1px solid rgb(7 22 15 / 15%); background: #fffdf6; }.season-month h3 { margin: 0 0 .45rem; color: #07160f; font-family: "Manrope", sans-serif; font-size: .66rem; font-weight: 800; letter-spacing: .04em; text-align: center; }
+.season-weekdays, .season-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center; }.season-weekdays span { color: rgb(7 22 15 / 46%); font-size: .5rem; font-weight: 800; }.season-days { margin-top: .25rem; }.season-days span, .season-days i, .season-days button { min-width: 0; aspect-ratio: 1; display: grid; place-items: center; border: 0; border-radius: 50%; color: rgb(7 22 15 / 55%); font: 600 .59rem "Manrope", sans-serif; }.season-days button { background: #506456; color: #fffdf6; }.season-days button.is-likely { background: #82a83a; color: #07160f; }.season-days button.is-limited { background: #c79645; color: #07160f; }.season-days button.is-selected { outline: 2px solid #07160f; outline-offset: 1px; }
+.season-selection { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding-top: .8rem; border-top: 1px solid rgb(7 22 15 / 15%); }.season-selection div { display: grid; gap: .15rem; }.season-selection div span { color: rgb(7 22 15 / 58%); font-size: .57rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }.season-selection strong { font-family: "Bodoni Moda", Georgia, serif; font-size: 1.3rem; line-height: 1; }.season-selection a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: .65rem .8rem; background: #07160f; color: #f3efdf; font-size: .65rem; font-weight: 800; letter-spacing: .06em; text-align: center; text-decoration: none; text-transform: uppercase; }.season-selection a span { margin-left: .35rem; color: #b7df4b; }
+
 .tree-journey-state { position: fixed; z-index: 42; top: 5.45rem; left: 50%; display: flex; align-items: center; gap: .8rem; transform: translateX(-50%); color: rgb(243 239 223 / 58%); font-size: .61rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .tree-journey-state i { width: 2.6rem; height: 1px; display: block; background: rgb(243 239 223 / 26%); }
 .tree-journey-state strong { color: var(--tree-ink); font-weight: 700; }
@@ -204,8 +219,14 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
   .tree-story:not(.tree-intro):not(.tree-threshold):not(.tree-booking-room)::after, .tree-story:nth-of-type(even):not(.tree-threshold):not(.tree-booking-room)::after { top: 1.1rem; right: -.7rem; left: auto; width: .7rem; background: radial-gradient(circle at right center, var(--tree-leaf) 0 3px, transparent 3.5px), linear-gradient(90deg, rgb(183 223 75 / 70%), rgb(183 223 75 / 18%)) center / 100% 1px no-repeat; }
   .tree-story.is-active { transform: none; }
   .tree-story h1, .tree-story h2 { max-width: 100%; overflow-wrap: break-word; text-shadow: 0 2px 24px rgb(0 0 0 / 42%); }
-  .tree-story h1 { font-size: clamp(2.55rem, 9.5vw, 3.45rem); }
+  .tree-intro h1 { max-width: 100%; font-size: clamp(2.4rem, 8.1vw, 3.05rem); }
+  .tree-intro h1 > span { display: block; }
+  .tree-intro h1 .hero-title-line { white-space: nowrap; font-size: clamp(1.85rem, 8.1vw, 3.05rem); }
   .tree-story h2 { font-size: clamp(1.9rem, 7.7vw, 2.8rem); }
+  .tree-story #journey-title { max-width: 100%; }
+  .tree-story #journey-title span { font-size: clamp(1.45rem, 6.1vw, 2.1rem); }
+  .tree-story #ways-title { max-width: 100%; }
+  .tree-story #ways-title span { font-size: clamp(1.45rem, 6.1vw, 2.1rem); }
   .tree-story p { font-size: .83rem; line-height: 1.55; }
   .tree-intro { top: 50% !important; bottom: auto !important; transform: translateY(calc(-50% + 1.25rem)) !important; }
   .tree-intro.is-active { transform: translateY(-50%) !important; }
@@ -247,4 +268,90 @@ body.tree-experience::-webkit-scrollbar-thumb { background: #b7df4b; border: 3px
   .tree-world-canvas, .tree-threshold-video, .tree-story, .tree-invitation, .tree-loader { transition: none; }
   .tree-story.is-active h1, .tree-story.is-active h2, .tree-story.is-active > p, .tree-story.is-active > .tree-actions, .tree-story.is-active > .tree-branch-pair, .tree-story.is-active > figure, .tree-story.is-active > img, .tree-story.is-active > div { animation: none; }
   .tree-invitation.is-active > div { animation: none; }
+}
+
+/* Visitor chatbot */
+.chat-assistant { position: fixed; z-index: 80; right: max(.85rem, env(safe-area-inset-right)); bottom: max(.85rem, env(safe-area-inset-bottom)); display: grid; justify-items: end; gap: .75rem; pointer-events: none; }
+.chat-launcher, .chat-panel { pointer-events: auto; }
+.chat-launcher { width: 3.25rem; min-height: 3.25rem; display: inline-grid; place-items: center; padding: 0; border: 1px solid rgb(241 234 220 / 35%); border-radius: 50%; background: var(--forest-deep); color: var(--cream); box-shadow: 0 .8rem 2.2rem rgb(10 33 25 / 24%); }
+.chat-launcher-mark { width: 1.55rem; height: 1.55rem; display: inline-grid; place-items: center; border-radius: 50%; background: var(--earth); color: var(--paper); font-size: .8rem; }
+.chat-launcher-label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.chat-panel { width: min(29rem, calc(100vw - 1rem)); max-height: min(43rem, calc(100svh - 6.8rem)); display: grid; grid-template-rows: auto minmax(8rem, 1fr) auto auto auto; overflow: hidden; border: 1px solid rgb(23 32 27 / 18%); background: var(--paper); box-shadow: 0 1.5rem 4rem rgb(10 33 25 / 28%); }
+.chat-loading { min-height: 7rem; place-items: center; padding: 1rem; color: var(--forest-deep); font-size: .82rem; font-weight: 800; }
+.chat-header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding: 1rem; background: var(--forest-deep); color: var(--cream); }
+.chat-header > div { min-width: 0; }
+.chat-header h2 { margin: .15rem 0 0; font-size: 1.55rem; letter-spacing: -.025em; }
+.chat-kicker { display: inline; margin: 0; color: var(--moss); font-size: .65rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.chat-status-dot { width: .52rem; height: .52rem; display: inline-block; margin-right: .4rem; border-radius: 50%; background: var(--moss); box-shadow: 0 0 0 .2rem rgb(181 199 152 / 16%); }
+.chat-close { min-width: 44px; min-height: 44px; padding: .4rem; border: 0; background: transparent; color: var(--moss); font-size: .72rem; font-weight: 800; }
+.chat-messages { min-height: 0; padding: 1rem; overflow-y: auto; overscroll-behavior: contain; background: linear-gradient(180deg, var(--cream), var(--paper)); }
+.chat-message { width: fit-content; max-width: 88%; margin: 0 0 .85rem; padding: .8rem .9rem; border: 1px solid var(--line); background: var(--paper); }
+.chat-message.is-user { margin-left: auto; border-color: var(--forest); background: var(--forest); color: var(--cream); }
+.chat-message span { display: block; margin-bottom: .28rem; color: var(--earth); font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.chat-message.is-user span { color: var(--moss); }
+.chat-message p { margin: 0; white-space: pre-wrap; font-size: .88rem; line-height: 1.5; }
+.chat-progress { margin: .2rem 0 .8rem; color: var(--river); font-size: .78rem; font-weight: 750; }
+.chat-error { margin: .4rem 0; padding: .75rem; border-left: 3px solid var(--earth); background: #f4ded5; color: var(--ink); }
+.chat-error p { margin: 0 0 .45rem; font-size: .8rem; }
+.chat-error button, .chat-footer button { min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--earth); font-size: .75rem; font-weight: 800; text-decoration: underline; text-underline-offset: .2em; }
+.chat-suggestions { display: grid; gap: .45rem; padding: 0 1rem .8rem; background: var(--paper); }
+.chat-suggestions-label { margin: 0; color: rgb(23 32 27 / 62%); font-size: .64rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.chat-suggestions button { min-height: 44px; padding: .6rem .75rem; border: 1px solid var(--line); background: transparent; color: var(--forest-deep); font-size: .78rem; font-weight: 750; text-align: left; }
+.chat-suggestions button:hover { border-color: var(--earth); }
+.chat-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; padding: .75rem 1rem; border-top: 1px solid var(--line); background: var(--paper); }
+.chat-form input { min-width: 0; min-height: 48px; padding: .68rem .75rem; border: 1px solid var(--line); border-radius: 0; background: white; color: var(--ink); font-size: .82rem; }
+.chat-send { min-width: 4.2rem; min-height: 48px; padding: .6rem .8rem; border: 0; background: var(--earth); color: var(--paper); font-size: .78rem; font-weight: 800; }
+.chat-send:disabled { cursor: not-allowed; opacity: .45; }
+.chat-footer { padding: .75rem 1rem 1rem; border-top: 1px solid var(--line); background: var(--paper); }
+.chat-footer p { margin: 0 0 .45rem; color: rgb(23 32 27 / 65%); font-size: .68rem; line-height: 1.45; }
+.chat-footer div { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.chat-footer a { min-height: 44px; display: inline-flex; align-items: center; color: var(--earth); font-size: .75rem; font-weight: 800; }
+body.tree-experience .chat-launcher { border-color: rgb(243 239 223 / 38%); background: #071b12; color: #f3efdf; }
+body.tree-experience .chat-launcher-mark { background: #b7df4b; color: #07160f; }
+@media (min-width: 700px) { .chat-assistant { right: 1.25rem; bottom: 1.25rem; }.chat-panel { border-radius: .4rem; } }
+
+/* Chat refinement: compact companion panel, never a generic support dashboard. */
+.chat-panel { width: min(26rem, calc(100vw - 1.5rem)); max-height: min(38rem, calc(100svh - 7.25rem)); color: var(--ink); border: 1px solid rgb(243 239 223 / 52%); border-radius: .35rem; background: #f6f1e7; box-shadow: 0 1.25rem 4rem rgb(0 0 0 / 38%); }
+.chat-header { align-items: center; min-height: 5.5rem; padding: 1rem 1.1rem; background: #082116; }
+.chat-header h2 { margin-top: .12rem; font-family: "Bodoni Moda", Georgia, serif; font-size: 1.8rem; font-weight: 500; line-height: .95; }
+.chat-kicker { color: #b7df4b; font-size: .58rem; letter-spacing: .14em; }
+.chat-status-dot { background: #b7df4b; box-shadow: 0 0 0 .2rem rgb(183 223 75 / 14%); }
+.chat-close { color: #f3efdf; font-size: .68rem; letter-spacing: .07em; text-transform: uppercase; }
+.chat-messages { padding: .9rem 1rem .55rem; background: #f6f1e7; }
+.chat-message { max-width: 100%; margin-bottom: .7rem; padding: .8rem .85rem; border: 0; border-left: 2px solid #b7df4b; background: transparent; color: #17201b; }
+.chat-message.is-user { max-width: 88%; border: 0; border-radius: .2rem; background: #173c2b; color: #f3efdf; }
+.chat-message span { margin-bottom: .26rem; color: #54764b; font-size: .56rem; letter-spacing: .13em; }
+.chat-message.is-user span { color: #c1e65f; }
+.chat-message p { font-size: .86rem; line-height: 1.48; }
+.chat-suggestions { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; padding: .35rem 1rem .85rem; border-top: 1px solid rgb(23 32 27 / 12%); background: #f6f1e7; }
+.chat-suggestions-label { grid-column: 1 / -1; margin-top: .25rem; color: #54764b; font-size: .56rem; letter-spacing: .13em; }
+.chat-suggestions button { min-height: 3.4rem; padding: .5rem; border: 1px solid rgb(23 32 27 / 18%); border-radius: .15rem; background: #fffdfa; color: #173c2b; font-size: .69rem; font-weight: 700; line-height: 1.22; text-align: left; }
+.chat-suggestions button:hover { border-color: #7ca947; background: #eef6d9; }
+.chat-form { gap: .35rem; padding: .7rem 1rem; background: #fffdfa; }
+.chat-form input { min-height: 44px; border-color: rgb(23 32 27 / 22%); font-size: .78rem; }
+.chat-send { min-width: 3.7rem; min-height: 44px; background: #173c2b; color: #f3efdf; font-size: .7rem; }
+.chat-footer { padding: .65rem 1rem .8rem; background: #fffdfa; }
+.chat-footer p { font-size: .62rem; line-height: 1.35; }
+.chat-footer a, .chat-error button, .chat-footer button { min-height: 32px; color: #315c28; font-size: .68rem; }
+.language-toggle { display: inline-grid; grid-auto-flow: column; gap: 2px; padding: 3px; border: 1px solid rgb(23 32 27 / 22%); border-radius: 999px; background: rgb(255 255 255 / 42%); }
+.language-toggle button { min-width: 2.1rem; min-height: 2rem; padding: .25rem .45rem; border: 0; border-radius: 999px; background: transparent; color: rgb(23 32 27 / 68%); font-size: .59rem; font-weight: 800; letter-spacing: .08em; }
+.language-toggle button.is-active { background: var(--forest); color: var(--cream); }
+.tree-site-header .language-toggle { border-color: rgb(243 239 223 / 34%); background: rgb(243 239 223 / 8%); }
+.tree-site-header .language-toggle button { color: rgb(243 239 223 / 68%); }
+.tree-site-header .language-toggle button.is-active { background: #b7df4b; color: #07160f; }
+@media (max-width: 899px) { .tree-site-header { grid-template-columns: minmax(0, 1fr) auto auto; }.chat-panel { width: min(25rem, calc(100vw - 1rem)); max-height: min(33rem, calc(100svh - 5.5rem)); }.chat-suggestions { display: flex; gap: .45rem; overflow-x: auto; padding-block: .65rem; scrollbar-width: none; }.chat-suggestions::-webkit-scrollbar { display: none; }.chat-suggestions-label { display: none; }.chat-suggestions button { min-width: 8.75rem; min-height: 2.85rem; flex: 0 0 8.75rem; text-align: left; }.language-toggle button { min-width: 1.9rem; } }
+
+@media (max-width: 899px) { .season-calendar { margin-top: 1.25rem; padding: .9rem; }.season-months { display: flex; overflow-x: auto; margin-inline: -.9rem; padding-inline: .9rem; scroll-snap-type: x mandatory; }.season-month { min-width: 14rem; flex: 0 0 14rem; scroll-snap-align: start; }.season-days span, .season-days i, .season-days button { font-size: .66rem; }.season-selection { align-items: stretch; flex-direction: column; }.season-selection a { width: 100%; } }
+
+/* Touch devices use a dedicated chat view instead of a card over the story. */
+@media (max-width: 899px), (hover: none) and (pointer: coarse) {
+  .chat-assistant.is-open { position: fixed; z-index: 120; inset: 0; display: block; background: #06150e; pointer-events: auto; }
+  .chat-assistant.is-open .chat-panel { position: absolute; inset: 0; width: 100%; max-width: none; max-height: none; min-height: 100svh; border: 0; border-radius: 0; box-shadow: none; grid-template-rows: auto minmax(0, 1fr) auto auto auto; }
+  .chat-assistant.is-open .chat-launcher { display: none; }
+  .chat-assistant.is-open .chat-header { min-height: 5rem; padding: max(1rem, env(safe-area-inset-top)) 1rem 1rem; }
+  .chat-assistant.is-open .chat-header h2 { font-size: clamp(1.65rem, 8vw, 2.25rem); }
+  .chat-assistant.is-open .chat-messages { padding: 1rem; }
+  .chat-assistant.is-open .chat-suggestions { padding: .65rem 1rem; }
+  .chat-assistant.is-open .chat-form { padding: .75rem 1rem; }
+  .chat-assistant.is-open .chat-footer { padding: .65rem 1rem max(1rem, env(safe-area-inset-bottom)); }
 }

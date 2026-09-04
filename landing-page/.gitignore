@@ -10,6 +10,9 @@
 # Vercel local metadata
 /.vercel
 
+# Vercel local metadata
+/.vercel
+
 # tests and reports
 /coverage
 /playwright-report
