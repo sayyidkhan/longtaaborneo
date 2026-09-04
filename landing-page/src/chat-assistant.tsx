@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 import { useLanguage } from "./language";
+import { RumputMascot } from "./rumput-mascot";
 
 const ChatPanel = lazy(() =>
   import("./chat-panel").then((module) => ({ default: module.ChatPanel })),
@@ -50,8 +51,11 @@ export function ChatAssistant() {
         title={copy.launch}
         onClick={() => setIsOpen((open) => !open)}
       >
-        <span className="chat-launcher-mark" aria-hidden="true">✦</span>
-        <span className="chat-launcher-label">{copy.launch}</span>
+        <RumputMascot className="chat-launcher-mascot" size={76} />
+        <span className="chat-launcher-copy" aria-hidden="true">
+          <small>{copy.launchHint}</small>
+          <strong>{copy.launch}</strong>
+        </span>
       </button>
     </aside>
   );

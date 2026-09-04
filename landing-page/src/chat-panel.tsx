@@ -16,6 +16,7 @@ import {
 } from "./chat-config";
 import { GuidedTripPlanner } from "./guided-trip-planner";
 import { useLanguage } from "./language";
+import { RumputMascot, type RumputState } from "./rumput-mascot";
 
 interface ChatPanelProps {
   onClose: () => void;
@@ -76,6 +77,15 @@ export function ChatPanel({ onClose, plannerRequest = 0 }: ChatPanelProps) {
     !error &&
     !responseIssue &&
     (messages.length === 0 || lastAssistantText.length > 0);
+  const rumputState: RumputState = error || responseIssue
+    ? "error"
+    : status === "submitted"
+      ? "thinking"
+      : status === "streaming"
+        ? "responding"
+        : lastAssistantText
+          ? "success"
+          : "idle";
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -135,10 +145,15 @@ export function ChatPanel({ onClose, plannerRequest = 0 }: ChatPanelProps) {
       aria-labelledby="chat-title"
     >
       <header className="chat-header">
-        <div>
-          <span className="chat-status-dot" aria-hidden="true" />
+        <RumputMascot className="chat-header-mascot" state={rumputState} size={104} />
+        <div className="chat-header-copy">
           <p className="chat-kicker">{copy.guideKicker}</p>
+          <p className="chat-pronunciation">{copy.rumputPronunciation}</p>
           <h2 id="chat-title">{copy.guideTitle}</h2>
+          <p className="chat-rumput-status">
+            <span className="chat-status-dot" aria-hidden="true" />
+            {isBusy ? copy.thinking : copy.rumputReady}
+          </p>
         </div>
         <button
           className="chat-close"

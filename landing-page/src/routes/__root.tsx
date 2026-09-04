@@ -49,7 +49,8 @@ function RootContent() {
     { ...siteRoutes[1], label: "Penginapan & pengalaman" },
     { ...siteRoutes[2], label: "Teroka" },
     { ...siteRoutes[3], label: "Kisah kami" },
-    { ...siteRoutes[4], label: "Rancang & tempah" },
+    { ...siteRoutes[4], label: "Kenali Rumput" },
+    { ...siteRoutes[5], label: "Rancang & tempah" },
   ];
 
   useEffect(() => {

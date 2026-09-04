@@ -66,7 +66,7 @@ const treeCopy = {
     waysTitle: "The journey is part of the story.", waysText: "From longhouse life to river days, every visit is shaped by the place and the people who welcome you.", waysTag: "Four ways to meet Long Taa", river: "River", riverTitle: "Move with the water", forest: "Forest", forestTitle: "Walk beyond the road", heritageTitle: "Listen and learn", stayTitle: "Longhouse living",
     connectedTitle: "Connected yet remote.", connectedText: "Longhouse guests have 24-hour solar electricity, fresh mountain-sourced water and telecommunications connectivity, while living close to the forest and river.", connectedTag: "Stay close to the story",
     thresholdTitle: "The roots lead home.", thresholdText: "Keep scrolling to cross the longhouse threshold.", invitationKicker: "Long Taa is waiting", invitationTitle: "What are you waiting for?", invitationText: "Come join us on this journey.", keepScrolling: "Keep scrolling",
-    closingTitle: "Come as a visitor. Leave with a story.", closingText: "Tell Clement when you hope to travel and what you would like to experience. Availability and activities are confirmed with the community.", closingTag: "Begin with a conversation", dates: "Check dates on WhatsApp", reverse: "Scroll up to return to the canopy", contactText: "A respectful visit begins with listening to the people and place that welcome you.",
+    closingTitle: "Come as a visitor. Leave with a story.", closingText: "Tell Clement when you hope to travel and what you would like to experience. Availability and activities are confirmed with the community.", closingTag: "Begin with a conversation", dates: "Check dates on WhatsApp", chatPlan: "Plan with chatbot", reverse: "Scroll up to return to the canopy", contactText: "A respectful visit begins with listening to the people and place that welcome you.",
   },
   ms: {
     stages: ["Bermula di atas", "Kampung", "Tinggal dan teroka", "Warisan dan perancangan", "Empat cara mengenali Long Taa", "Terhubung namun terpencil", "Ambang", "Jemputan", "Mulakan perbualan"],
@@ -78,7 +78,7 @@ const treeCopy = {
     waysTitle: "Perjalanan ialah sebahagian daripada kisah.", waysText: "Daripada kehidupan rumah panjang hingga hari di sungai, setiap kunjungan dibentuk oleh tempat ini dan orang yang menyambut anda.", waysTag: "Empat cara mengenali Long Taa", river: "Sungai", riverTitle: "Ikuti aliran air", forest: "Hutan", forestTitle: "Berjalan melepasi jalan", heritageTitle: "Dengar dan belajar", stayTitle: "Hidup di rumah panjang",
     connectedTitle: "Terhubung namun terpencil.", connectedText: "Tetamu rumah panjang menikmati elektrik solar 24 jam, air gunung segar dan sambungan telekomunikasi sambil hidup dekat dengan hutan dan sungai.", connectedTag: "Dekati kisah ini",
     thresholdTitle: "Akar membawa pulang.", thresholdText: "Teruskan skrol untuk melintasi ambang rumah panjang.", invitationKicker: "Long Taa menanti", invitationTitle: "Apa yang anda tunggu?", invitationText: "Mari sertai kami dalam perjalanan ini.", keepScrolling: "Teruskan skrol",
-    closingTitle: "Datang sebagai pelawat. Pulang dengan sebuah kisah.", closingText: "Beritahu Clement bila anda ingin datang dan pengalaman yang anda harapkan. Ketersediaan serta aktiviti akan disahkan bersama komuniti.", closingTag: "Mulakan dengan perbualan", dates: "Semak tarikh di WhatsApp", reverse: "Skrol ke atas untuk kembali ke kanopi", contactText: "Kunjungan yang hormat bermula dengan mendengar orang dan tempat yang menyambut anda.",
+    closingTitle: "Datang sebagai pelawat. Pulang dengan sebuah kisah.", closingText: "Beritahu Clement bila anda ingin datang dan pengalaman yang anda harapkan. Ketersediaan serta aktiviti akan disahkan bersama komuniti.", closingTag: "Mulakan dengan perbualan", dates: "Semak tarikh di WhatsApp", chatPlan: "Rancang dengan chatbot", reverse: "Skrol ke atas untuk kembali ke kanopi", contactText: "Kunjungan yang hormat bermula dengan mendengar orang dan tempat yang menyambut anda.",
   },
 } as const;
 
@@ -448,7 +448,13 @@ function HomePage() {
             <p className="tree-branch-name">{copy.closingTag}</p>
             <div className="tree-actions">
               <a className="tree-primary-action" href={whatsappUrl} target="_blank" rel="noreferrer">{copy.dates}</a>
-              <Link className="tree-secondary-action tree-text-action" to="/plan">{copy.planLink} <span aria-hidden="true">→</span></Link>
+              <button
+                className="tree-secondary-action"
+                type="button"
+                onClick={() => window.dispatchEvent(new Event("longtaa:open-trip-planner"))}
+              >
+                {copy.chatPlan} <span aria-hidden="true">✦</span>
+              </button>
             </div>
           </div>
           <SeasonCalendar language={language} />

@@ -1,4 +1,4 @@
-import { type CSSProperties, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 import { asset, makeWhatsAppUrl } from "./content";
 import {
@@ -9,10 +9,16 @@ import {
 export function PackageJourneyExplorer() {
   const [packageId, setPackageId] = useState<PackageJourneyId>("package1");
   const [stepIndex, setStepIndex] = useState(0);
+  const routeTrackRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
   const journey = getPackageJourney(packageId);
   const step = journey.steps[stepIndex];
   const isFirst = stepIndex === 0;
   const isLast = stepIndex === journey.steps.length - 1;
+  const trackProgress = journey.steps.length > 1
+    ? (stepIndex / (journey.steps.length - 1)) * 100
+    : 0;
+  const progress = Math.round(trackProgress);
 
   const choosePackage = (nextPackage: PackageJourneyId) => {
     setPackageId(nextPackage);
@@ -23,18 +29,40 @@ export function PackageJourneyExplorer() {
     window.dispatchEvent(new Event("longtaa:open-trip-planner"));
   };
 
+  const previousStep = () => {
+    setStepIndex((current) => Math.max(0, current - 1));
+  };
+
+  const nextStep = () => {
+    setStepIndex((current) => Math.min(journey.steps.length - 1, current + 1));
+  };
+
+  useEffect(() => {
+    const track = routeTrackRef.current;
+    const activeStep = track?.querySelector<HTMLElement>(
+      '[aria-current="step"]',
+    );
+    if (!track || !activeStep) return;
+    track.scrollTo({
+      left: activeStep.offsetLeft - (track.clientWidth - activeStep.clientWidth) / 2,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }, [packageId, stepIndex]);
+
   const enquiry = `Hello Clement, I am considering ${journey.number} — ${journey.name}. I understand the journey shown on the website is illustrative and the exact order, duration and activities depend on conditions and availability. Please help me build a suitable itinerary and quotation.`;
 
   return (
     <section className="package-walkthrough" aria-labelledby="package-journey-title">
       <div className="package-walkthrough-heading">
         <div>
-          <p className="section-label">Walk through the expedition</p>
-          <h2 id="package-journey-title">See the whole journey before you choose.</h2>
+          <p className="section-label">Your expedition track</p>
+          <h2 id="package-journey-title">Follow the journey, checkpoint by checkpoint.</h2>
         </div>
         <p>
-          Start on this website, travel from Miri, follow each experience, then
-          return home. This is an illustrative sequence—not a fixed itinerary.
+          Trace the experience from planning in Miri to Long Taa and home again.
+          Select any checkpoint to see what happens there.
         </p>
       </div>
 
@@ -56,66 +84,135 @@ export function PackageJourneyExplorer() {
         })}
       </div>
 
-      <div className="expedition-stage" key={`${packageId}-${stepIndex}`}>
-        <figure className="expedition-visual">
-          <img src={asset(step.image)} alt={step.imageAlt} width="900" height="900" />
-          <figcaption>
-            <span>{step.phase}</span>
-            <strong>{String(stepIndex + 1).padStart(2, "0")} / {String(journey.steps.length).padStart(2, "0")}</strong>
-          </figcaption>
-        </figure>
+      <div className="route-dashboard">
+        <div className="route-dashboard-title">
+          <span>Illustrative route · not GPS navigation</span>
+          <strong>Miri → Long Taa → Miri</strong>
+        </div>
+        <dl>
+          <div>
+            <dt>Checkpoints</dt>
+            <dd>{journey.steps.length}</dd>
+          </div>
+          <div>
+            <dt>Travel in</dt>
+            <dd>≈6h by 4WD</dd>
+          </div>
+          <div>
+            <dt>Journey viewed</dt>
+            <dd>{progress}%</dd>
+          </div>
+        </dl>
+      </div>
 
-        <div className="expedition-copy" aria-live="polite">
-          <p className="expedition-package">{journey.number} · {journey.name}</p>
-          <p className="expedition-promise">{journey.promise}</p>
-          <h3>{step.title}</h3>
-          <p>{step.description}</p>
-          <aside>{step.note}</aside>
-          <div className="expedition-controls">
-            <button
-              type="button"
-              disabled={isFirst}
-              onClick={() => setStepIndex((current) => Math.max(0, current - 1))}
-            >
-              Previous
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (isLast) openTripPlanner();
-                else setStepIndex((current) => Math.min(journey.steps.length - 1, current + 1));
-              }}
-            >
-              {isLast ? "Build my trip brief" : "Next step"}
-            </button>
+      <div className="route-explorer">
+        <div
+          className="route-track"
+          ref={routeTrackRef}
+          role="navigation"
+          aria-label={`${journey.number} expedition checkpoints`}
+          style={{
+            "--route-progress": `${trackProgress}%`,
+            "--route-length": `${(journey.steps.length - 1) * 8.5}rem`,
+            "--route-stop-count": journey.steps.length,
+          } as CSSProperties}
+        >
+          <div className="route-track-line" aria-hidden="true"><i /></div>
+          <ol>
+            {journey.steps.map((journeyStep, index) => {
+              const active = index === stepIndex;
+              const complete = index < stepIndex;
+              return (
+                <li
+                  key={`${journeyStep.shortLabel}-${index}`}
+                  className={active ? "is-active" : complete ? "is-complete" : undefined}
+                >
+                  <button
+                    type="button"
+                    aria-current={active ? "step" : undefined}
+                    aria-label={`Checkpoint ${index + 1}: ${journeyStep.shortLabel}`}
+                    onClick={() => setStepIndex(index)}
+                  >
+                    <span className="route-marker">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="route-stop-copy">
+                      <small>{journeyStep.phase}</small>
+                      <strong>{journeyStep.shortLabel}</strong>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+
+        <div
+          className="expedition-stage"
+          key={`${packageId}-${stepIndex}`}
+          style={{ "--stage-progress": `${progress}%` } as CSSProperties}
+        >
+          <figure
+            className="expedition-visual"
+            onTouchStart={(event) => {
+              touchStartX.current = event.changedTouches[0]?.clientX ?? null;
+            }}
+            onTouchEnd={(event) => {
+              if (touchStartX.current === null) return;
+              const distance = event.changedTouches[0]?.clientX - touchStartX.current;
+              touchStartX.current = null;
+              if (distance < -55 && !isLast) nextStep();
+              if (distance > 55 && !isFirst) previousStep();
+            }}
+          >
+            <img src={asset(step.image)} alt={step.imageAlt} width="900" height="900" />
+            <div className="expedition-photo-status" aria-hidden="true">
+              <span>You are here</span>
+              <strong>{progress}%</strong>
+            </div>
+            <p className="expedition-swipe-hint" aria-hidden="true">
+              Swipe the scene <span>↔</span>
+            </p>
+            <figcaption>
+              <span>{step.phase}</span>
+              <strong>{step.shortLabel}</strong>
+            </figcaption>
+          </figure>
+
+          <div className="expedition-copy" aria-live="polite">
+            <div className="expedition-step-count">
+              <span>Checkpoint {String(stepIndex + 1).padStart(2, "0")}</span>
+              <span>of {String(journey.steps.length).padStart(2, "0")}</span>
+            </div>
+            <p className="expedition-package">{journey.number} · {journey.name}</p>
+            <p className="expedition-promise">{journey.promise}</p>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+            <aside>{step.note}</aside>
+            <div className="expedition-controls">
+              <button
+                type="button"
+                disabled={isFirst}
+                onClick={previousStep}
+              >
+                Previous stop
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (isLast) openTripPlanner();
+                  else nextStep();
+                }}
+              >
+                {isLast ? "Build my trip brief" : "Continue the route →"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <ol
-        className="expedition-rail"
-        aria-label={`${journey.number} journey steps`}
-        style={{ "--journey-step-count": journey.steps.length } as CSSProperties}
-      >
-        {journey.steps.map((journeyStep, index) => (
-          <li key={`${journeyStep.shortLabel}-${index}`}>
-            <button
-              type="button"
-              className={index === stepIndex ? "is-active" : undefined}
-              aria-current={index === stepIndex ? "step" : undefined}
-              onClick={() => setStepIndex(index)}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <small>{journeyStep.shortLabel}</small>
-            </button>
-          </li>
-        ))}
-      </ol>
-
       <div className="expedition-handoff">
         <p>
           A 3-day, 2-night visit is a useful starting point. Clement confirms
-          what fits your dates, conditions and selected package.
+          the exact order, timing and activities for your dates and conditions.
         </p>
         <div>
           <button type="button" onClick={openTripPlanner}>Build a complete enquiry</button>
